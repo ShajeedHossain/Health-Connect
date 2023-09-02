@@ -1,0 +1,104 @@
+/*=============================
+    Font Import
+==============================*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
+
+/*=============================
+    Common Css
+==============================*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+.btn {
+  background-color: #77d5ca;
+  border: none;
+  padding: 10px 25px;
+  border: 1px solid #77d5ca;
+  font-weight: 500;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+/*=============================
+    Front page
+==============================*/
+
+.login-signup-buttons {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/*=============================
+    Login Area
+==============================*/
+.login-signup {
+  background: url("./assets/images/login-signup-back.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.login-signup-form {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  border: 1px solid #77d5ca;
+}
+
+.login-signup-title {
+  margin-bottom: 15px;
+}
+.login-signup-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-signup-form form input {
+  width: 300px;
+  padding: 10px 15px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.login-signup-form form input[type="submit"] {
+  background-color: #77d5ca;
+  border: none;
+  padding: 15px 15px;
+  border: 1px solid #77d5ca;
+  font-weight: 500;
+}
+
+.login-signup-form form input[type="submit"]:hover {
+  background-color: #bce8e2;
+  border: 1px solid #77d5ca;
+}
+
+.error {
+  font-weight: 650;
+  color: rgba(255, 0, 0, 0.685);
+  margin-bottom: 10px;
+}
+
+.link-with-hover {
+  color: #007bff; /* Default link color */
+  text-decoration: none; /* Remove underline by default */
+  transition: color 0.3s; /* Smooth transition for color change on hover */
+  margin-bottom: 10px;
+
+  /* Hover state */
+  &:hover {
+    color: #ff5500; /* Change color on hover */
+  }
+}
