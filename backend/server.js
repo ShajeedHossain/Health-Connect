@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 //routes
-app.use("/api", require("./routes/userRoutes"));
+app.use("/api/user", require("./routes/userRoutes"));
 
 //db connection
 mongoose
