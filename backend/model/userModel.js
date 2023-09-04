@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
+const { validate } = require("deep-email-validator");
 
 const Schema = mongoose.Schema;
 
@@ -42,7 +43,9 @@ userSchema.statics.signup = async function (
     throw Error("All fields must be filled");
   }
 
-  if (!validator.isEmail(email)) {
+  const { valid } = await validate(email);
+
+  if (!valid) {
     throw Error("Email is not valid");
   }
 
@@ -74,6 +77,12 @@ userSchema.statics.login = async function (email, password) {
     throw Error("All fields must be filled");
   }
 
+  const { valid } = await validate(email);
+
+  if (!valid) {
+    throw Error("Email is not valid");
+  }
+
   const user = await this.findOne({ email });
 
   if (!user) {
@@ -95,7 +104,9 @@ userSchema.statics.checkEmail = async function (email) {
     throw Error("All fields must be filled");
   }
 
-  if (!validator.isEmail(email)) {
+  const { valid } = await validate(email);
+
+  if (!valid) {
     throw Error("Email is not valid");
   }
 
