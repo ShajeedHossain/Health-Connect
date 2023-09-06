@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
+
+:root{
+
+--color-info-dark:#7d8da1;
+}
+
+.dashboard{
+    background: url(/images/login-signup-back.jpg);
+}
+*{
+ margin:0;
+ padding:0;
+ text-decoration: none;
+ appearance:none;
+ list-style:none;
+ box-sizing: border-box;
+}
+
+body{
+    width:100vw;
+    height: 100vh;
+    font-family:poppins,sans-serif;
+    font-size:0.90rem;
+    background: url(/images/login-signup-back.jpg);
+    user-select: none;
+    overflow-x:hidden;
+    
+}
+
+h1{
+    font-weight: 800;
+    font-size:1.8rem;
+}
+h2{
+    font-size:1.4rem;
+}
+h3{
+    font: size 0.90rem;
+    font-weight:400;
+}
+h4{
+    font-size:0.8rem;
+}
+h5{
+    font-size: 0.77rem;
+}
+small{
+    font-size:0.75rem;
+}
+.top-logo-banner{
+    display: flex;
+}
+.logo{
+    padding:0px 40px 0px 0px;
+}
+.top-logo-banner span{
+    margin-top:6px;
+
+}
+
+.profile-photo{
+    width:2.8rem;
+    height:2.8rem;
+    border-radius: 50%;
+    overflow:hidden;
+
+}
+aside {
+    position: fixed;
+    top:0px;
+    left:0px;
+    height:100%;
+    width:280px;
+    padding:15px 14px;
+    background-color:whitesmoke;
+}
+aside .sidebar-option{
+    transition: all 300ms ease;
+}
+
+.sidebar-option{
+    color:var(--color-info-dark);
+height:50px;
+margin-top: 10px;
+    
+    display:flex;
+    align-items:center;
+
+}
+.sidebar-option span{
+    min-width:40px;
+}
+
+aside .sidebar span{
+    transition: all 300ms ease;
+}
+aside .sidebar-option.active {
+    background: #dbefec;
+    color:#76d5cb;
+    margin-left:0px;
+}
+ aside .sidebar-option.active::before{
+    content:"";
+    width: 6px;
+    background:#76d5cb ;
+ height:50px;
+ margin:0;
+
+}
+aside .sidebar-option span h3 {
+    margin-left:20px;
+    
+}
+ .sidebar-option:hover span,
+ .sidebar-option:hover h3
+   {
+    color:#76d5cb;
+    margin-left: 2rem;
+    
+}
+
+aside .sidebar a:last-child{
+    position: absolute;
+    bottom:2rem;
+    width: 100%;
+}
+ 
+.top-logo-banner #close-btn:hover{
+
+    color:#76d5cb ;
+    
+}
+
+
+/* //----------Media Query----------------// */
+
+@media screen and (max-width:1200px){
+.top-logo-banner #close-btn{
+    display: none;
+}
+    aside .logo h2{
+        display: none;
+    }
+    aside .sidebar h3{
+        display: none;
+    }
+    aside{
+        width:5.6rem;
+    }
+}
