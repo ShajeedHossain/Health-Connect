@@ -5,27 +5,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <!-- <script src="dashboard.js"></script> -->
+        
 </head>
 
 <body>
     <div class="container">
-        <aside>
-            <div class="top-logo-banner">
+
+        <div class="top-logo-banner navbar">
+
+            <nav>
                 <div class="logo">
-                    <h2>Health-Connect</h2>
+                    <h2>Health Connect</h2>
                 </div>
-                <div class="close" id="close-btn">
-                    <span class="material-symbols-outlined">
-                        cancel
-                    </span>
+                <div class="navbar-topright-part">
+                <div class="navbar-topright-options">
+                    <ul class="options">
+                        <li class="navitem"><a href="#"class="nav-link"><h3 class="option-text">About Us</h3></a></li>
+                        <li class="navitem"><a href="#" class="nav-link"><h3 class="option-text">Contact</h3></a></li>
+
+                        <!-- </ul> <div class="userprofile"> -->
+                       
+                    </ul> 
+                    <!-- </div> -->
+                    
+                    <div class="hamburger-menu">
+                        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                    </div>
+                   
+                </div>
+                <div class="userprofile"><img src="/Health-Connect/health-connect-frontend/images/user.jpg" class="user-profile-pic">
                 </div>
             </div>
+
+            </nav>
+
+        </div>
+        <aside>
             <div class="sidebar">
                 <a href="#">
-                    <div class="sidebar-option active" >
+                    <div class="sidebar-option active">
                         <span class="material-symbols-outlined">
                             space_dashboard
                         </span>
@@ -34,7 +56,7 @@
 
                 </a>
                 <a href="#">
-                    <div class="sidebar-option" >
+                    <div class="sidebar-option">
                         <span class="material-symbols-outlined">
                             clinical_notes
                         </span>
@@ -42,15 +64,15 @@
                     </div>
                 </a>
                 <a href="#">
-                    <div class="sidebar-option" >
+                    <div class="sidebar-option">
                         <span class="material-symbols-outlined">
                             stethoscope
                         </span>
                         <h3>Doctor profile</h3>
                     </div>
                 </a>
-                <a href="#" >
-                    <div class="sidebar-option" >
+                <a href="#">
+                    <div class="sidebar-option">
                         <span class="material-symbols-outlined">
                             home_health
                         </span>
@@ -58,42 +80,42 @@
                     </div>
                 </a>
                 <a href="#">
-                    <div class="sidebar-option"   >
-                    <span class="material-symbols-outlined">
-                        prescriptions
-                    </span>
-                    <h3>Report</h3>
+                    <div class="sidebar-option">
+                        <span class="material-symbols-outlined">
+                            prescriptions
+                        </span>
+                        <h3>Report</h3>
                     </div>
                 </a>
                 <a href="#">
-                    <div class="sidebar-option "  >
-                    <span class="material-symbols-outlined">
-                        help
-                    </span>
-                    <h3>Help & Support</h3>
+                    <div class="sidebar-option ">
+                        <span class="material-symbols-outlined">
+                            help
+                        </span>
+                        <h3>Help & Support</h3>
                     </div>
                 </a>
                 <a href="#">
-                    <div class="sidebar-option " >
-                    <span class="material-symbols-outlined">
-                        settings
-                    </span>
-                    <h3>Settings</h3>
+                    <div class="sidebar-option ">
+                        <span class="material-symbols-outlined">
+                            settings
+                        </span>
+                        <h3>Settings</h3>
                     </div>
                 </a>
-                <a href="#" >
-                    <div class="sidebar-option logout" >
-                    <span class="material-symbols-outlined">
-                        logout
-                    </span>
-                    <h3>Logout</h3>
+                <a href="#">
+                    <div class="sidebar-option logout">
+                        <span class="material-symbols-outlined">
+                            logout
+                        </span>
+                        <h3>Logout</h3>
                     </div>
                 </a>
             </div>
         </aside>
     </div>
 
-
+    <script src="/Health-Connect/health-connect-frontend/dashboard.js"></script>
 </body>
 
 </html>

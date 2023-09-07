@@ -1,151 +1,279 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
 
-:root{
+:root {
 
---color-info-dark:#7d8da1;
+    --color-info-dark: #7d8da1;
 }
 
-.dashboard{
-    background: url(/images/login-signup-back.jpg);
-}
-*{
- margin:0;
- padding:0;
- text-decoration: none;
- appearance:none;
- list-style:none;
- box-sizing: border-box;
+.dashboard {
+    background: #76d5cb;
 }
 
-body{
-    width:100vw;
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    appearance: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
     height: 100vh;
-    font-family:poppins,sans-serif;
-    font-size:0.90rem;
-    background: url(/images/login-signup-back.jpg);
+    font-family: poppins, sans-serif;
+    font-size: 0.90rem;
+    background: #dbefec;
     user-select: none;
-    overflow-x:hidden;
-    
+    overflow-x: hidden;
+
 }
 
-h1{
+h1 {
     font-weight: 800;
-    font-size:1.8rem;
+    font-size: 1.8rem;
 }
-h2{
-    font-size:1.4rem;
+
+h2 {
+    font-size: 1.4rem;
 }
-h3{
+
+h3 {
     font: size 0.90rem;
-    font-weight:400;
+    font-weight: 400;
 }
-h4{
-    font-size:0.8rem;
+
+h4 {
+    font-size: 0.8rem;
 }
-h5{
+
+h5 {
     font-size: 0.77rem;
 }
-small{
-    font-size:0.75rem;
+
+small {
+    font-size: 0.75rem;
 }
-.top-logo-banner{
+
+/* .top-logo-banner {
     display: flex;
 }
-.logo{
-    padding:0px 40px 0px 0px;
-}
-.top-logo-banner span{
-    margin-top:6px;
 
+.logo {
+    padding: 0px 40px 0px 0px;
 }
 
-.profile-photo{
-    width:2.8rem;
-    height:2.8rem;
+.top-logo-banner span {
+    margin-top: 6px;
+
+} */
+
+nav {
+    background: #76d5cb;
+    width: 100%;
+    height: 70px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.navbar-topright-part{
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+    gap: 30px;
+}
+
+.navbar-topright-options .options {
+    /*this is for alignment of the profile pic and the options*/
+
+    display: flex;
+
+    /* margin-right: 50px; */
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.navbar-topright-options .option-text {
+    color: white;
+}
+
+.navbar-topright-options .nav-link {
+    transition: all 300ms ease;
+}
+
+.nav-link:hover h3 {
+    color: black;
+}
+
+.user-profile-pic {
+    width: 2.8rem;
+    height: 2.8rem;
     border-radius: 50%;
-    overflow:hidden;
+    overflow: hidden;
 
 }
+
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+
+
+}
+
 aside {
+
     position: fixed;
-    top:0px;
-    left:0px;
-    height:100%;
-    width:280px;
-    padding:15px 14px;
-    background-color:whitesmoke;
+    left: 0px;
+    width: 280px;
+    height: 100%;
+    padding: 15px 14px;
+    background-color: whitesmoke;
 }
-aside .sidebar-option{
+
+aside .sidebar-option {
     transition: all 300ms ease;
 }
 
-.sidebar-option{
-    color:var(--color-info-dark);
-height:50px;
-margin-top: 10px;
-    
-    display:flex;
-    align-items:center;
+.sidebar-option {
+    color: var(--color-info-dark);
+    height: 50px;
+    margin-top: 10px;
+
+    display: flex;
+    align-items: center;
 
 }
-.sidebar-option span{
-    min-width:40px;
+
+.sidebar-option span {
+    min-width: 40px;
 }
 
-aside .sidebar span{
+aside .sidebar span {
     transition: all 300ms ease;
 }
+
 aside .sidebar-option.active {
     background: #dbefec;
-    color:#76d5cb;
-    margin-left:0px;
+    color: #76d5cb;
+    margin-left: 0px;
 }
- aside .sidebar-option.active::before{
-    content:"";
+
+aside .sidebar-option.active::before {
+    content: "";
     width: 6px;
-    background:#76d5cb ;
- height:50px;
- margin:0;
+    background: #76d5cb;
+    height: 50px;
+    margin: 0;
 
 }
+
 aside .sidebar-option span h3 {
-    margin-left:20px;
-    
-}
- .sidebar-option:hover span,
- .sidebar-option:hover h3
-   {
-    color:#76d5cb;
-    margin-left: 2rem;
-    
+    margin-left: 20px;
+
 }
 
-aside .sidebar a:last-child{
-    position: absolute;
-    bottom:2rem;
+.sidebar-option:hover span,
+.sidebar-option:hover h3 {
+    color: #76d5cb;
+    /* margin-left: 2rem; */
+
+}
+
+aside .sidebar a:last-child {
+    position: fixed;
+    bottom: 2rem;
     width: 100%;
 }
- 
-.top-logo-banner #close-btn:hover{
 
-    color:#76d5cb ;
-    
-}
+/* .top-logo-banner #close-btn:hover {
+
+    color: #76d5cb;
+
+} */
 
 
 /* //----------Media Query----------------// */
 
-@media screen and (max-width:1200px){
-.top-logo-banner #close-btn{
-    display: none;
+@media screen and (max-width:1200px) {
+    .top-logo-banner #close-btn {
+        display: none;
+    }
+
+    aside .logo h2 {
+        display: none;
+    }
+
+    aside .sidebar h3 {
+        display: none;
+    }
+
+    aside {
+        width: 5.6rem;
+    }
+
+
 }
-    aside .logo h2{
-        display: none;
+
+@media screen and (max-width:768px) {
+    .hamburger-menu {
+        display: block;
+        margin-right:40px;
+
     }
-    aside .sidebar h3{
-        display: none;
+
+    .hamburger-menu.active .bar:nth-child(2) {
+        opacity: 0;
     }
-    aside{
-        width:5.6rem;
+
+    .hamburger-menu.active .bar:nth-child(1) {
+        transform: translateY(8px)rotate(45deg);
+
     }
+
+    .hamburger-menu.active .bar:nth-child(3) {
+        transform: translateY(-8px)rotate(-45deg);
+
+    }
+    .navbar-topright-part{
+        display:flex;
+        align-items: center;
+        margin-right: 5px;
+        gap: 5px;
+    }
+
+    .navbar-topright-options .options {
+        position: fixed;
+        left: -100%;
+        top: 60px;
+        gap: 0;
+        flex-direction: column;
+        background-color: #76d5cb;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .navitem {
+        margin: 16px 0;
+    }
+
+    .options.active {
+        left: 0;
+
+    }
+
+
 }
