@@ -572,7 +572,7 @@ main {
 .single-bookappoint-card1 {
 
     border-bottom: solid 1px var(--color-primary-paste);
-    box-shadow: 10px 10px 12px 2px lightblue;
+    box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
     padding: 30px;
     margin-bottom: 30px;
     background-color: var(--deep-white);
@@ -671,7 +671,7 @@ main {
     .single-bookappoint-card1_2ndrow,
     .single-bookappoint-card1_1strow {
         display: grid;
-        grid-template-row: repeat(3, 0.5fr);
+        grid-template-rows: repeat(3, 0.5fr);
         grid-row-gap: 10px;
 
     }
@@ -710,22 +710,6 @@ main {
         position: fixed;
         left: 0;
     }
-
-    /* .top-logo-banner #close-btn {
-        display: none;
-    }
-
-    aside .logo h2 {
-        display: none;
-    }
-
-    aside .sidebar h3 {
-        display: none;
-    }
-
-    aside {
-        width: 5.6rem;
-    } */
 
 
 }
