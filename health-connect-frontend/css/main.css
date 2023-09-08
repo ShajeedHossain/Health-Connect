@@ -3,6 +3,11 @@
 :root {
 
     --color-info-dark: #7d8da1;
+    --color-primary-paste: #76d5cb;
+    --color-light-paste: #dbefec;
+    --deep-white: whitesmoke;
+    --background-white: #f2f4f8;
+
 }
 
 .dashboard {
@@ -24,7 +29,7 @@ body {
     height: 100vh;
     font-family: poppins, sans-serif;
     font-size: 0.90rem;
-    background: #dbefec;
+    background: var(--background-white);
     user-select: none;
     /* overflow-x: hidden; */
 
@@ -137,6 +142,9 @@ nav {
 
 .main {
     display: flex;
+
+    background-color: var(--background-white);
+
 }
 
 aside {
@@ -145,6 +153,7 @@ aside {
     width: 280px;
     height: calc(100vh - 70px);
     padding: 15px 14px;
+    border-right: 1px solid black;
     background-color: whitesmoke;
     transition: 0.3s ease-in-out;
 }
@@ -209,6 +218,331 @@ aside .sidebar a:last-child {
     color: #76d5cb;
 
 } */
+
+
+
+
+/* check appointment page */
+
+
+/* .appoint-body {
+
+
+    /* grid-column-gap: 10px; */
+/* grid-row-gap: 10px; */
+/*Adjust the gap between rows */
+/* flex: 80%; */
+/* background-color: var(--background-white); */
+/* border: 1px solid black; */
+/* border-radius: 20px; */
+/* justify-self: center; */
+/* padding: 40px; */
+/* } */
+
+main {
+    flex: 60%;
+    height: calc(100vh - 70px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--background-white);
+}
+
+.doc-upcoming-apoint-chk-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px 60px;
+    /* margin-bottom: 20px; */
+}
+
+/*upcoming appointmentpart*/
+.doc-upcoming-apoint-check-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+
+.doc-upcoming-apoint-check-heading {
+    margin-bottom: 20px;
+}
+
+.appoint-tek-btn {
+    background-color: var(--color-primary-paste);
+    /* color: white; */
+    padding: 16px 30px;
+    text-align: center;
+    border: 2px solid var(--color-primary-paste);
+    border-radius: 20px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+}
+
+.appoint-tek-btn h3 {
+    font-family: poppins;
+    font-weight: 500;
+}
+
+.appoint-tek-btn a {
+    color: white;
+    text-decoration: none;
+}
+
+.appoint-tek-btn:hover a {
+    background-color: var(--color-light-paste);
+    color: black;
+
+}
+
+.doc-upcoming-appoint-check-cards {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.single-upappoint-card1,
+.single-upappoint-card2 {
+
+    border-bottom: solid 1px var(--color-primary-paste);
+    box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: var(--deep-white);
+}
+
+.single-upappoint-card1_1strow,
+.single-upappoint-card1_2ndrow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-column-gap: 10px; */
+
+}
+
+
+.single-upappoint-card1_1strow,
+.single-upappoint-card1_2ndrow h3 {
+    text-align: center;
+}
+
+
+/* .single-upappoint-card2 {
+    border: solid 1px black;
+    padding: 40px;
+} */
+
+/*previous appointmentpart*/
+
+
+.doc-previous-apoint-chk-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px 60px;
+}
+
+.doc-previous-apoint-check-heading {
+    margin-bottom: 20px;
+}
+
+.doc-previous-appoint-check-cards {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.single-prevappoint-card1,
+.single-prevappoint-card2 {
+
+    border: solid 1px var(--color-primary-paste);
+    /* box-shadow: 10px 10px 12px 2px lightblue; */
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: var(--deep-white);
+    color: var(--color-info-dark);
+}
+
+.single-prevappoint-card1_1strow,
+.single-prevappoint-card1_2ndrow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-column-gap: 10px; */
+
+}
+
+
+.single-prevappoint-card1_1strow,
+.single-prevappoint-card1_2ndrow h3 {
+    text-align: center;
+}
+
+/*--------------book Appointment page-----------*/
+
+
+.take-appointment-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+.filternavbar {
+    padding: 10px 60px;
+}
+
+.filter-navbar-options {
+
+    border: 1px solid var(--color-primary-paste);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: var(--color-primary-paste);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.custom-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.filtertitle {
+    font-family: poppins, sans-serif;
+    font-weight: 500;
+}
+
+.single-bookappoint-card1 {
+
+    border-bottom: solid 1px var(--color-primary-paste);
+    box-shadow: 10px 10px 12px 2px lightblue;
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: var(--deep-white);
+}
+
+.single-bookappoint-card1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.single-bookappoint-card1_2ndrow,
+.single-bookappoint-card1_1strow {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.single-bookappoint-card1_2ndrow h3 {
+    text-align: center;
+}
+
+.appoint-book-btn {
+    background-color: var(--color-primary-paste);
+    padding: 5px;
+    text-align: center;
+    border: 2px solid var(--color-primary-paste);
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+}
+
+.appoint-book-btn h3 {
+    font-family: poppins;
+    font-weight: 400;
+}
+
+.appoint-book-btn a {
+    color: white;
+    text-decoration: none;
+}
+
+.appoint-book-btn:hover a {
+    background-color: var(--color-light-paste);
+    color: black;
+
+}
+
+
+/* //----------Media Query of book Appointment page----------------// */
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+
+    /*----for medium devices------*/
+    .single-bookappoint-card1 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .single-bookappoint-card1_2ndrow,
+    .single-bookappoint-card1_1strow {
+        /* display: flex;
+    flex-direction: column;
+    justify-content: space-around; ------> didnt used flex as the button looks uneven and takes unusual space*/
+        display: grid;
+        grid-template-row: repeat(3, 0.5fr);
+        grid-row-gap: 5px;
+
+    }
+
+    .single-bookappoint-card1_2ndrow h3 {
+        text-align: start;
+    }
+
+    .appoint-book-btn {
+        background-color: var(--color-primary-paste);
+        padding: 5px;
+        text-align: center;
+        border: 2px solid var(--color-primary-paste);
+        border-radius: 4px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+
+
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+
+                                             /*----for smaller devices------*/
+    .single-bookappoint-card1 {
+        display: grid;
+    }
+
+    .single-bookappoint-card1_2ndrow,
+    .single-bookappoint-card1_1strow {
+        display: grid;
+        grid-template-row: repeat(3, 0.5fr);
+        grid-row-gap: 10px;
+
+    }
+
+    .single-bookappoint-card1_2ndrow h3 {
+        text-align: start;
+    }
+
+    .appoint-book-btn {
+        background-color: var(--color-primary-paste);
+        padding: 5px;
+        text-align: center;
+        border: 2px solid var(--color-primary-paste);
+        border-radius: 4px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+
+
+    }
+
+}
+
+
 
 
 /* //----------Media Query----------------// */

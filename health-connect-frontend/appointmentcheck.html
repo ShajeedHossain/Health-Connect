@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <title>Appointment-Check</title>
+
+    <link rel="stylesheet" href="./css/main.css">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- <script src="dashboard.js"></script> -->
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-logo-banner navbar">
+
+            <nav>
+
+                <div class="hamburger-menu">
+                    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                </div>
+                <div class="logo">
+                    <h2>Health Connect</h2>
+                </div>
+                <div class="userprofile"><img src="/Health-Connect/health-connect-frontend/images/user.jpg"
+                        class="user-profile-pic">
+                </div>
+
+            </nav>
+
+        </div>
+
+        <div class="main">
+            <aside>
+                <div class="sidebar">
+                    <a href="#">
+                        <div class="sidebar-option active">
+                            <span class="material-symbols-outlined">
+                                space_dashboard
+                            </span>
+                            <h3>Dashboard</h3>
+                        </div>
+
+                    </a>
+                    <a href="#">
+                        <div class="sidebar-option">
+                            <span class="material-symbols-outlined">
+                                clinical_notes
+                            </span>
+                            <h3>Appointment</h3>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="sidebar-option">
+                            <span class="material-symbols-outlined">
+                                stethoscope
+                            </span>
+                            <h3>Doctor profile</h3>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="sidebar-option">
+                            <span class="material-symbols-outlined">
+                                home_health
+                            </span>
+                            <h3>Medical admission</h3>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="sidebar-option">
+                            <span class="material-symbols-outlined">
+                                prescriptions
+                            </span>
+                            <h3>Report</h3>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="sidebar-option ">
+                            <span class="material-symbols-outlined">
+                                help
+                            </span>
+                            <h3>Help & Support</h3>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="sidebar-option ">
+                            <span class="material-symbols-outlined">
+                                settings
+                            </span>
+                            <h3>Settings</h3>
+                        </div>
+                    </a>
+                    <a href="#">
+                        <div class="sidebar-option logout">
+                            <span class="material-symbols-outlined">
+                                logout
+                            </span>
+                            <h3>Logout</h3>
+                        </div>
+                    </a>
+                </div>
+            </aside>
+            <main>
+                <section class="doc-upcoming-apoint-chk-part">
+                    <div class="doc-upcoming-apoint-check-header">
+                        <div class="doc-upcoming-apoint-check-heading">
+                            <h2>Upcoming Appointments</h2>
+                        </div>
+                        <div class="take-new-appointment-btn">
+                            <button class="appoint-tek-btn"><a href="./takeappointment.html">
+                                    <h3>Take New Appointment</h3>
+                                </a></button>
+
+                        </div>
+                    </div>
+                    <div class="doc-upcoming-appoint-check-cards">
+                        <div class="single-upappoint-card1">
+                            <div class="single-upappoint-card1_1strow">
+                                <h3>Doctor name:abc</h3>
+                                <h3>Specialization:abc</h3>
+                                <h3>serial:03</h3>
+
+                            </div>
+                            <div class="single-upappoint-card1_2ndrow">
+                                <h3>location:abc</h3>
+                                <h3>date:08/09/2023</h3>
+                                <h3>status:done</h3>
+                            </div>
+                        </div>
+                        <div class="single-upappoint-card2">
+                            <div class="single-upappoint-card1_1strow">
+                                <h3>Doctor name:abc</h3>
+                                <h3>Specialization:abc</h3>
+                                <h3>serial no:03</h3>
+
+                            </div>
+                            <div class="single-upappoint-card1_2ndrow">
+                                <h3>location:abc</h3>
+                                <h3>date:08/09/2023</h3>
+                                <h3>status:done</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+
+
+                <section class="doc-previous-apoint-chk-part">
+
+                    <div class="doc-previous-apoint-check-heading">
+                        <h2>Previous Appointments</h2>
+
+                    </div>
+
+                    <div class="doc-previous-appoint-check-cards">
+                        <div class="single-prevappoint-card1">
+                            <div class="single-upappoint-card1_1strow">
+                                <h3>Doctor name:abc</h3>
+                                <h3>Specialization:abc</h3>
+                                <h3>serial:03</h3>
+
+                            </div>
+                            <div class="single-upappoint-card1_2ndrow">
+                                <h3>location:abc</h3>
+                                <h3>date:08/09/2023</h3>
+                                <h3>status:done</h3>
+                            </div>
+                        </div>
+                        <div class="single-prevappoint-card2">
+                            <div class="single-prevappoint-card1_1strow">
+                                <h3>Doctor name:abc</h3>
+                                <h3>Specialization:abc</h3>
+                                <h3>serial no:03</h3>
+
+                            </div>
+                            <div class="single-prevappoint-card1_2ndrow">
+                                <h3>location:abc</h3>
+                                <h3>date:08/09/2023</h3>
+                                <h3>status:done</h3>
+                            </div>
+                        </div>
+                        <div class="single-prevappoint-card2">
+                            <div class="single-prevappoint-card1_1strow">
+                                <h3>Doctor name:abc</h3>
+                                <h3>Specialization:abc</h3>
+                                <h3>serial no:03</h3>
+
+                            </div>
+                            <div class="single-prevappoint-card1_2ndrow">
+                                <h3>location:abc</h3>
+                                <h3>date:08/09/2023</h3>
+                                <h3>status:done</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </main>
+        </div>
+
+        <script src="/Health-Connect/health-connect-frontend/dashboard.js"></script>
+</body>
+
+</html>
