@@ -183,7 +183,7 @@ aside .sidebar span {
 aside .sidebar-option.active {
     background: #dbefec;
     color: #76d5cb;
-    margin-left: 0px;
+    /* margin-left: 0px; */
 }
 
 aside .sidebar-option.active::before {
@@ -225,20 +225,6 @@ aside .sidebar a:last-child {
 /* check appointment page */
 
 
-/* .appoint-body {
-
-
-    /* grid-column-gap: 10px; */
-/* grid-row-gap: 10px; */
-/*Adjust the gap between rows */
-/* flex: 80%; */
-/* background-color: var(--background-white); */
-/* border: 1px solid black; */
-/* border-radius: 20px; */
-/* justify-self: center; */
-/* padding: 40px; */
-/* } */
-
 main {
     flex: 60%;
     height: calc(100vh - 70px);
@@ -274,7 +260,7 @@ main {
     padding: 16px 30px;
     text-align: center;
     border: 2px solid var(--color-primary-paste);
-    border-radius: 20px;
+    border-radius: 4px;
     transition-duration: 0.4s;
     cursor: pointer;
 
@@ -302,6 +288,80 @@ main {
 
 }
 
+/*------media query for the upcoming-appointment header,button---*/
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+
+    /*----for medium devices-----*/
+    .doc-upcoming-apoint-chk-part {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between; */
+        padding: 10px 60px;
+        /* margin-bottom: 20px; */
+    }
+
+    .doc-upcoming-apoint-check-header {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: space-between;
+        /* display: flex;
+        flex-direction: column-reverse;--------> by only using flex the heading button looks congested
+        justify-content:space-around;*/
+        margin-top: 30px;
+        margin-bottom: 5px;
+    }
+
+
+    .appoint-tek-btn {
+        background-color: var(--color-primary-paste);
+        padding: 10px;
+        text-align: center;
+        border: 2px solid var(--color-primary-paste);
+        border-radius: 4px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+
+    }
+}
+
+@media screen and (max-width: 576px) {
+
+    /*----for small devices-----*/
+    .doc-upcoming-apoint-chk-part {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px 60px;
+       
+    }
+
+    .doc-upcoming-apoint-check-header {
+
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+        margin-bottom: 5px;
+    }
+
+
+    .appoint-tek-btn {
+        background-color: var(--color-primary-paste);
+        padding: 4px;
+        text-align: center;
+        border: 2px solid var(--color-primary-paste);
+        border-radius: 4px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+
+    }
+}
+
+
+ /*-----end media query---*/   
+
+
+/*-----css for the single upcoming appointment cards---*/
 .single-upappoint-card1,
 .single-upappoint-card2 {
 
@@ -326,11 +386,57 @@ main {
     text-align: center;
 }
 
+/* //----------Media Query(upcoming appointment cards)----------------// */
 
-/* .single-upappoint-card2 {
-    border: solid 1px black;
-    padding: 40px;
-} */
+@media screen and (min-width: 576px) and (max-width: 768px) { /*----for medium devices---*/
+    .single-upappoint-card1,
+    .single-upappoint-card2 {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .single-upappoint-card1_1strow,
+    .single-upappoint-card1_2ndrow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+    }
+
+    .single-upappoint-card1_1strow,
+    .single-upappoint-card1_2ndrow h3 {
+        text-align: start;
+    }
+}
+
+
+
+
+@media screen and (max-width: 576px) {  /*------for small devices----*/
+    .single-upappoint-card1,
+    .single-upappoint-card2 {
+        /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .single-upappoint-card1_1strow,
+    .single-upappoint-card1_2ndrow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+    }
+
+    .single-upappoint-card1_1strow,
+    .single-upappoint-card1_2ndrow h3 {
+        text-align:start;
+    }
+}
+/*------end media query----*/
+
 
 /*previous appointmentpart*/
 
@@ -376,6 +482,52 @@ main {
 .single-prevappoint-card1_2ndrow h3 {
     text-align: center;
 }
+
+@media screen and (min-width: 576px) and (max-width: 768px) { /*----for medium devices---*/
+    .single-prevappoint-card1,
+    .single-prevappoint-card2 {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .single-prevappoint-card1_1strow,
+    .single-prevappoint-card1_2ndrow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+    }
+
+    .single-prevappoint-card1_1strow,
+    .single-prevappoint-card1_2ndrow h3 {
+        text-align: start;
+    }
+}
+
+@media screen and (max-width: 576px) {  /*------for small devices----*/
+    .single-prevappoint-card1,
+    .single-prevappoint-card2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .single-prevappoint-card1_1strow,
+    .single-prevappoint-card1_2ndrow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+    }
+
+    .single-prevappoint-card1_1strow,
+    .single-prevappoint-card1_2ndrow h3 {
+        text-align:start;
+    }
+}
+
+/*----------end media query for check Appointment page--------*/
+
 
 /*--------------book Appointment page-----------*/
 
@@ -486,7 +638,7 @@ main {
     flex-direction: column;
     justify-content: space-around; ------> didnt used flex as the button looks uneven and takes unusual space*/
         display: grid;
-        grid-template-row: repeat(3, 0.5fr);
+        grid-template-rows: repeat(3, 0.5fr);
         grid-row-gap: 5px;
 
     }
@@ -511,7 +663,7 @@ main {
 
 @media screen and (max-width: 576px) {
 
-                                             /*----for smaller devices------*/
+    /*----for smaller devices------*/
     .single-bookappoint-card1 {
         display: grid;
     }
