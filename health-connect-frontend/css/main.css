@@ -190,6 +190,14 @@ aside .sidebar a:last-child {
 
 /* check appointment page */
 
+/* .top-logo-banner #close-btn:hover {
+
+    color: #76d5cb;
+
+} */
+
+/*---------------- check appointment page--------------------- */
+
 main {
     flex: 60%;
     height: calc(100vh - 70px);
@@ -672,5 +680,442 @@ main {
 
     .options.active {
         left: 0;
+    }
+}
+
+/*---------------Hospital Admission Check------------------------*/
+
+main {
+    flex: 60%;
+    height: calc(100vh - 70px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--background-white);
+}
+
+.current-hospital-admission-check-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px 60px;
+    /* margin-bottom: 20px; */
+}
+
+/*------current hospital admission check part --------*/
+
+.hospital-admission-check-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.hospital-admission-check-heading {
+    margin-bottom: 20px;
+}
+
+.book-seat-btn {
+    background-color: var(--color-primary-paste);
+    /* color: white; */
+    padding: 16px 30px;
+    text-align: center;
+    border: 2px solid var(--color-primary-paste);
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.book-seat-btn h3 {
+    font-family: poppins;
+    font-weight: 500;
+}
+
+.book-seat-btn a {
+    color: white;
+    text-decoration: none;
+}
+
+.book-seat-btn:hover a {
+    background-color: var(--color-light-paste);
+    color: black;
+}
+
+/*------media query for the current hospital admission header,button---*/
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    /*----for medium devices-----*/
+    .current-hospital-admission-check-part {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px 60px;
+        /* margin-bottom: 20px; */
+    }
+
+    .hospital-admission-check-header {
+        /* display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: space-between; */
+        display: flex;
+        /* flex-direction: column-reverse; */
+        justify-content: space-between;
+        margin-top: 30px;
+        margin-bottom: 5px;
+    }
+
+    .book-seat-btn {
+        background-color: var(--color-primary-paste);
+        padding: 10px;
+        text-align: center;
+        border: 2px solid var(--color-primary-paste);
+        border-radius: 4px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    /*----for small devices-----*/
+    .current-hospital-admission-check-part {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px 60px;
+    }
+
+    .hospital-admission-check-header {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+        margin-bottom: 5px;
+    }
+
+    .book-seat-btn {
+        background-color: var(--color-primary-paste);
+        padding: 4px;
+        text-align: center;
+        border: 2px solid var(--color-primary-paste);
+        border-radius: 4px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+}
+
+/*-----end media query---*/
+
+/*-----css for the single hospital admission check cards---*/
+.hospital-admission-check-cards {
+    display: flex;
+    flex-direction: column;
+}
+.single-admissionchk-card1,
+.single-admissionchk-card2 {
+    border-bottom: solid 1px var(--color-primary-paste);
+    box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: var(--deep-white);
+}
+
+.single-admissionchk-card_1strow,
+.single-admissionchk-card_2ndrow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-column-gap: 10px; */
+}
+
+.single-admissionchk-card_1strow,
+.single-admissionchk-card_2ndrow h3 {
+    text-align: start;
+}
+
+/* //----------Media Query(upcoming appointment cards)----------------// */
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    /*----for medium devices---*/
+    .single-admissionchk-card1,
+    .single-admissionchk-card2 {
+        display: flex;
+        /* flex-direction: column; */
+        justify-content: space-around;
+        /* display: grid;
+        grid-template-rows: repeat(2,1fr);
+        grid-column-gap:5px; */
+    }
+
+    .single-admissionchk-card_1strow,
+    .single-admissionchk-card_2ndrow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    .single-admissionchk-card_1strow,
+    .single-admissionchk-card_2ndrow h3 {
+        text-align: start;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    /*------for small devices----*/
+    .single-admissionchk-card1,
+    .single-admissionchk-card2 {
+        /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .single-admissionchk-card_1strow,
+    .single-admissionchk-card_2ndrow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .single-admissionchk-card_1strow,
+    .single-admissionchk-card_2ndrow h3 {
+        text-align: start;
+    }
+}
+/*------end media query----*/
+
+/*-----previous hospital history--------*/
+
+.hospital-prev-book-chk-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px 60px;
+}
+
+.hospital-prev-book-chk-heading {
+    margin-bottom: 20px;
+}
+
+.hospital-prev-book-chk-cards {
+    display: flex;
+    flex-direction: column;
+}
+
+.single-prev-hospbook-card1 {
+    border: solid 1px var(--color-primary-paste);
+    /* box-shadow: 10px 10px 12px 2px lightblue; */
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: var(--deep-white);
+    color: var(--color-info-dark);
+}
+
+.single-prev-hospbook-card_1strow,
+.single-prev-hospbook-card_2ndrow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-column-gap: 10px; */
+}
+
+.single-prev-hospbook-card_1strow,
+.single-prev-hospbook-card_2ndrow h3 {
+    text-align: start;
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    /*----for medium devices---*/
+    .single-prev-hospbook-card1 {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .single-prev-hospbook-card_1strow,
+    .single-prev-hospbook-card_2ndrow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    .single-prev-hospbook-card_1strow,
+    .single-prev-hospbook-card_2ndrow h3 {
+        text-align: start;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    /*------for small devices----*/
+    .single-prev-hospbook-card1,
+    .single-prev-hospbook-card2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .single-prev-hospbook-card_1strow,
+    .single-prev-hospbook-card_2ndrow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .single-prev-hospbook-card_1strow,
+    .single-prev-hospbook-card_2ndrow h3 {
+        text-align: start;
+    }
+}
+
+/*--------------book Hospital seat page-----------*/
+.BookHospitalSeat {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px 60px;
+    /* margin-bottom: 20px; */
+}
+
+/* .BookHospitalSeatPart {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+} */
+
+.filternavbar {
+    padding: 10px 60px;
+}
+
+.FilterNavbarOptions {
+    border: 1px solid var(--color-primary-paste);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: var(--color-primary-paste);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.CustomSelect {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.filtertitle {
+    font-family: poppins, sans-serif;
+    font-weight: 500;
+}
+
+.BookHospitalCard {
+    border-bottom: solid 1px var(--color-primary-paste);
+    box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: var(--deep-white);
+}
+
+.BookHospitalCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.BookHospitalCard2ndrow,
+.BookHospitalCard1strow {
+    display: flex;
+    justify-content: space-around;
+}
+
+.BookHospitalCard2ndrow h3 {
+    text-align: start;
+}
+
+.BookHospitalBtn {
+    background-color: var(--color-primary-paste);
+    width: 150px;
+    padding: 4px;
+    text-align: center;
+    border: 2px solid var(--color-primary-paste);
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.BookHospitalBtn h3 {
+    font-family: poppins;
+    font-weight: 400;
+}
+
+.BookHospitalBtn a {
+    color: white;
+    text-decoration: none;
+}
+
+.BookHospitalBtn:hover a {
+    background-color: var(--color-light-paste);
+    color: black;
+}
+
+/* //----------Media Query of hospital seat book------// */
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    /*----for medium devices------*/
+    .BookHospitalCard {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 10px;
+    }
+
+    .BookHospitalCard2ndrow,
+    .BookHospitalCard1strow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .BookHospitalCard2ndrow,
+    .BookHospitalCard1strow h3 {
+        text-align: start;
+    }
+
+    .BookHospitalBtn {
+        background-color: var(--color-primary-paste);
+        padding: 5px;
+        width: 110px;
+        text-align: center;
+        border: 2px solid var(--color-primary-paste);
+        border-radius: 4px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    /*----for smaller devices------*/
+    .BookHospitalCard {
+        display: grid;
+        grid-template-rows: repeat(1, 1fr);
+        grid-row-gap: 2px;
+    }
+
+    .BookHospitalCard2ndrow,
+    .BookHospitalCard1strow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .BookHospitalCard1strow,
+    .BookHospitalCard2ndrow h3 {
+        text-align: start;
+    }
+    .BookHospitalBtn {
+        background-color: var(--color-primary-paste);
+        width: 100px;
+        padding: 4px;
+        text-align: center;
+        border: 2px solid var(--color-primary-paste);
+        border-radius: 4px;
+        transition-duration: 0.4s;
+        cursor: pointer;
     }
 }
