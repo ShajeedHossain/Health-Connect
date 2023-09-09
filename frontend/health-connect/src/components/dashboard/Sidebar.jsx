@@ -30,7 +30,7 @@ export default function Sidebar() {
                         <h3>Doctor profile</h3>
                     </div>
                 </Link>
-                <Link to="/">
+                <Link to="/dashboard/hospitalBooking">
                     <div className={classes["sidebar-option"]}>
                         <span className="material-symbols-outlined">
                             home_health
