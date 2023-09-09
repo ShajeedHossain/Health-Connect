@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const addressSchema = require("./addressSchema");
 
-const appointmentSchema = new mongoose.Schema({
+const appointmentListSchema = new mongoose.Schema({
   doctorName: {
     type: String,
     required: true,
@@ -9,24 +10,38 @@ const appointmentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Doctor", // This should match the name of  Doctor model
     required: true,
-    // type: String,
-    // required: true,
   },
-  date: {
-    type: Date, // Store the appointment date
+  patientName: {
+    type: String,
+    default: null,
+  },
+  patientId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // This should match the name of User model
     required: true,
   },
   serial: {
     type: Number,
     required: true,
   },
-  patientId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // This should match the name of  Doctor model
+  startTime: {
+    type: Date, // Use the Date type to store start time
     required: true,
-    // type: String,
-    // required: true,
   },
+  endTime: {
+    type: Date, // Use the Date type to store end time
+    required: true,
+  },
+  hospitalName: {
+    type: String,
+    required: true,
+  },
+  hospitalId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Hospital", // This should match the name of Hospital model
+    required: true,
+  },
+  address: addressSchema,
 });
 
 appointmentSchema.pre("save", function (next) {
@@ -57,4 +72,4 @@ appointmentSchema.pre("save", function (next) {
   }
 });
 
-module.exports = mongoose.model("Appointment", appointmentSchema);
+module.exports = mongoose.model("AppointmentList", appointmentListSchema);
