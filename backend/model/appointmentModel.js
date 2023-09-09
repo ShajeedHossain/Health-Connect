@@ -6,11 +6,11 @@ const appointmentSchema = new mongoose.Schema({
     required: true,
   },
   doctorId: {
-    // type: mongoose.Schema.Types.ObjectId,
-    // ref: "Doctor", // This should match the name of  Doctor model
-    // required: true,
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Doctor", // This should match the name of  Doctor model
     required: true,
+    // type: String,
+    // required: true,
   },
   date: {
     type: Date, // Store the appointment date
@@ -21,11 +21,11 @@ const appointmentSchema = new mongoose.Schema({
     required: true,
   },
   patientId: {
-    // type: mongoose.Schema.Types.ObjectId,
-    // ref: "Doctor", // This should match the name of  Doctor model
-    // required: true,
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // This should match the name of  Doctor model
     required: true,
+    // type: String,
+    // required: true,
   },
 });
 

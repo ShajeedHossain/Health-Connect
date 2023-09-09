@@ -11,7 +11,7 @@ const patientSchema = new Schema({
   email: {
     type: String,
     required: true,
-    // unique: true,
+    unique: true,
     // lowercase: true,
   },
   dob: {
@@ -98,6 +98,11 @@ patientSchema.statics.addPatient = async function (
   address,
   userId
 ) {
+  const exists = await this.findOne({ email });
+
+  if (exists) {
+    throw Error("Email already in use");
+  }
   if (height < 0 || weight < 0) {
     throw Error("Negative height or weight are not allowed");
   }
