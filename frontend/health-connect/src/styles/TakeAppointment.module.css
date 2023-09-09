@@ -1,0 +1,64 @@
+.doc-upcoming-apoint-chk-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px 60px;
+    /* margin-bottom: 20px; */
+}
+
+/*upcoming appointmentpart*/
+.doc-upcoming-apoint-check-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.doc-upcoming-apoint-check-heading {
+    margin-bottom: 20px;
+}
+.doc-upcoming-appoint-check-cards {
+    display: flex;
+    flex-direction: column;
+}
+
+/*------media query for the upcoming-appointment header,button---*/
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    /*----for medium devices-----*/
+    .doc-upcoming-apoint-chk-part {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between; */
+        padding: 10px 60px;
+        /* margin-bottom: 20px; */
+    }
+
+    .doc-upcoming-apoint-check-header {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: space-between;
+        /* display: flex;
+        flex-direction: column-reverse;--------> by only using flex the heading button looks congested
+        justify-content:space-around;*/
+        margin-top: 30px;
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    /*----for small devices-----*/
+    .doc-upcoming-apoint-chk-part {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px 60px;
+    }
+
+    .doc-upcoming-apoint-check-header {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+        margin-bottom: 5px;
+    }
+}

@@ -1,13 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
 
 :root {
-
     --color-info-dark: #7d8da1;
     --color-primary-paste: #76d5cb;
     --color-light-paste: #dbefec;
     --deep-white: whitesmoke;
     --background-white: #f2f4f8;
-
 }
 
 .dashboard {
@@ -28,11 +26,10 @@ body {
     width: 100vw;
     height: 100vh;
     font-family: poppins, sans-serif;
-    font-size: 0.90rem;
+    font-size: 0.9rem;
     background: var(--background-white);
     user-select: none;
     /* overflow-x: hidden; */
-
 }
 
 h1 {
@@ -45,7 +42,7 @@ h2 {
 }
 
 h3 {
-    font: size 0.90rem;
+    font: size 0.9rem;
     font-weight: 400;
 }
 
@@ -61,19 +58,6 @@ small {
     font-size: 0.75rem;
 }
 
-/* .top-logo-banner {
-    display: flex;
-}
-
-.logo {
-    padding: 0px 40px 0px 0px;
-}
-
-.top-logo-banner span {
-    margin-top: 6px;
-
-} */
-
 nav {
     background: #76d5cb;
     width: 100%;
@@ -82,7 +66,6 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 }
 
 .navbar-topright-part {
@@ -120,7 +103,6 @@ nav {
     height: 2.8rem;
     border-radius: 50%;
     overflow: hidden;
-
 }
 
 .hamburger-menu {
@@ -136,15 +118,12 @@ nav {
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     background-color: white;
-
-
 }
 
 .main {
     display: flex;
 
     background-color: var(--background-white);
-
 }
 
 aside {
@@ -169,7 +148,6 @@ aside .sidebar-option {
 
     display: flex;
     align-items: center;
-
 }
 
 .sidebar-option span {
@@ -192,19 +170,16 @@ aside .sidebar-option.active::before {
     background: #76d5cb;
     height: 50px;
     margin: 0;
-
 }
 
 aside .sidebar-option span h3 {
     margin-left: 20px;
-
 }
 
 .sidebar-option:hover span,
 .sidebar-option:hover h3 {
     color: #76d5cb;
     /* margin-left: 2rem; */
-
 }
 
 aside .sidebar a:last-child {
@@ -213,17 +188,7 @@ aside .sidebar a:last-child {
     width: 100%;
 }
 
-/* .top-logo-banner #close-btn:hover {
-
-    color: #76d5cb;
-
-} */
-
-
-
-
 /* check appointment page */
-
 
 main {
     flex: 60%;
@@ -249,7 +214,6 @@ main {
     margin-top: 10px;
 }
 
-
 .doc-upcoming-apoint-check-heading {
     margin-bottom: 20px;
 }
@@ -263,7 +227,6 @@ main {
     border-radius: 4px;
     transition-duration: 0.4s;
     cursor: pointer;
-
 }
 
 .appoint-tek-btn h3 {
@@ -279,19 +242,16 @@ main {
 .appoint-tek-btn:hover a {
     background-color: var(--color-light-paste);
     color: black;
-
 }
 
 .doc-upcoming-appoint-check-cards {
     display: flex;
     flex-direction: column;
-
 }
 
 /*------media query for the upcoming-appointment header,button---*/
 
 @media screen and (min-width: 576px) and (max-width: 768px) {
-
     /*----for medium devices-----*/
     .doc-upcoming-apoint-chk-part {
         display: flex;
@@ -312,7 +272,6 @@ main {
         margin-bottom: 5px;
     }
 
-
     .appoint-tek-btn {
         background-color: var(--color-primary-paste);
         padding: 10px;
@@ -321,29 +280,24 @@ main {
         border-radius: 4px;
         transition-duration: 0.4s;
         cursor: pointer;
-
     }
 }
 
 @media screen and (max-width: 576px) {
-
     /*----for small devices-----*/
     .doc-upcoming-apoint-chk-part {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         padding: 10px 60px;
-       
     }
 
     .doc-upcoming-apoint-check-header {
-
         display: flex;
         justify-content: space-around;
         margin-top: 30px;
         margin-bottom: 5px;
     }
-
 
     .appoint-tek-btn {
         background-color: var(--color-primary-paste);
@@ -353,18 +307,14 @@ main {
         border-radius: 4px;
         transition-duration: 0.4s;
         cursor: pointer;
-
     }
 }
 
-
- /*-----end media query---*/   
-
+/*-----end media query---*/
 
 /*-----css for the single upcoming appointment cards---*/
 .single-upappoint-card1,
 .single-upappoint-card2 {
-
     border-bottom: solid 1px var(--color-primary-paste);
     box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
     padding: 30px;
@@ -377,9 +327,7 @@ main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     /* grid-column-gap: 10px; */
-
 }
-
 
 .single-upappoint-card1_1strow,
 .single-upappoint-card1_2ndrow h3 {
@@ -388,7 +336,8 @@ main {
 
 /* //----------Media Query(upcoming appointment cards)----------------// */
 
-@media screen and (min-width: 576px) and (max-width: 768px) { /*----for medium devices---*/
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    /*----for medium devices---*/
     .single-upappoint-card1,
     .single-upappoint-card2 {
         display: flex;
@@ -400,7 +349,6 @@ main {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-
     }
 
     .single-upappoint-card1_1strow,
@@ -409,10 +357,8 @@ main {
     }
 }
 
-
-
-
-@media screen and (max-width: 576px) {  /*------for small devices----*/
+@media screen and (max-width: 576px) {
+    /*------for small devices----*/
     .single-upappoint-card1,
     .single-upappoint-card2 {
         /* display: grid;
@@ -427,19 +373,16 @@ main {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-
     }
 
     .single-upappoint-card1_1strow,
     .single-upappoint-card1_2ndrow h3 {
-        text-align:start;
+        text-align: start;
     }
 }
 /*------end media query----*/
 
-
 /*previous appointmentpart*/
-
 
 .doc-previous-apoint-chk-part {
     display: flex;
@@ -455,12 +398,10 @@ main {
 .doc-previous-appoint-check-cards {
     display: flex;
     flex-direction: column;
-
 }
 
 .single-prevappoint-card1,
 .single-prevappoint-card2 {
-
     border: solid 1px var(--color-primary-paste);
     /* box-shadow: 10px 10px 12px 2px lightblue; */
     padding: 30px;
@@ -474,16 +415,15 @@ main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     /* grid-column-gap: 10px; */
-
 }
-
 
 .single-prevappoint-card1_1strow,
 .single-prevappoint-card1_2ndrow h3 {
     text-align: center;
 }
 
-@media screen and (min-width: 576px) and (max-width: 768px) { /*----for medium devices---*/
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    /*----for medium devices---*/
     .single-prevappoint-card1,
     .single-prevappoint-card2 {
         display: flex;
@@ -495,7 +435,6 @@ main {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-
     }
 
     .single-prevappoint-card1_1strow,
@@ -504,7 +443,8 @@ main {
     }
 }
 
-@media screen and (max-width: 576px) {  /*------for small devices----*/
+@media screen and (max-width: 576px) {
+    /*------for small devices----*/
     .single-prevappoint-card1,
     .single-prevappoint-card2 {
         display: flex;
@@ -517,20 +457,17 @@ main {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-
     }
 
     .single-prevappoint-card1_1strow,
     .single-prevappoint-card1_2ndrow h3 {
-        text-align:start;
+        text-align: start;
     }
 }
 
 /*----------end media query for check Appointment page--------*/
 
-
 /*--------------book Appointment page-----------*/
-
 
 .take-appointment-part {
     display: flex;
@@ -538,13 +475,11 @@ main {
     justify-content: space-around;
 }
 
-
 .filternavbar {
     padding: 10px 60px;
 }
 
 .filter-navbar-options {
-
     border: 1px solid var(--color-primary-paste);
     border-radius: 5px;
     margin-bottom: 10px;
@@ -570,7 +505,6 @@ main {
 }
 
 .single-bookappoint-card1 {
-
     border-bottom: solid 1px var(--color-primary-paste);
     box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
     padding: 30px;
@@ -602,7 +536,6 @@ main {
     border-radius: 4px;
     transition-duration: 0.4s;
     cursor: pointer;
-
 }
 
 .appoint-book-btn h3 {
@@ -618,14 +551,11 @@ main {
 .appoint-book-btn:hover a {
     background-color: var(--color-light-paste);
     color: black;
-
 }
-
 
 /* //----------Media Query of book Appointment page----------------// */
 
 @media screen and (min-width: 576px) and (max-width: 768px) {
-
     /*----for medium devices------*/
     .single-bookappoint-card1 {
         display: grid;
@@ -640,7 +570,6 @@ main {
         display: grid;
         grid-template-rows: repeat(3, 0.5fr);
         grid-row-gap: 5px;
-
     }
 
     .single-bookappoint-card1_2ndrow h3 {
@@ -655,14 +584,10 @@ main {
         border-radius: 4px;
         transition-duration: 0.4s;
         cursor: pointer;
-
-
     }
-
 }
 
 @media screen and (max-width: 576px) {
-
     /*----for smaller devices------*/
     .single-bookappoint-card1 {
         display: grid;
@@ -673,7 +598,6 @@ main {
         display: grid;
         grid-template-rows: repeat(3, 0.5fr);
         grid-row-gap: 10px;
-
     }
 
     .single-bookappoint-card1_2ndrow h3 {
@@ -688,21 +612,15 @@ main {
         border-radius: 4px;
         transition-duration: 0.4s;
         cursor: pointer;
-
-
     }
-
 }
-
-
-
 
 /* //----------Media Query----------------// */
 
-@media screen and (max-width:1200px) {
+@media screen and (max-width: 1200px) {
     aside {
         position: fixed;
-        left: -280px
+        left: -280px;
     }
 
     .aside-active {
@@ -710,11 +628,9 @@ main {
         position: fixed;
         left: 0;
     }
-
-
 }
 
-@media screen and (max-width:1200px) {
+@media screen and (max-width: 1200px) {
     .hamburger-menu {
         display: block;
     }
@@ -724,13 +640,11 @@ main {
     }
 
     .hamburger-menu.active .bar:nth-child(1) {
-        transform: translateY(8px)rotate(45deg);
-
+        transform: translateY(8px) rotate(45deg);
     }
 
     .hamburger-menu.active .bar:nth-child(3) {
-        transform: translateY(-8px)rotate(-45deg);
-
+        transform: translateY(-8px) rotate(-45deg);
     }
 
     .navbar-topright-part {
@@ -758,8 +672,5 @@ main {
 
     .options.active {
         left: 0;
-
     }
-
-
 }

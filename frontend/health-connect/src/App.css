@@ -6,25 +6,82 @@
 /*=============================
     Common Css
 ==============================*/
+
+:root {
+    --color-info-dark: #7d8da1;
+    --color-primary-paste: #76d5cb;
+    --color-light-paste: #dbefec;
+    --deep-white: whitesmoke;
+    --background-white: #f2f4f8;
+}
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    transition: 0.2s;
 }
 
+li {
+    list-style: none;
+}
 a {
-  text-decoration: none;
-  color: #000;
+    text-decoration: none;
+    color: #000;
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+}
+
+h3 {
+    font: size 0.9rem;
+    font-weight: 400;
+}
+
+h4 {
+    font-size: 0.8rem;
+}
+
+h5 {
+    font-size: 0.77rem;
+}
+
+small {
+    font-size: 0.75rem;
 }
 .btn {
-  background-color: #77d5ca;
-  border: none;
-  padding: 10px 25px;
-  border: 1px solid #77d5ca;
-  font-weight: 500;
-  border-radius: 5px;
-  margin-right: 20px;
+    background-color: #77d5ca;
+    border: none;
+    padding: 10px 25px;
+    border: 1px solid #77d5ca;
+    font-weight: 500;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+/*=============================
+    Dashboard
+==============================*/
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+.dashboardBody {
+    display: flex;
+    background-color: var(--background-white);
+}
+
+#dashboard-main {
+    flex: 60%;
+    height: calc(100vh - 70px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--background-white);
 }
 
 /*=============================
@@ -32,73 +89,73 @@ a {
 ==============================*/
 
 .login-signup-buttons {
-  margin-top: 20px;
-  margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 /*=============================
     Login Area
 ==============================*/
 .login-signup {
-  background: url("./assets/images/login-signup-back.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
+    background: url("./assets/images/login-signup-back.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
 }
 .login-signup-form {
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 10px;
-  border: 1px solid #77d5ca;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    border: 1px solid #77d5ca;
 }
 
 .login-signup-title {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 .login-signup-form form {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .login-signup-form form input {
-  width: 300px;
-  padding: 10px 15px;
-  font-size: 16px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+    width: 300px;
+    padding: 10px 15px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 .login-signup-form form input[type="submit"] {
-  background-color: #77d5ca;
-  border: none;
-  padding: 15px 15px;
-  border: 1px solid #77d5ca;
-  font-weight: 500;
+    background-color: #77d5ca;
+    border: none;
+    padding: 15px 15px;
+    border: 1px solid #77d5ca;
+    font-weight: 500;
 }
 
 .login-signup-form form input[type="submit"]:hover {
-  background-color: #bce8e2;
-  border: 1px solid #77d5ca;
+    background-color: #bce8e2;
+    border: 1px solid #77d5ca;
 }
 
 .error {
-  font-weight: 650;
-  color: rgba(255, 0, 0, 0.685);
-  margin-bottom: 10px;
+    font-weight: 650;
+    color: rgba(255, 0, 0, 0.685);
+    margin-bottom: 10px;
 }
 
 .link-with-hover {
-  color: #007bff; /* Default link color */
-  text-decoration: none; /* Remove underline by default */
-  transition: color 0.3s; /* Smooth transition for color change on hover */
-  margin-bottom: 10px;
+    color: #007bff; /* Default link color */
+    text-decoration: none; /* Remove underline by default */
+    transition: color 0.3s; /* Smooth transition for color change on hover */
+    margin-bottom: 10px;
 
-  /* Hover state */
-  &:hover {
-    color: #ff5500; /* Change color on hover */
-  }
+    /* Hover state */
+    &:hover {
+        color: #ff5500; /* Change color on hover */
+    }
 }

@@ -1,0 +1,110 @@
+.single-bookappoint-card {
+    border-bottom: solid 1px var(--color-primary-paste);
+    box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: var(--deep-white);
+}
+
+.single-bookappoint-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.single-bookappoint-card_2ndrow,
+.single-bookappoint-card_1strow {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.single-bookappoint-card_2ndrow h3 {
+    text-align: center;
+}
+
+.appoint-book-btn {
+    background-color: var(--color-primary-paste);
+    padding: 5px;
+    text-align: center;
+    border: 2px solid var(--color-primary-paste);
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.appoint-book-btn h3 {
+    font-family: poppins;
+    font-weight: 400;
+}
+
+.appoint-book-btn a {
+    color: white;
+    text-decoration: none;
+}
+
+.appoint-book-btn:hover a {
+    background-color: var(--color-light-paste);
+    color: black;
+}
+
+/* //----------Media Query of book Appointment page----------------// */
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    /*----for medium devices------*/
+    .single-bookappoint-card {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .single-bookappoint-card_2ndrow,
+    .single-bookappoint-card_1strow {
+        /* display: flex;
+    flex-direction: column;
+    justify-content: space-around; ------> didnt used flex as the button looks uneven and takes unusual space*/
+        display: grid;
+        grid-template-rows: repeat(3, 0.5fr);
+        grid-row-gap: 5px;
+    }
+
+    .single-bookappoint-card_2ndrow h3 {
+        text-align: start;
+    }
+
+    .appoint-book-btn {
+        background-color: var(--color-primary-paste);
+        padding: 5px;
+        text-align: center;
+        border: 2px solid var(--color-primary-paste);
+        border-radius: 4px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    /*----for smaller devices------*/
+    .single-bookappoint-card {
+        display: grid;
+    }
+
+    .single-bookappoint-card_2ndrow,
+    .single-bookappoint-card_1strow {
+        display: grid;
+        grid-template-rows: repeat(3, 0.5fr);
+        grid-row-gap: 10px;
+    }
+
+    .single-bookappoint-card_2ndrow h3 {
+        text-align: start;
+    }
+
+    .appoint-book-btn {
+        background-color: var(--color-primary-paste);
+        padding: 5px;
+        text-align: center;
+        border: 2px solid var(--color-primary-paste);
+        border-radius: 4px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+}

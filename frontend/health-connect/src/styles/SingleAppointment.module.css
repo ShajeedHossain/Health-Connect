@@ -1,0 +1,94 @@
+/*-----css for the single upcoming appointment cards---*/
+.single-upappoint-card {
+    border-bottom: solid 1px var(--color-primary-paste);
+    box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: var(--deep-white);
+}
+
+.single-appoint-card_1strow,
+.single-appoint-card_2ndrow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-column-gap: 10px; */
+}
+
+.single-appoint-card_1strow,
+.single-appoint-card_2ndrow h3 {
+    text-align: center;
+}
+
+/* //----------Media Query(upcoming appointment cards)----------------// */
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    /*----for medium devices---*/
+    .single-upappoint-card {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .single-appoint-card_1strow,
+    .single-appoint-card_2ndrow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    .single-appoint-card_1strow,
+    .single-appoint-card_2ndrow h3 {
+        text-align: start;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    /*------for small devices----*/
+    .single-upappoint-card {
+        /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .single-appoint-card_1strow,
+    .single-appoint-card_2ndrow {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .single-appoint-card_1strow,
+    .single-appoint-card_2ndrow h3 {
+        text-align: start;
+    }
+}
+/*------end media query----*/
+
+.single-prevappoint-card {
+    border: solid 1px var(--color-primary-paste);
+    /* box-shadow: 10px 10px 12px 2px lightblue; */
+    padding: 30px;
+    margin-bottom: 30px;
+    background-color: var(--deep-white);
+    color: var(--color-info-dark);
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    /*----for medium devices---*/
+    .single-prevappoint-card {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    /*------for small devices----*/
+    .single-prevappoint-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+}
+
+/*----------end media query for check */
