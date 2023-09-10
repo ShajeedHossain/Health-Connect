@@ -110,4 +110,48 @@ const addAppointment = async (req, res) => {
   }
 };
 
-module.exports = { addToAppointmentList, getAllAppointments, addAppointment };
+const getPreviousAppointments = async (req, res) => {
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+
+    const previousAppointment = await AppointmentTaken.getPreviousAppointments(
+      _id
+    );
+
+    res.status(200).json({ previousAppointment });
+  } catch (error) {
+    res.status(401).json({
+      error: error.message,
+    });
+  }
+};
+
+const getUpcomingAppointments = async (req, res) => {
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+
+    const upcomingAppointment = await AppointmentTaken.getUpcomingAppointments(
+      _id
+    );
+
+    res.status(200).json({ upcomingAppointment });
+  } catch (error) {
+    res.status(401).json({
+      error: error.message,
+    });
+  }
+};
+
+module.exports = {
+  addToAppointmentList,
+  getAllAppointments,
+  addAppointment,
+  getPreviousAppointments,
+  getUpcomingAppointments,
+};

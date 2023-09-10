@@ -50,56 +50,6 @@ const appointmentTakenSchema = new mongoose.Schema({
   },
 });
 
-// appointmentTakenSchema.pre("save", async function (next) {
-//   const currentDate = new Date();
-//   const appointmentDate = this.startTime;
-//   const doctorId = this.doctorId;
-
-//   try {
-//     // Check if the appointment date is the same as the current date
-//     if (
-//       appointmentDate.getDate() === currentDate.getDate() &&
-//       appointmentDate.getMonth() === currentDate.getMonth() &&
-//       appointmentDate.getFullYear() === currentDate.getFullYear()
-//     ) {
-//       // Find the count of appointments taken by the specific doctor on the same day
-//       const count = await this.model("AppointmentTaken").countDocuments({
-//         startTime: {
-//           $gte: new Date(
-//             currentDate.getFullYear(),
-//             currentDate.getMonth(),
-//             currentDate.getDate(),
-//             0,
-//             0,
-//             0
-//           ),
-//           $lt: new Date(
-//             currentDate.getFullYear(),
-//             currentDate.getMonth(),
-//             currentDate.getDate() + 1,
-//             0,
-//             0,
-//             0
-//           ),
-//         },
-//         doctorId: doctorId,
-//       });
-//       console.log(count);
-
-//       // Increment the serial number
-//       this.serial = count + 1;
-//     } else {
-//       // New day, reset the serial to 1
-//       this.serial = 1;
-//     }
-
-//     next();
-//   } catch (error) {
-//     console.log(error);
-//     next(error);
-//   }
-// });
-
 // Define a static function for adding an appointment
 appointmentTakenSchema.statics.addAppointment = async function (
   doctorName,
@@ -138,6 +88,50 @@ appointmentTakenSchema.statics.addAppointment = async function (
     // console.log(appointment);
 
     return appointment;
+  } catch (error) {
+    throw error;
+  }
+};
+
+appointmentTakenSchema.statics.getPreviousAppointments = async function (
+  patientId
+) {
+  try {
+    const currentDate = new Date();
+
+    // Find appointments where the patientId matches and the endTime is earlier than the current date
+    const previousAppointments = await this.find({
+      patientId: patientId,
+      endTime: { $lt: currentDate },
+    })
+      .select({ patientName: 0, patientId: 0 })
+      .sort({ endTime: -1 }) // Sorting by endTime in descending order
+      .exec();
+    console.log(previousAppointments);
+
+    return previousAppointments;
+  } catch (error) {
+    throw error;
+  }
+};
+
+appointmentTakenSchema.statics.getUpcomingAppointments = async function (
+  patientId
+) {
+  try {
+    const currentDate = new Date();
+
+    // Find appointments where the patientId matches and the startTime is later than the current date
+    const upcomingAppointments = await this.find({
+      patientId: patientId,
+      endTime: { $gt: currentDate },
+    })
+      .select({ patientName: 0, patientId: 0 })
+      .sort({ endTime: 1 }) // Sorting by startTime in ascending order
+      .exec();
+
+    console.log(upcomingAppointments);
+    return upcomingAppointments;
   } catch (error) {
     throw error;
   }
