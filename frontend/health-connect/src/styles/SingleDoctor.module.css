@@ -1,7 +1,6 @@
 .single-bookappoint-card {
     border-bottom: solid 1px var(--color-primary-paste);
     box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
-    padding: 30px;
     margin-bottom: 30px;
     background-color: var(--deep-white);
 }
@@ -12,14 +11,20 @@
     justify-content: space-evenly;
 }
 
-.single-bookappoint-card_2ndrow,
+.single-bookappoint-card_2ndrow {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
 .single-bookappoint-card_1strow {
-    display: flex;
-    justify-content: space-evenly;
+    background-color: #ddd;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .single-bookappoint-card_2ndrow h3 {
-    text-align: center;
+    text-align: left;
 }
 
 .appoint-book-btn {
