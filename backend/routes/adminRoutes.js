@@ -11,6 +11,6 @@ const router = express.Router();
 
 router.route("/add-one-doctor").post(createDoctorSignup);
 router.route("/add-one-appointment").post(addToAppointmentList);
-router.route("/get-all-appointment").get(getAllAppointments);
+// router.route("/get-all-appointment").get(getAllAppointments);
 
 module.exports = router;
