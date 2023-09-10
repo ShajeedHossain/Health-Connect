@@ -18,43 +18,22 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/dashboard/*" element={<Dashboard />}>
+                        <Route path="appointment" element={<Appointment />} />
+                        <Route
+                            path="takeAppointment"
+                            element={<TakeAppointment />}
+                        />
+                        <Route
+                            path="hospitalBooking"
+                            element={<HospitalBooking />}
+                        />
+                        <Route
+                            path="hospitalBooking/bookseat"
+                            element={<BookAHospitalSeat />}
+                        />
+                    </Route>
 
-                    <Route
-                        path="/dashboard/appointment"
-                        element={
-                            <Dashboard>
-                                <Appointment />
-                            </Dashboard>
-                        }
-                    />
-
-                    <Route
-                        path="/dashboard/takeAppointment"
-                        element={
-                            <Dashboard>
-                                <TakeAppointment />
-                            </Dashboard>
-                        }
-                    />
-
-                    <Route
-                        path="/dashboard/hospitalBooking"
-                        element={
-                            <Dashboard>
-                                <HospitalBooking />
-                            </Dashboard>
-                        }
-                    />
-
-                    <Route
-                        path="/dashboard/hospitalBooking/bookseat"
-                        element={
-                            <Dashboard>
-                                <BookAHospitalSeat />
-                            </Dashboard>
-                        }
-                    />
                     <Route path="signup" element={<Signup />} />
                     <Route path="login" element={<Login />} />
                     <Route

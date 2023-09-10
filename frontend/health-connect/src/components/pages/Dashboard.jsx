@@ -3,6 +3,7 @@ import UserLog from "../../apis/UserLog";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import DashboardBody from "../dashboard/DashboardBody";
 import Navbar from "../dashboard/Navbar";
+import { Outlet } from "react-router-dom";
 
 export default function Dashboard({ children }) {
     const { user } = useAuthContext();
@@ -42,7 +43,9 @@ export default function Dashboard({ children }) {
                 activeState={{ isActive, handleActive }}
                 className="navbar"
             />
-            <DashboardBody activeState={isActive}>{children}</DashboardBody>
+            <DashboardBody activeState={isActive}>
+                <Outlet />
+            </DashboardBody>
         </div>
     );
 }
