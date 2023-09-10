@@ -7,7 +7,8 @@ const {
   getPreviousAppointments,
   getUpcomingAppointments,
   getAllAppointments,
-} = require("../controllers/appointmentController");
+} = require("../controllers/appointmentControllers");
+const { getAllHospital } = require("../controllers/hospitalControllers");
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.route("/add-appointment").post(requireAuth, addAppointment);
 router.route("/previous-appointment").get(requireAuth, getPreviousAppointments);
 router.route("/upcoming-appointment").get(requireAuth, getUpcomingAppointments);
 router.route("/get-all-appointment").get(requireAuth, getAllAppointments);
+router.route("/get-all-hospital").get(requireAuth, getAllHospital);
 
 module.exports = router;
