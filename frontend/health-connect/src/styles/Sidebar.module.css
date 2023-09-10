@@ -62,7 +62,9 @@ aside .sidebar a:last-child {
     bottom: 2rem;
     width: 100%;
 }
-
+.logout {
+    cursor: pointer;
+}
 @media screen and (max-width: 1200px) {
     aside {
         position: fixed;

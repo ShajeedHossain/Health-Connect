@@ -1,8 +1,16 @@
 import classes from "../../styles/Sidebar.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React from "react";
+import { useLogout } from "../../hooks/useLogout";
 
 export default function Sidebar({ activeState }) {
+    const { logout } = useLogout();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+    };
     return (
         <aside className={activeState ? `${classes["aside-active"]}` : ``}>
             <div className={classes.sidebar}>
@@ -62,16 +70,14 @@ export default function Sidebar({ activeState }) {
                         <h3>Settings</h3>
                     </div>
                 </Link>
-                <Link to="/">
-                    <div
-                        className={`${classes["sidebar-option"]} ${classes["logout"]}`}
-                    >
-                        <span className="material-symbols-outlined">
-                            logout
-                        </span>
-                        <h3>Logout</h3>
-                    </div>
-                </Link>
+
+                <div
+                    onClick={handleLogout}
+                    className={`${classes["sidebar-option"]} ${classes["logout"]}`}
+                >
+                    <span className="material-symbols-outlined">logout</span>
+                    <h3>Logout</h3>
+                </div>
             </div>
         </aside>
     );
