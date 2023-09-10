@@ -13,8 +13,15 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
+//route imports
+const userRoutes = require("./routes/userRoutes");
+const patientRoutes = require("./routes/patientRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+
 //routes
-app.use("/api/user", require("./routes/userRoutes"));
+app.use("/api/user", userRoutes);
+app.use("/api/patient", patientRoutes);
+app.use("/api/admin", adminRoutes);
 
 //db connection
 mongoose
