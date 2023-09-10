@@ -26,8 +26,9 @@ const generateToken = (_id) => {
 const checkSignup = async (req, res) => {
   const { email, fullname, address, password } = req.body;
   try {
+    console.log('User 1');
     const user = await User.signup(email, password, fullname, address);
-
+    console.log('User ');
     //create a token
     const token = generateToken(user._id);
 

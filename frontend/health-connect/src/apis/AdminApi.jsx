@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:5000/api/admin",
+  baseURL: "http://localhost:5001/api/admin",
 });
 
 /* To use the api, import this file as AdminApi */
