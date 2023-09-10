@@ -1,8 +1,10 @@
 import classes from "../../styles/Sidebar.module.css";
 import { Link } from "react-router-dom";
-export default function Sidebar() {
+import React from "react";
+
+export default function Sidebar({ activeState }) {
     return (
-        <aside>
+        <aside className={activeState ? `${classes["aside-active"]}` : ``}>
             <div className={classes.sidebar}>
                 <Link to="/dashboard">
                     <div

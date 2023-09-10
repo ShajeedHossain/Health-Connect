@@ -1,11 +1,20 @@
 import image from "../../assets/images/user.jpg";
 import classes from "../../styles/Navbar.module.css";
+import React from "react";
 export default function Navbar(props) {
-    const { className } = props;
+    const { className, activeState } = props;
+    const { isActive, handleActive } = activeState;
     return (
-        <div className={className}>
+        <div className={classes.className}>
             <nav>
-                <div className={classes.hamburgerMenu}>
+                <div
+                    className={
+                        isActive
+                            ? `${classes.hamburgerMenu} ${classes.active}`
+                            : `${classes.hamburgerMenu}`
+                    }
+                    onClick={handleActive}
+                >
                     <span className={classes.bar}></span>
                     <span className={classes.bar}></span>
                     <span className={classes.bar}></span>
