@@ -1,3 +1,73 @@
+import classes from "../../../styles/HospitalBooking.module.css"
 export default function HospitalBooking() {
-    return <div>Hello</div>;
+    return <>
+    <section className={classes["current-hospital-admission-check-part"]}>
+                    <div className={classes["hospital-admission-check-header"]}>
+                        <div className={classes["hospital-admission-check-heading"]}>
+                            <h2>Current Hospital Admission</h2>
+                        </div>
+                        <div className={classes["book-hospital-seat-btn"]}>
+                            <button className={classes["book-seat-btn"]}><a href="./hospitaladmissionbook.html">
+                                    <h3>Book New Seat</h3>
+                                </a></button>
+
+                        </div>
+                    </div>
+                    <div className={classes["hospital-admission-check-cards"]}>
+                        <div className={classes["single-admissionchk-card1"]}>
+                            <div className={classes["single-admissionchk-card_1strow"]}>
+                                <h3>Hospital Name:Popular Hospital</h3>
+                                <h3>Location:Dhanmondi,Dhaka</h3>
+
+                            </div>
+                            <div className={classes["single-admissionchk-card_2ndrow"]}>
+                                <h3>Specialization:abc</h3>
+                                <h3>Room number:03</h3>
+                                <h3>Status:Not Done Yet</h3>
+                                <h3>Date:08/09/2023</h3>
+                            </div>
+                        </div>
+                        <div className={classes["single-admissionchk-card2"]}>
+                            <div className={classes["single-admissionchk-card_1strow"]}>
+                                <h3>Hospital Name:Popular Hospital</h3>
+                                <h3>Location:Dhanmondi,Dhaka</h3>
+                                
+
+                            </div>
+                            <div className={classes["single-admissionchk-card_2ndrow"]}>
+                                <h3>Specialization:abc</h3>
+                                <h3>Room number:03</h3>
+                                <h3>Status:Not Done Yet</h3>
+                                <h3>Date:08/09/2023</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+    <section className={classes["hospital-prev-book-chk-part"]}>
+
+                    <div className={classes["hospital-prev-book-chk-heading"]}>
+                        <h2>Hospital Admission History</h2>
+                    </div>
+
+                    <div className={classes["hospital-prev-book-chk-cards"]}>
+                        <div className={classes["single-prev-hospbook-card1"]}>
+                            <div className={classes["single-prev-hospbook-card_1strow"]}>
+                                <h3>Hospital Name:Popular Hospital</h3>
+                                <h3>Location:Dhanmondi,Dhaka</h3>
+
+                            </div>
+                            <div className={classes["single-prev-hospbook-card_2ndrow"]}>
+                                <h3>Specialization:abc</h3>
+                                <h3>Room number:03</h3>
+                                <h3>Date:08/09/2023</h3>
+                                <h3>Status:Done</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+    </>
+
 }
