@@ -21,7 +21,9 @@ export default function Navbar(props) {
                     <span className={classes.bar}></span>
                 </div>
                 <div className={classes.logo}>
-                    <h2>Health Connect</h2>
+                    <h2>
+                        Health <span>Connect</span>
+                    </h2>
                 </div>
                 <div className={classes.userprofile}>
                     <p>{newUser ? newUser.fullname : ""}</p>

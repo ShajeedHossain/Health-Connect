@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import UserLog from "../../apis/UserLog";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import DashboardBody from "../dashboard/DashboardBody";
 import Navbar from "../dashboard/Navbar";
-import UserLog from "../../apis/UserLog";
 
 export default function Dashboard({ children }) {
     const { user } = useAuthContext();

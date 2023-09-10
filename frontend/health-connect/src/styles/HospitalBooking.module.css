@@ -11,12 +11,9 @@
 .hospital-admission-check-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-    margin-top: 10px;
-}
-
-.hospital-admission-check-heading {
-    margin-bottom: 20px;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 20px;
 }
 
 .book-seat-btn {
@@ -28,11 +25,6 @@
     border-radius: 4px;
     transition-duration: 0.4s;
     cursor: pointer;
-}
-
-.book-seat-btn h3 {
-    font-family: poppins;
-    font-weight: 500;
 }
 
 .book-seat-btn a {

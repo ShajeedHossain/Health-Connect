@@ -38,6 +38,14 @@ nav {
     background-color: white;
 }
 
+.logo h2 {
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+}
+.logo h2 span {
+    font-family: "Merriweather", serif;
+    font-weight: 700;
+}
 @media screen and (max-width: 1200px) {
     .hamburgerMenu {
         display: block;

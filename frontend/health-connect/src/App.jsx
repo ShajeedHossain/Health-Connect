@@ -10,6 +10,7 @@ import Dashboard from "./components/pages/Dashboard";
 import Appointment from "./components/dashboard/pages/Appointment";
 import TakeAppointment from "./components/dashboard/TakeAppointment";
 import HospitalBooking from "./components/dashboard/pages/HospitalBooking";
+import BookAHospitalSeat from "./components/dashboard/BookAHospitalSeat";
 
 function App() {
     return (
@@ -42,6 +43,15 @@ function App() {
                         element={
                             <Dashboard>
                                 <HospitalBooking />
+                            </Dashboard>
+                        }
+                    />
+
+                    <Route
+                        path="/dashboard/hospitalBooking/bookseat"
+                        element={
+                            <Dashboard>
+                                <BookAHospitalSeat />
                             </Dashboard>
                         }
                     />
