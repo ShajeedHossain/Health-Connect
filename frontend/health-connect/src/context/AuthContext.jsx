@@ -19,13 +19,14 @@ export const AuthContextProvider = (props) => {
   });
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-
+    console.log("USER ",user);
     if (user) {
       dispatch({ type: "LOGIN", payload: user });
     }
   }, []);
   console.log("AuthContext State: ", state);
   return (
+    
     <AuthContext.Provider value={{ ...state, dispatch }}>
       {props.children}
     </AuthContext.Provider>

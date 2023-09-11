@@ -1,10 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuthContext } from "../hooks/useAuthContext";
 export default function PrivateRoute (){
-    const {user} = useAuthContext();
-
-    console.log(user + " hello");
+    // const {user} = useAuthContext();
+    const userBackup = JSON.parse(localStorage.getItem("user"));
+    // console.log(user + " hello");
+    // console.log(JSON.parse(localStorage.getItem("user")));
+    // console.log("PRIVATE");
+    // console.log(userBackup);
     return <>
-        {user ? <Outlet/> : <Navigate to="/login" />}
+        {userBackup ? <Outlet/> : <Navigate to="/login" />}
     </>;
 }

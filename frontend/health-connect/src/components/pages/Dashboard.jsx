@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 import UserLog from "../../apis/UserLog";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import DashboardBody from "../dashboard/DashboardBody";
 import Navbar from "../dashboard/Navbar";
-import { Outlet } from "react-router-dom";
 
 export default function Dashboard({ children }) {
     const { user } = useAuthContext();
     const [newUser, setNewUser] = useState(null);
+    // console.log("SAMI");
 
     useEffect(() => {
+        
         setNewUser(null);
         //This function is bound to change for the home page of the patients/doctors/admins
         const getUserDetails = async () => {
