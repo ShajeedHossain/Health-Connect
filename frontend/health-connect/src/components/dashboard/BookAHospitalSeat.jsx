@@ -1,5 +1,8 @@
 import classes from "../../styles/BookAHospitalSeat.module.css";
 export default function BookAHospitalSeat() {
+
+
+
     return (
         <section className={classes["BookHospitalSeat"]}>
             <section className={classes["HospitalBookSeatPart"]}>
@@ -10,13 +13,13 @@ export default function BookAHospitalSeat() {
                 <div className={classes["BookHospitalCards"]}>
                     <div className={classes["BookHospitalCard"]}>
                         <div className={classes["BookHospitalCard1strow"]}>
-                            <h3>Hospital name:Ever Care Hospital</h3>
-                            <h3>Specialized For:abc</h3>
+                            <p>Hospital name:Ever Care Hospital</p>
+                            <p>Specialized For:abc</p>
                         </div>
                         <div className={classes["BookHospitalCard2ndrow"]}>
-                            <h3>Cabin Type:Premium</h3>
-                            <h3>Available Seat:10 </h3>
-                            <h3>Location:Gulshan</h3>
+                            <p>Cabin Type:Premium</p>
+                            <p>Available Seat:10 </p>
+                            <p>Location:Gulshan</p>
                             <a href="#" className={classes["BookHospitalBtn"]}>
                                 Book Seat
                             </a>
@@ -25,13 +28,13 @@ export default function BookAHospitalSeat() {
 
                     <div className={classes["BookHospitalCard"]}>
                         <div className={classes["BookHospitalCard1strow"]}>
-                            <h3>Hospital name:Ever Care Hospital</h3>
-                            <h3>Specialized For:abc</h3>
+                            <p>Hospital name:Ever Care Hospital</p>
+                            <p>Specialized For:abc</p>
                         </div>
                         <div className={classes["BookHospitalCard2ndrow"]}>
-                            <h3>Cabin Type:Premium</h3>
-                            <h3>Available Seat:10 </h3>
-                            <h3>Location:Gulshan</h3>
+                            <p>Cabin Type:Premium</p>
+                            <p>Available Seat:10 </p>
+                            <p>Location:Gulshan</p>
 
                             <a href="#" className={classes["BookHospitalBtn"]}>
                                 Book Seat

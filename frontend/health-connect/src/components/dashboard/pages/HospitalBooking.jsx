@@ -28,18 +28,18 @@ export default function HospitalBooking() {
                                 classes["single-admissionchk-card_1strow"]
                             }
                         >
-                            <h3>Hospital Name:Popular Hospital</h3>
-                            <h3>Location:Dhanmondi,Dhaka</h3>
+                            <p>Hospital Name:Popular Hospital</p>
+                            <p>Location:Dhanmondi,Dhaka</p>
                         </div>
                         <div
                             className={
                                 classes["single-admissionchk-card_2ndrow"]
                             }
                         >
-                            <h3>Specialization:abc</h3>
-                            <h3>Room number:03</h3>
-                            <h3>Status:Not Done Yet</h3>
-                            <h3>Date:08/09/2023</h3>
+                            <p>Specialization:abc</p>
+                            <p>Room number:03</p>
+                            <p>Status:Not Done Yet</p>
+                            <p>Date:08/09/2023</p>
                         </div>
                     </div>
                     <div className={classes["single-admissionchk-card2"]}>
@@ -48,18 +48,18 @@ export default function HospitalBooking() {
                                 classes["single-admissionchk-card_1strow"]
                             }
                         >
-                            <h3>Hospital Name:Popular Hospital</h3>
-                            <h3>Location:Dhanmondi,Dhaka</h3>
+                            <p>Hospital Name:Popular Hospital</p>
+                            <p>Location:Dhanmondi,Dhaka</p>
                         </div>
                         <div
                             className={
                                 classes["single-admissionchk-card_2ndrow"]
                             }
                         >
-                            <h3>Specialization:abc</h3>
-                            <h3>Room number:03</h3>
-                            <h3>Status:Not Done Yet</h3>
-                            <h3>Date:08/09/2023</h3>
+                            <p>Specialization:abc</p>
+                            <p>Room number:03</p>
+                            <p>Status:Not Done Yet</p>
+                            <p>Date:08/09/2023</p>
                         </div>
                     </div>
                 </div>

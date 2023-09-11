@@ -35,7 +35,7 @@ aside .sidebar span {
 
 aside .sidebar-option.active {
     background: #dbefec;
-    color: #76d5cb;
+    color: #000;
     /* margin-left: 0px; */
 }
 

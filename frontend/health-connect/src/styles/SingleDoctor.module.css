@@ -17,7 +17,7 @@
     grid-template-columns: repeat(4, 1fr);
 }
 .single-bookappoint-card_1strow {
-    background-color: #ddd;
+    background-color: #dbefec;
     padding: 10px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);

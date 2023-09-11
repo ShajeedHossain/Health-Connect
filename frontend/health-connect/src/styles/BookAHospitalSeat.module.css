@@ -63,7 +63,7 @@
     padding: 10px;
 }
 .BookHospitalCard1strow {
-    background-color: #ddd;
+    background-color: #dbefec;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 10px;
@@ -133,7 +133,30 @@
         cursor: pointer;
     }
 }
+.appoint-book-btn {
+    background-color: var(--color-primary-paste);
+    padding: 5px;
+    text-align: center;
+    border: 2px solid var(--color-primary-paste);
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
 
+.appoint-book-btn h3 {
+    font-family: poppins;
+    font-weight: 400;
+}
+
+.appoint-book-btn a {
+    color: white;
+    text-decoration: none;
+}
+
+.appoint-book-btn:hover a {
+    background-color: var(--color-light-paste);
+    color: black;
+}
 @media screen and (max-width: 576px) {
     /*----for smaller devices------*/
     .BookHospitalCard {

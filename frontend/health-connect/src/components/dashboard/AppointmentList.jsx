@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
+import { useAppointmentList } from "../../hooks/useAppointmentList";
+import { useAuthContext } from "../../hooks/useAuthContext";
 import classes from "../../styles/AppointmentList.module.css";
 import SingleAppointment from "./SingleAppointment";
 export default function AppointmentList() {
+    const {user} = useAuthContext();
+    const {data, loading, error} = useAppointmentList(user);
+    console.log("AppointmentList Data  from hook: ", data);
     return (
         <>
             <section className={classes["doc-upcoming-apoint-chk-part"]}>

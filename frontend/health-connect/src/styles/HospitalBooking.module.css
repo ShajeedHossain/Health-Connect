@@ -110,7 +110,7 @@
 }
 
 .single-admissionchk-card_1strow {
-    background-color: #ddd;
+    background-color: #dbefec;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding: 10px;
@@ -209,7 +209,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding: 10px;
-    background-color: #ddd;
+    background-color: #dbefec;
 }
 .single-prev-hospbook-card_2ndrow {
     display: grid;
