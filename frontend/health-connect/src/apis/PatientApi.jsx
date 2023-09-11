@@ -1,7 +1,9 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/patient`,
+    baseURL: `http://localhost:${
+        import.meta.env.VITE_BACKEND_PORT
+    }/api/patient`,
 });
 
 /* To use the api, import this file as PatientApi */
@@ -25,21 +27,20 @@ export default axios.create({
 //     }
 //   );
 
-
 /** Patient adds appointment*/
 
 // const response = await PatientApi.post(
 //     "/add-appointment",
 //     {
-          // doctorName,
-          // doctorId,
-          // patientName,
-          // startTime,
-          // endTime,
-          // hospitalName,
-          // hospitalId,
-          // district,
-          // town,
+// doctorName,
+// doctorId,
+// patientName,
+// startTime,
+// endTime,
+// hospitalName,
+// hospitalId,
+// district,
+// town,
 //     },
 //     {
 //       headers: {
@@ -49,18 +50,16 @@ export default axios.create({
 //     }
 //   );
 
-
 /** Patient gets previous appointment*/
 
 // const response = await PatientApi.get(
-//     "/add-appointment",
+//     "/previous-appointment",
 //     {
 //       headers: {
 //         Authorization: `Bearer ${user.token}`,
 //       },
 //     }
 //   );
-
 
 /** Patient gets upcoming appointments*/
 
@@ -72,7 +71,6 @@ export default axios.create({
 //       },
 //     }
 //   );
-
 
 /** Patient gets available appointments*/
 

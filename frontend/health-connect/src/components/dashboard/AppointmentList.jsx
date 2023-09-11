@@ -1,12 +1,21 @@
 import { Link } from "react-router-dom";
-import { useAppointmentList } from "../../hooks/useAppointmentList";
+import { useUpcomingAppointmentList } from "../../hooks/useUpcomingAppointmentList";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import classes from "../../styles/AppointmentList.module.css";
 import SingleAppointment from "./SingleAppointment";
+import { usePreviousAppointment } from "../../hooks/usePreviousAppointment";
 export default function AppointmentList() {
-    const {user} = useAuthContext();
-    const {data, loading, error} = useAppointmentList(user);
-    console.log("AppointmentList Data  from hook: ", data);
+    const { user } = useAuthContext();
+    console.log("user : ", user);
+    const { upcomingData, upcomingLoading, upcomingError } =
+        useUpcomingAppointmentList(user);
+    const { upcomingAppointment } = upcomingData;
+
+    const { previousData, previousLoading, previousError } =
+        usePreviousAppointment(user);
+    const { previousAppointment } = previousData;
+    console.log("AppointmentList Data  from hook: ", upcomingAppointment);
+    // if (!loading) console.log("length ", upcomingAppointment.length);
     return (
         <>
             <section className={classes["doc-upcoming-apoint-chk-part"]}>
@@ -26,8 +35,18 @@ export default function AppointmentList() {
                 </div>
 
                 <div className={classes["doc-upcoming-appoint-check-cards"]}>
-                    <SingleAppointment className="single-upappoint-card" />
-                    <SingleAppointment className="single-upappoint-card" />
+                    {!upcomingLoading &&
+                        !upcomingError &&
+                        upcomingAppointment.map((singleAppointment) => (
+                            <SingleAppointment
+                                key={singleAppointment["_id"]}
+                                className="single-upappoint-card"
+                                doctorDetails={singleAppointment}
+                                loading={upcomingLoading}
+                            />
+                        ))}
+                    {/* <SingleAppointment className="single-upappoint-card" />
+                    <SingleAppointment className="single-upappoint-card" /> */}
                 </div>
             </section>
 
@@ -37,9 +56,19 @@ export default function AppointmentList() {
                 </div>
 
                 <div className={classes["doc-previous-appoint-check-cards"]}>
+                    {!previousLoading &&
+                        !previousError &&
+                        previousAppointment.map((singleAppointment) => (
+                            <SingleAppointment
+                                key={singleAppointment["_id"]}
+                                className="single-upappoint-card"
+                                doctorDetails={singleAppointment}
+                                loading={previousLoading}
+                            />
+                        ))}
+                    {/* <SingleAppointment className="single-prevappoint-card" />
                     <SingleAppointment className="single-prevappoint-card" />
-                    <SingleAppointment className="single-prevappoint-card" />
-                    <SingleAppointment className="single-prevappoint-card" />
+                    <SingleAppointment className="single-prevappoint-card" /> */}
                 </div>
             </section>
         </>
