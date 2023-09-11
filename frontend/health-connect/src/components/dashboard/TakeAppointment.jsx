@@ -1,12 +1,14 @@
 import { useAuthContext } from "../../hooks/useAuthContext";
-import { useTakeAppointment } from "../../hooks/useTakeAppointment";
+import { useDoctorList } from "../../hooks/useDoctorList";
 import classes from "../../styles/TakeAppointment.module.css";
 import SingleDoctor from "./singleDoctor";
 export default function TakeAppointment() {
     const { user } = useAuthContext();
     console.log("user : ", user);
-    const { data, loading, error } = useTakeAppointment(user);
-    console.log("Take Appointment Data  from hook: ", data);
+    const { doctorData, doctorLoading, doctorError } = useDoctorList(user);
+    console.log(doctorData);
+    const { doctorList } = doctorData;
+    console.log("Take Appointment Data  from hook: ", doctorData);
     return (
         <section className={classes["take-appointment-part"]}>
             <section className={classes["doc-upcoming-apoint-chk-part"]}>
@@ -15,8 +17,20 @@ export default function TakeAppointment() {
                 </div>
 
                 <div className={classes["doc-upcoming-appoint-check-cards"]}>
-                    <SingleDoctor />
-                    <SingleDoctor />
+                    {!doctorLoading &&
+                        !doctorError &&
+                        doctorList.map((singleDoctor) => (
+                            <SingleDoctor
+                                key={singleDoctor["_id"]}
+                                doctorData={singleDoctor}
+                            />
+                            // <SingleAppointment
+                            //     key={singleAppointment["_id"]}
+                            //     className="single-upappoint-card"
+                            //     doctorDetails={singleAppointment}
+                            //     loading={upcomingLoading}
+                            // />
+                        ))}
                 </div>
             </section>
         </section>
