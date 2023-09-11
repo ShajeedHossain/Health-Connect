@@ -1,7 +1,10 @@
 const express = require("express");
 const requireAuth = require("../middlewares/requireAuth");
 
-const { addPatient } = require("../controllers/patientControllers");
+const {
+  addPatient,
+  getAllDoctor,
+} = require("../controllers/patientControllers");
 const {
   addAppointment,
   getPreviousAppointments,
@@ -18,5 +21,6 @@ router.route("/previous-appointment").get(requireAuth, getPreviousAppointments);
 router.route("/upcoming-appointment").get(requireAuth, getUpcomingAppointments);
 router.route("/get-all-appointment").get(requireAuth, getAllAppointments);
 router.route("/get-all-hospital").get(requireAuth, getAllHospital);
+router.route("/get-all-doctor").get(requireAuth, getAllDoctor);
 
 module.exports = router;

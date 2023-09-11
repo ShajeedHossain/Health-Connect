@@ -143,4 +143,14 @@ doctorSchema.statics.addOneDoctor = async function (
   }
 };
 
+// Define a static method to get a list of all doctors
+doctorSchema.statics.getAllDoctor = async function () {
+  try {
+    const doctors = await this.find({});
+    return doctors;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = mongoose.model("Doctor", doctorSchema);
