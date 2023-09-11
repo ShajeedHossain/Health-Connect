@@ -48,6 +48,11 @@ const appointmentTakenSchema = new mongoose.Schema({
     type: Boolean,
     default: false, // Set a default value to false
   },
+  specializations: [
+    {
+      type: String,
+    },
+  ],
 });
 
 // Define a static function for adding an appointment
@@ -62,7 +67,8 @@ appointmentTakenSchema.statics.addAppointment = async function (
   hospitalId,
   district,
   town,
-  serial
+  serial,
+  specializations
 ) {
   const address = {
     district,
@@ -80,6 +86,7 @@ appointmentTakenSchema.statics.addAppointment = async function (
       hospitalId,
       address,
       serial,
+      specializations,
     };
 
     const appointment = await this.create(appointmentData);

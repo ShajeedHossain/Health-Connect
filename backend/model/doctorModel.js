@@ -44,6 +44,11 @@ const doctorSchema = new Schema({
     type: String,
     required: true,
   },
+  specializations: [
+    {
+      type: String,
+    },
+  ],
   //   userId: {
   //     type: mongoose.Schema.Types.ObjectId,
   //     ref: "User", // This should match the name of your User model
@@ -80,7 +85,8 @@ doctorSchema.statics.addOneDoctor = async function (
   education,
   gender,
   contact,
-  email
+  email,
+  specializations
 ) {
   if (
     !fullName ||
@@ -88,7 +94,8 @@ doctorSchema.statics.addOneDoctor = async function (
     !hospitalId ||
     !education ||
     !gender ||
-    !education
+    !education ||
+    !specializations
   ) {
     throw Error("Fields can't be empty");
   }
@@ -116,7 +123,10 @@ doctorSchema.statics.addOneDoctor = async function (
       gender,
       contact,
       education,
+      specializations,
     });
+
+    // console.log(doctor);
 
     const password = email + "P*123";
 
@@ -125,7 +135,7 @@ doctorSchema.statics.addOneDoctor = async function (
     }
     const user = await User.signupDoctor(email, password, fullName);
     // console.log(user);
-    return user;
+    return doctor;
     // return doctor;
   } catch (error) {
     console.log(error.message);

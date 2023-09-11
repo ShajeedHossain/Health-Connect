@@ -14,7 +14,10 @@ const addToAppointmentList = async (req, res) => {
     hospitalId,
     district,
     town,
+    specializations,
   } = req.body;
+
+  const specializationsList = specializations.split(",");
 
   try {
     const start = new Date(startTime);
@@ -32,7 +35,8 @@ const addToAppointmentList = async (req, res) => {
       hospitalName,
       hosId,
       district,
-      town
+      town,
+      specializationsList
     );
 
     res.status(201).json({ appointment });
@@ -68,8 +72,10 @@ const addAppointment = async (req, res) => {
     hospitalId,
     district,
     town,
+    specializations,
   } = req.body;
 
+  const specializationsList = specializations.split(",");
   const { authorization } = req.headers;
   const token = authorization.split(" ")[1];
 
@@ -98,7 +104,8 @@ const addAppointment = async (req, res) => {
       hosId,
       district,
       town,
-      serial
+      serial,
+      specializationsList
     );
 
     res.status(201).json({ appointment });

@@ -34,6 +34,11 @@ const appointmentListSchema = new mongoose.Schema({
     type: Boolean,
     default: true, // Set a default value (true for available, false for booked)
   },
+  specializations: [
+    {
+      type: String,
+    },
+  ],
   // availableDays: [
   //   {
   //     type: String,
@@ -59,7 +64,8 @@ appointmentListSchema.statics.createAppointmentList = async function (
   hospitalName,
   hospitalId,
   district,
-  town
+  town,
+  specializations
 ) {
   const address = {
     district,
@@ -74,6 +80,7 @@ appointmentListSchema.statics.createAppointmentList = async function (
       hospitalName,
       address,
       hospitalId,
+      specializations,
     });
     console.log(appointment);
     return appointment;

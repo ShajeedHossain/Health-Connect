@@ -21,9 +21,11 @@ const createDoctorSignup = async (req, res) => {
     gender,
     contact,
     education,
+    specializations,
   } = req.body;
   //   const { authorization } = req.headers;
   //   const token = authorization.split(" ")[1];
+  const specializationsList = specializations.split(",");
   try {
     // const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -35,7 +37,8 @@ const createDoctorSignup = async (req, res) => {
       education,
       gender,
       contact,
-      email
+      email,
+      specializationsList
     );
     console.log(newDoctor);
     res.status(201).json({ email, newDoctor });
