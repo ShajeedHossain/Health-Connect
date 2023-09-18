@@ -2,9 +2,10 @@ import classes from "../../styles/Sidebar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import { useLogout } from "../../hooks/useLogout";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 export default function Sidebar({ activeState }) {
-    const { logout } = useLogout();
+    const { logout } = useAuthContext();
     const navigate = useNavigate();
 
     const handleLogout = () => {

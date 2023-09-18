@@ -5,38 +5,38 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { useLogout } from "../../hooks/useLogout";
 
 const Home = () => {
-    const { logout } = useLogout();
+    const { logout } = useAuthContext();
     // const navigate = useNavigate();
-    const { user } = useAuthContext();
-    const [newUser, setNewUser] = useState();
+    const { user, newUser } = useAuthContext();
+    // const [newUser, setNewUser] = useState();
 
-    useEffect(() => {
-        setNewUser(null);
-        //This function is bound to change for the home page of the patients/doctors/admins
-        const getUserDetails = async () => {
-            const response = await UserLog.get("/", {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            });
-            console.log(response);
-            setNewUser(response.data.user);
-            console.log("newUser  ", newUser);
-        };
-        try {
-            if (user) {
-                getUserDetails();
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }, [user]);
+    // useEffect(() => {
+    //     setNewUser(null);
+    //     //This function is bound to change for the home page of the patients/doctors/admins
+    //     const getUserDetails = async () => {
+    //         const response = await UserLog.get("/", {
+    //             headers: {
+    //                 Authorization: `Bearer ${user.token}`,
+    //             },
+    //         });
+    //         console.log(response);
+    //         setNewUser(response.data.user);
+    //         console.log("newUser  ", newUser);
+    //     };
+    //     try {
+    //         if (user) {
+    //             getUserDetails();
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }, [user]);
 
     const handleLogout = () => {
         logout();
     };
 
-    console.log("newUser  ", newUser);
+    console.log("From Home: user ", user, " NewUser ", newUser);
     return (
         <section className="login-signup">
             <main>
@@ -56,7 +56,6 @@ const Home = () => {
                                     Dashboard
                                 </Link>
                             </div>
-                            
                         </div>
                     )}
                     {!user && (
