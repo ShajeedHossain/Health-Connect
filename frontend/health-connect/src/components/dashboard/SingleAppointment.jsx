@@ -1,8 +1,10 @@
 import classes from "../../styles/SingleAppointment.module.css";
 export default function SingleAppointment({ className, doctorDetails }) {
     console.log("Doctor details ", doctorDetails);
-    const { doctorName, specializations, address, serial, startTime } =
+    const { serial, startTime } =
         doctorDetails;
+
+    const {doctorName,specializations,address}=doctorDetails.doctorData;
 
     console.log(typeof startTime);
     const date = new Date(startTime);
@@ -20,7 +22,7 @@ export default function SingleAppointment({ className, doctorDetails }) {
                 </p>
             </div>
             <div className={classes["single-appoint-card_2ndrow"]}>
-                <p>Location: {`${address.town}, ${address.district}`}</p>
+                {/* <p>Location: {`${address.town}, ${address.district}`}</p> */}
                 <p>Serial: {serial}</p>
                 <p>Date : {dayTime}</p>
                 <p>status: done</p>

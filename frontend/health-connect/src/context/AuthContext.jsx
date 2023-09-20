@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import UserLog from "../apis/UserLog";
 
 export const AuthContext = createContext();
@@ -34,7 +34,7 @@ export const AuthContextProvider = (props) => {
             });
             console.log("Response from getUserDetails : ", response);
             setNewUser(response.data.user);
-            console.log("NewUser: ", newUser);
+            // console.log("NewUser: ", newUser);
         };
         try {
             if (user) {
@@ -43,7 +43,7 @@ export const AuthContextProvider = (props) => {
         } catch (error) {
             console.log(error);
         }
-    }, [user, newUser]);
+    }, [user]);
     // console.log("AuthContext State: ", state);
 
     const login = async (email, password) => {
