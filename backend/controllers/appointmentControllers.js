@@ -4,6 +4,7 @@ const AppointmentTaken = require("../model/appointmentTakenModel");
 const mongoose = require("mongoose");
 const { generateSerial } = require("../utilities/utilities");
 
+//redundant maybe
 const addToAppointmentList = async (req, res) => {
   const {
     doctorName,
@@ -62,27 +63,19 @@ const getAllAppointments = async (req, res) => {
 
 const addAppointment = async (req, res) => {
   const {
-    doctorName,
     doctorId,
-    patientName,
-    // patientId,
     startTime,
-    endTime,
-    hospitalName,
     hospitalId,
-    district,
-    town,
-    specializations,
+    // district,
+    // town,
   } = req.body;
 
-  const specializationsList = specializations.split(",");
   const { authorization } = req.headers;
   const token = authorization.split(" ")[1];
 
   try {
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
     const start = new Date(startTime);
-    const end = new Date(endTime);
 
     // //the id needs to be somehow received to get the name from the doctor schema
     const docId = new mongoose.Types.ObjectId(doctorId); //may change
@@ -94,20 +87,12 @@ const addAppointment = async (req, res) => {
     const serial = count + 1;
 
     const appointment = await AppointmentTaken.addAppointment(
-      doctorName,
       docId,
-      patientName,
       _id,
       start,
-      end,
-      hospitalName,
       hosId,
-      district,
-      town,
-      serial,
-      specializationsList
+      serial
     );
-
     res.status(201).json({ appointment });
   } catch (error) {
     // console.log(error);

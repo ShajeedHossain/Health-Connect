@@ -2,19 +2,11 @@ const mongoose = require("mongoose");
 const addressSchema = require("./addressSchema");
 
 const appointmentTakenSchema = new mongoose.Schema({
-  doctorName: {
-    type: String,
-    required: true,
-  },
   doctorId: {
     // type: String,
     type: mongoose.Schema.Types.ObjectId,
     ref: "Doctor", // This should match the name of  Doctor model
     required: true,
-  },
-  patientName: {
-    type: String,
-    default: null,
   },
   patientId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -30,63 +22,59 @@ const appointmentTakenSchema = new mongoose.Schema({
     type: Date, // Use the Date type to store start time
     required: true,
   },
-  endTime: {
-    type: Date, // Use the Date type to store end time
-    required: true,
-  },
-  hospitalName: {
-    type: String,
-    required: true,
-  },
   hospitalId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Hospital", // This should match the name of Hospital model
-    required: true,
   },
-  address: addressSchema,
+  // address: addressSchema,
   isTaken: {
     type: Boolean,
     default: false, // Set a default value to false
   },
-  specializations: [
-    {
-      type: String,
-    },
-  ],
+});
+
+// Define a custom validation function to check for duplicate appointments
+// Maybe need to check if appointments with other doctors also exist
+appointmentTakenSchema.pre("validate", async function (next) {
+  try {
+    const existingAppointment = await this.constructor.findOne({
+      doctorId: this.doctorId,
+      patientId: this.patientId,
+      startTime: this.startTime,
+    });
+
+    if (existingAppointment) {
+      const errorMessage = "An appointment already exists.";
+      this.invalidate("startTime", errorMessage);
+      return next(new Error(errorMessage));
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Define a static function for adding an appointment
 appointmentTakenSchema.statics.addAppointment = async function (
-  doctorName,
   doctorId,
-  patientName,
   patientId,
   startTime,
-  endTime,
-  hospitalName,
   hospitalId,
-  district,
-  town,
-  serial,
-  specializations
+  serial
 ) {
-  const address = {
-    district,
-    town,
-  };
+  // const address = {
+  //   district,
+  //   town,
+  // };
   try {
     const appointmentData = {
-      doctorName,
       doctorId,
-      patientName,
       patientId,
       startTime,
-      endTime,
-      hospitalName,
       hospitalId,
-      address,
+      // address,
       serial,
-      specializations,
     };
 
     const appointment = await this.create(appointmentData);
