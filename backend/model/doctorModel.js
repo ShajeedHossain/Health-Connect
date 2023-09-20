@@ -49,9 +49,12 @@ const doctorSchema = new Schema({
       type: String,
     },
   ],
-  address: {
+  location: {
     type: String,
     default: "Some address",
+  },
+  bma_id: {
+    type: String,
   },
 
   age: {
@@ -85,7 +88,9 @@ doctorSchema.statics.addOneDoctor = async function (
   gender,
   contact,
   email,
-  specializations
+  specializations,
+  bma_id,
+  location
 ) {
   if (
     !fullName ||
@@ -94,7 +99,8 @@ doctorSchema.statics.addOneDoctor = async function (
     !education ||
     !gender ||
     !education ||
-    !specializations
+    !specializations ||
+    !bma_id
   ) {
     throw Error("Fields can't be empty");
   }

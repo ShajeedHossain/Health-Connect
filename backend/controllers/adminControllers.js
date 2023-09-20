@@ -22,6 +22,8 @@ const createDoctorSignup = async (req, res) => {
     contact,
     education,
     specializations,
+    bma_id,
+    location,
   } = req.body;
   //   const { authorization } = req.headers;
   //   const token = authorization.split(" ")[1];
@@ -38,7 +40,9 @@ const createDoctorSignup = async (req, res) => {
       gender,
       contact,
       email,
-      specializationsList
+      specializationsList,
+      bma_id,
+      location
     );
     console.log(newDoctor);
     res.status(201).json({ email, newDoctor });
