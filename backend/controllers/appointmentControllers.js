@@ -52,7 +52,7 @@ const getPreviousAppointments = async (req, res) => {
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
     const previousAppointment = await AppointmentTaken.getPreviousAppointments(
-      _id
+      new mongoose.Types.ObjectId(_id)
     );
 
     res.status(200).json({ previousAppointment });
@@ -71,7 +71,7 @@ const getUpcomingAppointments = async (req, res) => {
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
     const upcomingAppointment = await AppointmentTaken.getUpcomingAppointments(
-      _id
+      new mongoose.Types.ObjectId(_id)
     );
 
     res.status(200).json({ upcomingAppointment });

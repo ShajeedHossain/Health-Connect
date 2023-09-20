@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const addressSchema = require("./addressSchema");
+const doctorModel = require("./doctorModel");
 
 const appointmentTakenSchema = new mongoose.Schema({
   doctorId: {
@@ -93,15 +94,28 @@ appointmentTakenSchema.statics.getPreviousAppointments = async function (
 ) {
   try {
     const currentDate = new Date();
-
-    // Find appointments where the patientId matches and the endTime is earlier than the current date
-    const previousAppointments = await this.find({
-      patientId: patientId,
-      endTime: { $lt: currentDate },
-    })
-      .select({ patientName: 0, patientId: 0 })
-      .sort({ endTime: -1 }) // Sorting by endTime in descending order
-      .exec();
+    const previousAppointments = await this.aggregate([
+      {
+        $match: {
+          patientId: patientId,
+          startTime: { $lt: currentDate },
+        },
+      },
+      {
+        $lookup: {
+          from: "doctors", // Name of the Doctor collection
+          localField: "doctorId",
+          foreignField: "_id",
+          as: "doctorData",
+        },
+      },
+      {
+        $unwind: "$doctorData", // Convert doctorData array to object
+      },
+      {
+        $sort: { startTime: -1 }, // Sorting by endTime in descending order
+      },
+    ]);
     console.log(previousAppointments);
 
     return previousAppointments;
@@ -116,15 +130,28 @@ appointmentTakenSchema.statics.getUpcomingAppointments = async function (
   try {
     const currentDate = new Date();
 
-    // Find appointments where the patientId matches and the startTime is later than the current date
-    const upcomingAppointments = await this.find({
-      patientId: patientId,
-      endTime: { $gt: currentDate },
-    })
-      .select({ patientName: 0, patientId: 0 })
-      .sort({ endTime: 1 }) // Sorting by startTime in ascending order
-      .exec();
-
+    const upcomingAppointments = await this.aggregate([
+      {
+        $match: {
+          patientId: patientId,
+          startTime: { $gt: currentDate },
+        },
+      },
+      {
+        $lookup: {
+          from: "doctors", // Name of the Doctor collection
+          localField: "doctorId",
+          foreignField: "_id",
+          as: "doctorData",
+        },
+      },
+      {
+        $unwind: "$doctorData", // Convert doctorData array to object
+      },
+      {
+        $sort: { startTime: 1 }, // Sorting by endTime in descending order
+      },
+    ]);
     console.log(upcomingAppointments);
     return upcomingAppointments;
   } catch (error) {

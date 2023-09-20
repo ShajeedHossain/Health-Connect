@@ -49,11 +49,10 @@ const doctorSchema = new Schema({
       type: String,
     },
   ],
-  //   userId: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "User", // This should match the name of your User model
-  //     required: true,
-  //   },
+  address: {
+    type: String,
+    default: "Some address",
+  },
 
   age: {
     type: Number,
