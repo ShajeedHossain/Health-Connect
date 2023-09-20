@@ -35,4 +35,12 @@ const generateSerial = async (start, doctorId) => {
   return count;
 };
 
-module.exports = { formatDate, generateSerial };
+//Utility function to generate patient count
+const generatePatientCount = async (doctorId) => {
+  const count = await AppointmentTaken.countDocuments({
+    doctorId: doctorId,
+  });
+  return count;
+};
+
+module.exports = { formatDate, generateSerial, generatePatientCount };

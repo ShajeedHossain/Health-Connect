@@ -151,7 +151,7 @@ doctorSchema.statics.addOneDoctor = async function (
 // Define a static method to get a list of all doctors
 doctorSchema.statics.getAllDoctor = async function () {
   try {
-    const doctors = await this.find({});
+    const doctors = await this.find({}).lean(); //lean helps it to convert to js object
     return doctors;
   } catch (error) {
     throw error;
