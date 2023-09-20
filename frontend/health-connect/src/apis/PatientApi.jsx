@@ -32,15 +32,9 @@ export default axios.create({
 // const response = await PatientApi.post(
 //     "/add-appointment",
 //     {
-// doctorName,
 // doctorId,
-// patientName,
 // startTime,
-// endTime,
-// hospitalName,
 // hospitalId,
-// district,
-// town,
 //     },
 //     {
 //       headers: {
