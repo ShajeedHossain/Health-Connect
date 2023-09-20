@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 const userRoutes = require("./routes/userRoutes");
 const patientRoutes = require("./routes/patientRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+console.log("hello");
 
 //routes
 app.use("/api/user", userRoutes);
@@ -25,16 +26,16 @@ app.use("/api/admin", adminRoutes);
 
 //db connection
 mongoose
-    .connect(process.env.DB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => console.log("connection successful"))
-    .catch((err) => console.log(err));
+  .connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("connection successful"))
+  .catch((err) => console.log(err));
 
 //error handler
 app.use(errorHandler);
 
 app.listen(process.env.PORT || 5000, () => {
-    console.log(`App listening on http://localhost:${process.env.PORT}`);
+  console.log(`App listening on http://localhost:${process.env.PORT}`);
 });

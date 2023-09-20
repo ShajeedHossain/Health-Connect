@@ -9,7 +9,6 @@ const {
   addAppointment,
   getPreviousAppointments,
   getUpcomingAppointments,
-  getAllAppointments,
 } = require("../controllers/appointmentControllers");
 const { getAllHospital } = require("../controllers/hospitalControllers");
 
@@ -19,7 +18,6 @@ router.route("/update-patient").put(requireAuth, addPatient);
 router.route("/add-appointment").post(requireAuth, addAppointment);
 router.route("/previous-appointment").get(requireAuth, getPreviousAppointments);
 router.route("/upcoming-appointment").get(requireAuth, getUpcomingAppointments);
-router.route("/get-all-appointment").get(requireAuth, getAllAppointments);
 router.route("/get-all-hospital").get(requireAuth, getAllHospital);
 router.route("/get-all-doctor").get(requireAuth, getAllDoctor);
 
