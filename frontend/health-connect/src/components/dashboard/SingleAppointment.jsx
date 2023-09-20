@@ -1,10 +1,8 @@
 import classes from "../../styles/SingleAppointment.module.css";
 export default function SingleAppointment({ className, doctorDetails }) {
     console.log("Doctor details ", doctorDetails);
-    const { serial, startTime } =
+    const { serial, startTime,doctorName,specializations ,address} =
         doctorDetails;
-
-    const {doctorName,specializations,address}=doctorDetails.doctorData;
 
     console.log(typeof startTime);
     const date = new Date(startTime);

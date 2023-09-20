@@ -36,6 +36,7 @@ const appointmentTakenSchema = new mongoose.Schema({
 
 // Define a custom validation function to check for duplicate appointments
 // Maybe need to check if appointments with other doctors also exist
+//Also if two persons take appointment of same doctor at the same time
 appointmentTakenSchema.pre("validate", async function (next) {
   try {
     const existingAppointment = await this.constructor.findOne({
@@ -113,6 +114,20 @@ appointmentTakenSchema.statics.getPreviousAppointments = async function (
         $unwind: "$doctorData", // Convert doctorData array to object
       },
       {
+        $project: {
+          _id: 1,
+          doctorId: 1,
+          serial: 1,
+          startTime: 1,
+          hospitalId: 1,
+          isTaken: 1,
+          doctorName: "$doctorData.fullName",
+          hospitalName: "$doctorData.hospitalName",
+          specializations: "$doctorData.specializations",
+          address: "$doctorData.address",
+        },
+      },
+      {
         $sort: { startTime: -1 }, // Sorting by endTime in descending order
       },
     ]);
@@ -147,6 +162,20 @@ appointmentTakenSchema.statics.getUpcomingAppointments = async function (
       },
       {
         $unwind: "$doctorData", // Convert doctorData array to object
+      },
+      {
+        $project: {
+          _id: 1,
+          doctorId: 1,
+          serial: 1,
+          startTime: 1,
+          hospitalId: 1,
+          isTaken: 1,
+          doctorName: "$doctorData.fullName",
+          hospitalName: "$doctorData.hospitalName",
+          specializations: "$doctorData.specializations",
+          address: "$doctorData.address",
+        },
       },
       {
         $sort: { startTime: 1 }, // Sorting by endTime in descending order
