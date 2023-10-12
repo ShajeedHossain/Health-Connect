@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import UserLog from "../../apis/UserLog";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import DashboardBody from "../dashboard/DashboardBody";
 import Navbar from "../dashboard/Navbar";
+import HospitalDashboardBody from "../dashboard/HospitalDashboardBody";
 
-export default function Dashboard({ children }) {
+export default function HospitalDashboard({ children }) {
     const { user } = useAuthContext();
     const [newUser, setNewUser] = useState(null);
     // console.log("SAMI");
@@ -44,9 +44,9 @@ export default function Dashboard({ children }) {
                 activeState={{ isActive, handleActive }}
                 className="navbar"
             />
-            <DashboardBody activeState={isActive}>
+            <HospitalDashboardBody activeState={isActive}>
                 <Outlet />
-            </DashboardBody>
+            </HospitalDashboardBody>
         </div>
     );
 }

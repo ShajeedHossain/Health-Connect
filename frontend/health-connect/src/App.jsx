@@ -13,6 +13,8 @@ import Dashboard from "./components/pages/Dashboard";
 import Home from "./components/pages/Home";
 import Signup from "./components/signup";
 import { AuthContextProvider } from "./context/AuthContext";
+import HospitalDashboard from "./components/pages/HospitalDashboard";
+import AddDoctor from "./components/dashboard/pages/AddDoctor";
 
 function App() {
     return (
@@ -38,6 +40,13 @@ function App() {
                                 path="hospitalBooking/bookseat"
                                 element={<BookAHospitalSeat />}
                             />
+                        </Route>
+
+                        <Route
+                            path="hospital-dashboard/*"
+                            element={<HospitalDashboard />}
+                        >
+                            <Route path="add-doctor" element={<AddDoctor />} />
                         </Route>
                     </Route>
 
