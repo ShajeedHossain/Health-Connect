@@ -17,12 +17,15 @@ app.use(express.urlencoded({ extended: false }));
 const userRoutes = require("./routes/userRoutes");
 const patientRoutes = require("./routes/patientRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const devRoutes = require("./routes/devRoutes");
+
 console.log("hello");
 
 //routes
 app.use("/api/user", userRoutes);
 app.use("/api/patient", patientRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/dev", devRoutes);
 
 //db connection
 mongoose

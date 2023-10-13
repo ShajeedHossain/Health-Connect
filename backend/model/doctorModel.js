@@ -16,9 +16,9 @@ const doctorSchema = new Schema({
     required: true,
   },
   hospitalId: {
-    // type: mongoose.Schema.Types.ObjectId,
-    // ref: "Hospital", // Replace with the actual name of your Hospital model
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Hospital", // Replace with the actual name of your Hospital model
+    // type: String,
     required: true,
   },
   education: {
@@ -118,13 +118,15 @@ doctorSchema.statics.addOneDoctor = async function (
     throw Error("Email is not valid");
   }
 
+  const hosId = new mongoose.Schema.ObjectId(hospitalId);
+
   try {
     const doctor = await this.create({
       fullName,
       email,
       dob,
       hospitalName, //given by admin of the hospital
-      hospitalId, //given by admin of the hospital
+      hospitalId: hosId, //given by admin of the hospital
       gender,
       contact,
       education,
@@ -133,7 +135,7 @@ doctorSchema.statics.addOneDoctor = async function (
 
     // console.log(doctor);
 
-    const password = email + "P*123";
+    const password = email + "D*123";
 
     if (!validator.isStrongPassword(password)) {
       throw Error("Password not strong enough.");
