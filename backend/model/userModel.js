@@ -144,7 +144,12 @@ userSchema.statics.updatePassword = async function (password, id) {
 };
 
 //static to signup doctors method
-userSchema.statics.signupDoctor = async function (email, password, fullname) {
+userSchema.statics.signupDoctor = async function (
+  email,
+  password,
+  fullname,
+  _id
+) {
   if (!email || !password || !fullname) {
     throw Error("All fields must be filled");
   }
@@ -168,6 +173,7 @@ userSchema.statics.signupDoctor = async function (email, password, fullname) {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   const user = await this.create({
+    _id: _id,
     email,
     password: hashedPassword,
     fullname,

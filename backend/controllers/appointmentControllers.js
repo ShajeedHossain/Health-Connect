@@ -82,8 +82,52 @@ const getUpcomingAppointments = async (req, res) => {
   }
 };
 
+const doctorUpcomingAppointments = async (req, res) => {
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(_id);
+
+    const upcomingAppointment =
+      await AppointmentTaken.doctorUpcomingAppointments(
+        new mongoose.Types.ObjectId(_id)
+      );
+
+    res.status(200).json({ upcomingAppointment });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
+const doctorPreviousAppointments = async (req, res) => {
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(_id);
+
+    const previousAppointment =
+      await AppointmentTaken.doctorPreviousAppointments(
+        new mongoose.Types.ObjectId(_id)
+      );
+
+    res.status(200).json({ previousAppointment });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   addAppointment,
   getPreviousAppointments,
   getUpcomingAppointments,
+  doctorUpcomingAppointments,
+  doctorPreviousAppointments,
 };

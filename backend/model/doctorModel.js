@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const User = require("../model/userModel");
+const Hospital = require("../model/hospitalModel");
 const { validate } = require("deep-email-validator");
 // const { formatDate } = require("../../utilities/utilities");
 
@@ -82,7 +83,6 @@ const doctorSchema = new Schema({
 
 doctorSchema.statics.addOneDoctor = async function (
   fullName,
-  hospitalName, //given by admin of the hospital
   hospitalId, //given by admin of the hospital
   dob,
   education,
@@ -95,7 +95,6 @@ doctorSchema.statics.addOneDoctor = async function (
 ) {
   if (
     !fullName ||
-    !hospitalName ||
     !hospitalId ||
     !education ||
     !gender ||
@@ -122,11 +121,12 @@ doctorSchema.statics.addOneDoctor = async function (
   const hosId = new mongoose.Types.ObjectId(hospitalId);
 
   try {
+    const hospital = await Hospital.findById({ _id: hosId });
     const doctor = await this.create({
       fullName,
       email,
       dob,
-      hospitalName, //given by admin of the hospital
+      hospitalName: hospital.hospitalName, //given by admin of the hospital
       hospitalId: hosId, //given by admin of the hospital
       gender,
       contact,
@@ -142,7 +142,12 @@ doctorSchema.statics.addOneDoctor = async function (
     if (!validator.isStrongPassword(password)) {
       throw Error("Password not strong enough.");
     }
-    const user = await User.signupDoctor(email, password, fullName);
+    const user = await User.signupDoctor(
+      email,
+      password,
+      fullName,
+      new mongoose.Types.ObjectId(doctor._id)
+    );
     // console.log(user);
     return doctor;
     // return doctor;

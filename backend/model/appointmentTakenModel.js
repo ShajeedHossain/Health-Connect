@@ -188,4 +188,42 @@ appointmentTakenSchema.statics.getUpcomingAppointments = async function (
   }
 };
 
+appointmentTakenSchema.statics.doctorUpcomingAppointments = async function (
+  doctorId
+) {
+  try {
+    const docId = new mongoose.Types.ObjectId(doctorId);
+    const appointments = await this.find({
+      doctorId: docId,
+      startTime: { $gt: new Date() }, // Find reservations with a date in the future
+    })
+      .populate("hospitalId", "name")
+      .populate("patientId", "name")
+      .exec();
+    console.log(appointments);
+    return appointments;
+  } catch (error) {
+    throw error;
+  }
+};
+
+appointmentTakenSchema.statics.doctorPreviousAppointments = async function (
+  doctorId
+) {
+  try {
+    const docId = new mongoose.Types.ObjectId(doctorId);
+    const appointments = await this.find({
+      doctorId: docId,
+      startTime: { $lt: new Date() }, // Find reservations with a date in the future
+    })
+      .populate("hospitalId", "name")
+      .populate("patientId", "name")
+      .exec();
+    console.log(appointments);
+    return appointments;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = mongoose.model("AppointmentTaken", appointmentTakenSchema);

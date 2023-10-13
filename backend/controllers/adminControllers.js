@@ -15,7 +15,6 @@ const createDoctorSignup = async (req, res) => {
   const {
     email,
     fullname,
-    hospitalName,
     dob,
     hospitalId,
     gender,
@@ -31,9 +30,8 @@ const createDoctorSignup = async (req, res) => {
   try {
     // const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
-    const newDoctor = await Doctor.addOneDoctor(
+    const doctor = await Doctor.addOneDoctor(
       fullname,
-      hospitalName,
       hospitalId,
       dob,
       education,
@@ -44,8 +42,8 @@ const createDoctorSignup = async (req, res) => {
       bma_id,
       location
     );
-    console.log(newDoctor);
-    res.status(201).json({ email, newDoctor });
+    console.log(doctor);
+    res.status(201).json({ doctor });
   } catch (error) {
     res.status(401).json({
       error: error.message,
