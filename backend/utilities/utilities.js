@@ -43,4 +43,15 @@ const generatePatientCount = async (doctorId) => {
   return count;
 };
 
-module.exports = { formatDate, generateSerial, generatePatientCount };
+//to convert yyyy-mm-dd to date object
+function convertToDateObject(dateString) {
+  const [year, month, day] = dateString.split("-").map(Number);
+  return new Date(year, month - 1, day); // Month is 0-based, so subtract 1
+}
+
+module.exports = {
+  formatDate,
+  generateSerial,
+  generatePatientCount,
+  convertToDateObject,
+};

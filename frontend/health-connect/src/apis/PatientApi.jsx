@@ -27,22 +27,6 @@ export default axios.create({
 //     }
 //   );
 
-/** Patient adds appointment*/
-
-// const response = await PatientApi.post(
-//     "/add-appointment",
-//     {
-// doctorId,
-// startTime,
-// hospitalId,
-//     },
-//     {
-//       headers: {
-//         Authorization: `Bearer ${user.token}`,
-//         "Content-Type": "application/json",
-//       },
-//     }
-//   );
 
 /** Patient gets previous appointment*/
 
@@ -90,12 +74,40 @@ export default axios.create({
 
 
 // ******************************************
-/** Patient Book appointment*/
+/** Patient adds appointment*/
+
 // const response = await PatientApi.post(
 //     "/add-appointment",
 //     {
+// doctorId,
+// startTime,
+// hospitalId,
+//     },
+//     {
 //       headers: {
 //         Authorization: `Bearer ${user.token}`,
+//         "Content-Type": "application/json",
+//       },
+//     }
+//   );
+
+/** Patient add reservation*/
+
+// HERE THE RESERVATION TYPE WILL BE "cabin" or "bed"
+// HERE DATE WILL BE IN (YYYY-MM-DD) FORMAT CONVERSION IS DONE BACKEND
+
+
+// const response = await PatientApi.post(
+//     "/add-reservation",
+//     {
+// reservationType,
+// reservationDate,
+// hospitalId,
+//     },
+//     {
+//       headers: {
+//         Authorization: `Bearer ${user.token}`,
+//         "Content-Type": "application/json",
 //       },
 //     }
 //   );
