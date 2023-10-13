@@ -55,6 +55,7 @@ const doctorSchema = new Schema({
   },
   bma_id: {
     type: String,
+    required: true,
   },
 
   age: {
@@ -118,7 +119,7 @@ doctorSchema.statics.addOneDoctor = async function (
     throw Error("Email is not valid");
   }
 
-  const hosId = new mongoose.Schema.ObjectId(hospitalId);
+  const hosId = new mongoose.Types.ObjectId(hospitalId);
 
   try {
     const doctor = await this.create({
@@ -131,6 +132,7 @@ doctorSchema.statics.addOneDoctor = async function (
       contact,
       education,
       specializations,
+      bma_id,
     });
 
     // console.log(doctor);
