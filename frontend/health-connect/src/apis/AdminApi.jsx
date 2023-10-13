@@ -56,21 +56,26 @@ export default axios.create({
 
 // const response = await AdminApi.post(
 //     "/add-one-doctor",
-//     {
-    // fullname,
-    // hospitalName,
-    // hospitalId,
-    // dob,
-    // education,
-    // gender,
-    // contact,
-    // email
-//     },
+// {
+//     email,
+//     fullname,
+//     hospitalName,
+//     dob,
+//     hospitalId,
+//     gender,
+//     contact,
+//     education,
+//     specializations, //will be array
+//     bma_id,
+//     location,
+//   } ,
 //     {
 //       headers: {
 //         "Content-Type": "application/json",
 //       },
 //     }
 //   );
+
+
 
 

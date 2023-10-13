@@ -73,6 +73,44 @@ reservationSchema.statics.addReservation = async function (
   }
 };
 
+reservationSchema.statics.findPreviousReservations = async function (
+  hospitalId
+) {
+  try {
+    const hosId = new mongoose.Types.ObjectId(hospitalId);
+    const reservations = await this.find({
+      hospitalId: hosId,
+      reservationDate: { $lt: new Date() },
+    })
+      .populate("hospitalId", "hospitalName")
+      .populate("patientId", "fullName")
+      .exec();
+    console.log(reservations);
+    return reservations;
+  } catch (error) {
+    throw error;
+  }
+};
+
+reservationSchema.statics.findUpcomingReservations = async function (
+  hospitalId
+) {
+  try {
+    const hosId = new mongoose.Types.ObjectId(hospitalId);
+    const reservations = await this.find({
+      hospitalId: hosId,
+      reservationDate: { $gt: new Date() },
+    })
+      .populate("hospitalId", "hospitalName")
+      .populate("patientId", "fullName")
+      .exec();
+    console.log(reservations);
+    return reservations;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Define the Reservation model
 const Reservation = mongoose.model("Reservation", reservationSchema);
 

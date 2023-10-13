@@ -49,6 +49,7 @@ adminSchema.statics.addAdmin = async function (email, hospitalId, fullName) {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = await User.create({
+      _id: admin._id,
       email,
       password: hashedPassword,
       fullname: fullName,

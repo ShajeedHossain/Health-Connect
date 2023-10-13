@@ -47,11 +47,6 @@ const patientSchema = new Schema({
     type: String,
     required: true,
   },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // This should match the name of your User model
-    required: true,
-  },
   bmi: {
     type: Number,
     default: function () {
@@ -96,7 +91,7 @@ patientSchema.statics.addPatient = async function (
   gender,
   contact,
   address,
-  userId
+  _id
 ) {
   const exists = await this.findOne({ email });
 
@@ -111,6 +106,7 @@ patientSchema.statics.addPatient = async function (
   }
   try {
     const patient = await this.create({
+      _id: new mongoose.Types.ObjectId(_id),
       fullName,
       email,
       dob,
@@ -119,7 +115,6 @@ patientSchema.statics.addPatient = async function (
       gender,
       contact,
       address,
-      userId,
     });
 
     return patient;
