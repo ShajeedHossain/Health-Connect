@@ -12,24 +12,6 @@ export default axios.create({
 
 /** Adding appointment info (town optional)*/
 
-// const response = await AdminApi.post(
-//     "/add-one-appointment",
-//     {
-    // doctorName,
-    // doctorId,
-    // startTime,
-    // endTime,
-    // hospitalName,
-    // hospitalId,
-    // district,
-    // town,
-//     },
-//     {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     }
-//   );
 
 /** Adding hospital (town optional)*/
 
@@ -75,6 +57,30 @@ export default axios.create({
 //       },
 //     }
 //   );
+
+
+/** Get previous reservations*/
+
+// const response = await AdminApi.get(
+//     "/get-previous-reservations",
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     }
+//   );
+
+/** Get upcoming reservations*/
+
+// const response = await AdminApi.get(
+//     "/get-upcoming-reservations",
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     }
+//   );
+
 
 
 
