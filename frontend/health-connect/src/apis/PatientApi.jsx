@@ -87,3 +87,16 @@ export default axios.create({
 //       },
 //     }
 //   );
+
+
+// ******************************************
+/** Patient Book appointment*/
+// const response = await PatientApi.post(
+//     "/add-appointment",
+//     {
+//       headers: {
+//         Authorization: `Bearer ${user.token}`,
+//       },
+//     }
+//   );
+
