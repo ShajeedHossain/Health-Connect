@@ -4,17 +4,25 @@ import ForgotPassword from "./components/ForgotPassword";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import ResetPassword from "./components/ResetPassword";
-import BookAHospitalSeat from "./components/dashboard/BookAHospitalSeat";
-import TakeAppointment from "./components/dashboard/TakeAppointment";
-import Appointment from "./components/dashboard/pages/Appointment";
-import HospitalBooking from "./components/dashboard/pages/HospitalBooking";
 import Login from "./components/login";
-import Dashboard from "./components/pages/Dashboard";
 import Home from "./components/pages/Home";
 import Signup from "./components/signup";
 import { AuthContextProvider } from "./context/AuthContext";
-import HospitalDashboard from "./components/pages/HospitalDashboard";
-import AddDoctor from "./components/dashboard/pages/AddDoctor";
+
+// Import from Patient Dashboard
+import Dashboard from "./components/Patient/Dashboard";
+import BookAHospitalSeat from "./components/Patient/BookAHospitalSeat";
+import TakeAppointment from "./components/Patient/TakeAppointment";
+import Appointment from "./components/Patient/pages/Appointment";
+import HospitalBooking from "./components/Patient/pages/HospitalBooking";
+
+// Import from Hospital Dashboard
+import HospitalDashboard from "./components/Hospital/HospitalDashboard";
+import AddDoctor from "./components/Hospital/pages/AddDoctor";
+import Settings from "./components/Patient/pages/Settings";
+import ViewDoctorList from "./components/Hospital/pages/ViewDoctorsList";
+import SettingsHospital from "./components/Hospital/pages/SettingsHospital";
+import SeatBooking from "./components/Patient/pages/SeatBooking";
 
 function App() {
     return (
@@ -40,6 +48,11 @@ function App() {
                                 path="hospitalBooking/bookseat"
                                 element={<BookAHospitalSeat />}
                             />
+                            <Route
+                                path="hospitalBooking/bookseat/complete-reservation"
+                                element={<SeatBooking />}
+                            />
+                            <Route path="settings" element={<Settings />} />
                         </Route>
 
                         <Route
@@ -47,6 +60,14 @@ function App() {
                             element={<HospitalDashboard />}
                         >
                             <Route path="add-doctor" element={<AddDoctor />} />
+                            <Route
+                                path="view-doctors"
+                                element={<ViewDoctorList />}
+                            />
+                            <Route
+                                path="settings"
+                                element={<SettingsHospital />}
+                            />
                         </Route>
                     </Route>
 

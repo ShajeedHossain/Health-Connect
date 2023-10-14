@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import UserLog from "../../apis/UserLog";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import Navbar from "../dashboard/Navbar";
-import HospitalDashboardBody from "../dashboard/HospitalDashboardBody";
+import Navbar from "../Navbar";
+import HospitalDashboardBody from "./HospitalDashboardBody";
 
 export default function HospitalDashboard({ children }) {
     const { user } = useAuthContext();

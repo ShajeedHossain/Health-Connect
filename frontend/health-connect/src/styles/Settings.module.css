@@ -1,0 +1,35 @@
+.patient-profile-update-form {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.patient-profile-update-form input,
+.patient-profile-update-form select {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.patient-profile-update-form input:focus,
+.patient-profile-update-form select:focus {
+    outline: 0 !important;
+    border: 2px solid #76d5cb;
+}
+.patient-profile-update-form input[type="submit"] {
+    background-color: #76d5cb;
+    outline: 0;
+    border: none;
+    border: 2px solid #76d5cb;
+}
+.patient-profile-update-form input[type="submit"]:hover {
+    background-color: #dbefec;
+}
+.date-gender {
+    display: flex;
+    justify-content: space-between;
+}
+.date-gender > * {
+    flex: 0 49%;
+}

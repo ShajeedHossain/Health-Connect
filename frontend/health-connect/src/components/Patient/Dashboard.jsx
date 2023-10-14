@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import UserLog from "../../apis/UserLog";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import DashboardBody from "../dashboard/DashboardBody";
-import Navbar from "../dashboard/Navbar";
+import DashboardBody from "./DashboardBody";
+import Navbar from "../Navbar";
 
 export default function Dashboard({ children }) {
     const { user } = useAuthContext();

@@ -1,13 +1,20 @@
-import { useAuthContext } from "../../hooks/useAuthContext";
-import { useDoctorList } from "../../hooks/useDoctorList";
-import classes from "../../styles/TakeAppointment.module.css";
-import SingleDoctor from "./singleDoctor";
-export default function TakeAppointment() {
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useDoctorList } from "../../../hooks/useDoctorList";
+import classes from "../../../styles/TakeAppointment.module.css";
+import SingleDoctorHospital from "../SingleDoctorHospital";
+
+export default function ViewDoctorList() {
     const { user } = useAuthContext();
     console.log("user : ", user);
+
+    /**
+     *  Problem : Doctors list are not getting based on hospital
+     *  Suggested Change: Must be pass parameter from here to hook useDoctorList that will make query based on that parameter, for patient side the parameter maybe blank and get every doctor list.
+     */
     const { doctorData, doctorLoading, doctorError } = useDoctorList(user);
-    console.log(doctorData);
+    console.log("TAKE APPOINTMENT PAGE : DOCTOR DATA", doctorData);
     const { doctorList } = doctorData;
+
     console.log("Take Appointment Data  from hook: ", doctorData);
     return (
         <section className={classes["take-appointment-part"]}>
@@ -20,8 +27,9 @@ export default function TakeAppointment() {
                     {!doctorLoading &&
                         !doctorError &&
                         doctorList.map((singleDoctor) => (
-                            <SingleDoctor
+                            <SingleDoctorHospital
                                 key={singleDoctor["_id"]}
+                                user={user}
                                 doctorData={singleDoctor}
                             />
                             // <SingleAppointment

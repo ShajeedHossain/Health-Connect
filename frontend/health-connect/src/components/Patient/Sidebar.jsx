@@ -63,7 +63,7 @@ export default function Sidebar({ activeState }) {
                         <h3>Help & Support</h3>
                     </div>
                 </Link>
-                <Link to="/">
+                <Link to="/dashboard/settings">
                     <div className={classes["sidebar-option"]}>
                         <span className="material-symbols-outlined">
                             settings

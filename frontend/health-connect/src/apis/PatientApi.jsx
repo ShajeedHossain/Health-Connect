@@ -27,7 +27,6 @@ export default axios.create({
 //     }
 //   );
 
-
 /** Patient gets previous appointment*/
 
 // const response = await PatientApi.get(
@@ -72,7 +71,6 @@ export default axios.create({
 //     }
 //   );
 
-
 // ******************************************
 /** Patient adds appointment*/
 
@@ -96,7 +94,6 @@ export default axios.create({
 // HERE THE RESERVATION TYPE WILL BE "cabin" or "bed"
 // HERE DATE WILL BE IN (YYYY-MM-DD) FORMAT CONVERSION IS DONE BACKEND
 
-
 // const response = await PatientApi.post(
 //     "/add-reservation",
 //     {
@@ -111,4 +108,3 @@ export default axios.create({
 //       },
 //     }
 //   );
-

@@ -1,5 +1,5 @@
-import image from "../../assets/images/user.jpg";
-import classes from "../../styles/Navbar.module.css";
+import image from "../assets/images/user.jpg";
+import classes from "../styles/Navbar.module.css";
 import React from "react";
 export default function Navbar(props) {
     const { className, activeState, newUser } = props;

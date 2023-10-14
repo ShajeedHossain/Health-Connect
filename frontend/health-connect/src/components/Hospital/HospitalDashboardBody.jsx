@@ -1,5 +1,4 @@
 import React from "react";
-import Sidebar from "./Sidebar";
 import HospitalSidebar from "./HospitalSidebar";
 
 export default function HospitalDashboardBody({ activeState, children }) {

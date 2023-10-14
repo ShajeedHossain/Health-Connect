@@ -15,7 +15,7 @@ export default function HospitalSidebar({ activeState }) {
     return (
         <aside className={activeState ? `${classes["aside-active"]}` : ``}>
             <div className={classes.sidebar}>
-                <Link to="/dashboard">
+                <Link to="/hospital-dashboard">
                     <div
                         className={`${classes["sidebar-option"]} ${classes["active"]}`}
                     >
@@ -25,7 +25,7 @@ export default function HospitalSidebar({ activeState }) {
                         <h3>Dashboard</h3>
                     </div>
                 </Link>
-                <Link to="/dashboard/appointment">
+                <Link to="/hospital-dashboard/add-doctor">
                     <div className={classes["sidebar-option"]}>
                         <span className="material-symbols-outlined">
                             clinical_notes
@@ -33,12 +33,12 @@ export default function HospitalSidebar({ activeState }) {
                         <h3>Add Doctor</h3>
                     </div>
                 </Link>
-                <Link to="/">
+                <Link to="/hospital-dashboard/view-doctors">
                     <div className={classes["sidebar-option"]}>
                         <span className="material-symbols-outlined">
                             stethoscope
                         </span>
-                        <h3>Doctor profile</h3>
+                        <h3>Doctor List</h3>
                     </div>
                 </Link>
                 <Link to="/dashboard/hospitalBooking">
@@ -63,7 +63,7 @@ export default function HospitalSidebar({ activeState }) {
                         <h3>Help & Support</h3>
                     </div>
                 </Link>
-                <Link to="/">
+                <Link to="/hospital-dashboard/settings">
                     <div className={classes["sidebar-option"]}>
                         <span className="material-symbols-outlined">
                             settings

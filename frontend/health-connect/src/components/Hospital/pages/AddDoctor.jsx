@@ -1,6 +1,10 @@
+import AdminApi from "../../../apis/AdminApi";
 import UserLog from "../../../apis/UserLog";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import classes from "../../../styles/AddDoctor.module.css";
 export default function AddDoctor() {
+    const { user, newUser } = useAuthContext();
+    console.log("ADD DOCTOR PAGE: USER", newUser);
     // Handle Submit Function
     async function handleSubmit(e) {
         e.preventDefault();
@@ -9,33 +13,28 @@ export default function AddDoctor() {
         const formData = new FormData(e.target);
         const formDataObject = Object.fromEntries(formData);
         console.log("Form Data Example : ", formDataObject);
-        // formDataObject Example
-        // {
-        //     "doctor-name": "ABCD",
-        //     "email": "tanvirh.dihan@gmail.com",
-        //     "contact": "01714289841",
-        //     "dob": "2023-10-12",
-        //     "gender": "male",
-        //     "doctor-education": "MBBS",
-        //     "bma": "1234",
-        //     "specialization": "Heart"
-        // }
 
-        // FIX HERE...
+        /**
+         * Problem:
+         * Doctor Must be associated with hospital id,
+         */
         try {
-            const response = await UserLog.post("/signup", formDataObject, {
-                headers: {
-                    "Content-Type": "application/json",
+            const response = await AdminApi.post(
+                "/add-one-doctor",
+                {
+                    ...formDataObject,
                 },
-            });
-
-            const data = response.data;
-            return { data: data };
-        } catch (err) {
-            console.log(err.response.data.error);
-            return { error: err.response.data.error };
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                }
+            );
+            console.log("ADD DOCTOR API RESPONSE: ", response);
+        } catch {
+            console.log("ADD DOCTOR API: ERROR");
         }
-        // FIX ...
     }
     return (
         <div>
@@ -46,7 +45,7 @@ export default function AddDoctor() {
             >
                 <input
                     type="text"
-                    name="doctor-name"
+                    name="fullname"
                     id="doctor-name"
                     placeholder="Doctor Name"
                 />
@@ -72,16 +71,33 @@ export default function AddDoctor() {
 
                 <input
                     type="text"
-                    name="doctor-education"
+                    name="hospitalName"
+                    id="hospital-name"
+                    placeholder="Hospital Name"
+                />
+                <input
+                    type="text"
+                    name="education"
                     id="doctor-education"
                     placeholder="Educational Qualification"
                 />
-                <input type="text" name="bma" id="bma" placeholder="BMA ID" />
                 <input
                     type="text"
-                    name="specialization"
+                    name="bma_id"
+                    id="bma"
+                    placeholder="BMA ID"
+                />
+                <input
+                    type="text"
+                    name="specializations"
                     id="specialization"
                     placeholder="Specialization"
+                />
+                <input
+                    type="text"
+                    name="location"
+                    id="location"
+                    placeholder="Address"
                 />
                 <input type="submit" value="Add Doctor" />
             </form>
