@@ -34,52 +34,6 @@ export default axios.create({
 //   );
 
 
-/** Adding one doctor*/
-
-// const response = await AdminApi.post(
-//     "/add-one-doctor",
-// {
-//     email,
-//     fullname,
-//     hospitalName,
-//     dob,
-//     hospitalId,
-//     gender,
-//     contact,
-//     education,
-//     specializations, //will be array
-//     bma_id,
-//     location,
-//   } ,
-//     {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     }
-//   );
-
-
-/** Get previous reservations*/
-
-// const response = await AdminApi.get(
-//     "/get-previous-reservations",
-//     {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     }
-//   );
-
-/** Get upcoming reservations*/
-
-// const response = await AdminApi.get(
-//     "/get-upcoming-reservations",
-//     {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     }
-//   );
 
 
 

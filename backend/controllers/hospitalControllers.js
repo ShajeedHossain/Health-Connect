@@ -1,5 +1,6 @@
 const Hospital = require("../model/hospitalModel");
 const Doctor = require("../model/doctorModel");
+const jwt = require("jsonwebtoken");
 
 const addHospital = async (req, res) => {
   const {
@@ -52,7 +53,6 @@ const createDoctorSignup = async (req, res) => {
     email,
     fullname,
     dob,
-    hospitalId,
     gender,
     contact,
     education,
@@ -60,15 +60,15 @@ const createDoctorSignup = async (req, res) => {
     bma_id,
     location,
   } = req.body;
-  //   const { authorization } = req.headers;
-  //   const token = authorization.split(" ")[1];
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
   const specializationsList = specializations.split(",");
   try {
-    // const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
     const doctor = await Doctor.addOneDoctor(
       fullname,
-      hospitalId,
+      _id,
       dob,
       education,
       gender,

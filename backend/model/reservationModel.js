@@ -95,8 +95,10 @@ reservationSchema.statics.findPreviousReservations = async function (
 reservationSchema.statics.findUpcomingReservations = async function (
   hospitalId
 ) {
+  console.log("SIIIIIIIII");
   try {
     const hosId = new mongoose.Types.ObjectId(hospitalId);
+
     const reservations = await this.find({
       hospitalId: hosId,
       reservationDate: { $gt: new Date() },

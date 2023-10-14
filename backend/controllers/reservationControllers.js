@@ -33,9 +33,9 @@ const findPreviousReservations = async (req, res) => {
 
   try {
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
-    const reservation = await Admin.findById(new mongoose.Types.ObjectId(_id));
+    // const reservation = await Admin.findById(new mongoose.Types.ObjectId(_id));
     const previousReservations = await Reservation.findPreviousReservations(
-      reservation.hospitalId
+      _id
     );
 
     res.status(200).json({ previousReservations });
@@ -53,10 +53,12 @@ const findUpcomingReservations = async (req, res) => {
 
   try {
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
-    const reservation = await Admin.findById(new mongoose.Types.ObjectId(_id));
-    const upcomingReservations = await Reservation.findPreviousReservations(
-      reservation.hospitalId
+    // const reservation = await Admin.findById(new mongoose.Types.ObjectId(_id));
+    // console.log(_id);
+    const upcomingReservations = await Reservation.findUpcomingReservations(
+      _id
     );
+    // console.log(upcomingReservations);
 
     res.status(200).json({ upcomingReservations });
   } catch (error) {

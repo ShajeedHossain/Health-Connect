@@ -77,9 +77,13 @@ userSchema.statics.login = async function (email, password) {
     throw Error("All fields must be filled");
   }
 
-  const { valid } = await validate(email);
+  // const { valid } = await validate(email);
 
-  if (!valid) {
+  // if (!valid) {
+  //   throw Error("Email is not valid");
+  // }
+
+  if (!validator.isEmail(email)) {
     throw Error("Email is not valid");
   }
 
