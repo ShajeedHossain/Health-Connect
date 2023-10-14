@@ -34,6 +34,14 @@ const doctorSchema = new Schema({
   dob: {
     type: Date,
     required: true,
+    validate: {
+      validator: function (dob) {
+        const sixYearsAgo = new Date();
+        sixYearsAgo.setFullYear(sixYearsAgo.getFullYear() - 6);
+        return dob <= sixYearsAgo;
+      },
+      message: "Invalid DOB",
+    },
   },
 
   gender: {
