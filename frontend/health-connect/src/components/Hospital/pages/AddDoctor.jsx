@@ -1,5 +1,4 @@
-import AdminApi from "../../../apis/AdminApi";
-import UserLog from "../../../apis/UserLog";
+import HospitalApi from "../../../apis/HospitalApi";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import classes from "../../../styles/AddDoctor.module.css";
 export default function AddDoctor() {
@@ -19,7 +18,7 @@ export default function AddDoctor() {
          * Doctor Must be associated with hospital id,
          */
         try {
-            const response = await AdminApi.post(
+            const response = await HospitalApi.post(
                 "/add-one-doctor",
                 {
                     ...formDataObject,
