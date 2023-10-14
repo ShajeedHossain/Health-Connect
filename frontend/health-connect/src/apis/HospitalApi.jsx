@@ -81,3 +81,17 @@ export default axios.create({
 //       },
 //     }
 //   );
+
+/** Get hospital doctor list*/
+
+// const response = await AdminApi.get(
+//     "/get-doctors",
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+// Authorization: `Bearer ${user.token}`,
+//       },
+//     }
+//   );
+
+

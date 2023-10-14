@@ -167,4 +167,15 @@ doctorSchema.statics.getAllDoctor = async function () {
   }
 };
 
+// Define a static method to get a list of all doctors of a specific hospital
+doctorSchema.statics.getHospitalDoctors = async function (hospitalId) {
+  const hosId = new mongoose.Types.ObjectId(hospitalId);
+  try {
+    const doctors = await this.find({ hospitalId: hosId }).lean(); //lean helps it to convert to js object
+    return doctors;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = mongoose.model("Doctor", doctorSchema);
