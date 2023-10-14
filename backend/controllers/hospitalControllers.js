@@ -9,6 +9,8 @@ const addHospital = async (req, res) => {
     totalCabins,
     availableBeds,
     availableCabins,
+    email,
+    password,
   } = req.body;
 
   try {
@@ -19,7 +21,9 @@ const addHospital = async (req, res) => {
       totalBeds,
       totalCabins,
       availableBeds,
-      availableCabins
+      availableCabins,
+      email,
+      password
     );
 
     res.status(201).json({ hospital });

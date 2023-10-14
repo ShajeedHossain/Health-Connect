@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const addressSchema = require("./addressSchema");
+const validator = require("validator");
+const bcrypt = require("bcrypt");
+const User = require("../model/userModel");
 
 const Schema = mongoose.Schema;
 
@@ -29,6 +32,10 @@ const hospitalSchema = new Schema({
     type: Number,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+  },
 });
 
 // Define a static method to add a hospital
@@ -39,15 +46,31 @@ hospitalSchema.statics.addHospital = async function (
   totalBeds,
   totalCabins,
   availableBeds,
-  availableCabins
+  availableCabins,
+  email,
+  password
 ) {
   const address = {
     district,
     town,
   };
   try {
-    if (!hospitalName || !district || !totalBeds || !totalCabins) {
+    if (
+      !hospitalName ||
+      !district ||
+      !totalBeds ||
+      !totalCabins ||
+      !email ||
+      !password
+    ) {
       throw Error("Fields can't be empty");
+    }
+    if (!validator.isEmail(email)) {
+      throw Error("Not valid email");
+    }
+
+    if (!validator.isStrongPassword(password)) {
+      throw Error("Password not strong enough");
     }
 
     // Check if a hospital with the same name and address exists
@@ -62,6 +85,16 @@ hospitalSchema.statics.addHospital = async function (
       );
     }
 
+    const exists = await this.findOne({ email });
+    const userExist = await User.findOne({ email });
+
+    if (exists || userExist) {
+      throw Error("Email already in use");
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const hospital = await this.create({
       hospitalName,
       address,
@@ -69,6 +102,15 @@ hospitalSchema.statics.addHospital = async function (
       totalCabins,
       availableBeds,
       availableCabins,
+      email,
+    });
+
+    const user = await User.create({
+      _id: hospital._id,
+      email,
+      password: hashedPassword,
+      fullname: hospitalName,
+      type: "hospital",
     });
 
     return hospital;

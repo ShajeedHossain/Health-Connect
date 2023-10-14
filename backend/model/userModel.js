@@ -27,7 +27,7 @@ const userSchema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: ["patient", "doctor", "admin"],
+    enum: ["patient", "doctor", "admin", "hospital"],
     default: "patient", // Set "patient" as the default value
   },
 });
