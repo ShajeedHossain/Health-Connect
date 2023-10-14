@@ -12,7 +12,11 @@ const {
   getUpcomingAppointments,
 } = require("../controllers/appointmentControllers");
 const { getAllHospital } = require("../controllers/hospitalControllers");
-const { addReservation } = require("../controllers/reservationControllers");
+const {
+  addReservation,
+  patientPreviousReservations,
+  patientUpcomingReservations,
+} = require("../controllers/reservationControllers");
 
 const router = express.Router();
 
@@ -24,5 +28,11 @@ router.route("/upcoming-appointment").get(requireAuth, getUpcomingAppointments);
 router.route("/get-all-hospital").get(requireAuth, getAllHospital);
 router.route("/get-all-doctor").get(requireAuth, getAllDoctor);
 router.route("/get-sorted-doctor").get(requireAuth, getSortedDoctorList);
+router
+  .route("/get-previous-reservation")
+  .get(requireAuth, patientPreviousReservations);
+router
+  .route("/get-upcoming-reservation")
+  .get(requireAuth, patientUpcomingReservations);
 
 module.exports = router;

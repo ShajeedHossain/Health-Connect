@@ -108,3 +108,25 @@ export default axios.create({
 //       },
 //     }
 //   );
+
+/** Patient previous reservations*/
+
+// const response = await PatientApi.get(
+//     "/get-previous-reservation",
+//     {
+//       headers: {
+//         Authorization: `Bearer ${user.token}`,
+//       },
+//     }
+//   );
+
+/** Patient upcoming reservations*/
+
+// const response = await PatientApi.get(
+//     "/get-upcoming-reservation",
+//     {
+//       headers: {
+//         Authorization: `Bearer ${user.token}`,
+//       },
+//     }
+//   );

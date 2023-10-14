@@ -92,15 +92,52 @@ reservationSchema.statics.findPreviousReservations = async function (
   }
 };
 
+reservationSchema.statics.patientPreviousReservations = async function (
+  patientId
+) {
+  try {
+    const patId = new mongoose.Types.ObjectId(patientId);
+    const reservations = await this.find({
+      patientId: patId,
+      reservationDate: { $lt: new Date() },
+    })
+      .populate("hospitalId", "hospitalName")
+      .populate("patientId", "fullName")
+      .exec();
+    console.log(reservations);
+    return reservations;
+  } catch (error) {
+    throw error;
+  }
+};
+
 reservationSchema.statics.findUpcomingReservations = async function (
   hospitalId
 ) {
-  console.log("SIIIIIIIII");
   try {
     const hosId = new mongoose.Types.ObjectId(hospitalId);
 
     const reservations = await this.find({
       hospitalId: hosId,
+      reservationDate: { $gt: new Date() },
+    })
+      .populate("hospitalId", "hospitalName")
+      .populate("patientId", "fullName")
+      .exec();
+    console.log(reservations);
+    return reservations;
+  } catch (error) {
+    throw error;
+  }
+};
+
+reservationSchema.statics.patientUpcomingReservations = async function (
+  patientId
+) {
+  try {
+    const patId = new mongoose.Types.ObjectId(patientId);
+    const reservations = await this.find({
+      patientId: patId,
       reservationDate: { $gt: new Date() },
     })
       .populate("hospitalId", "hospitalName")
