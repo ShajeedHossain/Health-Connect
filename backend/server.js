@@ -19,6 +19,7 @@ const patientRoutes = require("./routes/patientRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const devRoutes = require("./routes/devRoutes");
 const doctorRoutes = require("./routes/doctorRoutes");
+const hospitalRoutes = require("./routes/hospitalRoutes");
 
 //routes
 app.use("/api/user", userRoutes);
@@ -26,6 +27,7 @@ app.use("/api/patient", patientRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/dev", devRoutes);
 app.use("/api/doctor", doctorRoutes);
+app.use("/api/hospital", hospitalRoutes);
 
 //db connection
 mongoose
