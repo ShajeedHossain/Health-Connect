@@ -97,10 +97,7 @@ doctorSchema.statics.addOneDoctor = async function (
   email,
   specializations,
   bma_id,
-  district,
-  town,
-  latitude,
-  longitude
+  address
 ) {
   if (
     !fullName ||
@@ -128,12 +125,6 @@ doctorSchema.statics.addOneDoctor = async function (
   }
 
   const hosId = new mongoose.Types.ObjectId(hospitalId);
-  const address = {
-    district,
-    town,
-    latitude,
-    longitude,
-  };
 
   try {
     const hospital = await Hospital.findById({ _id: hosId });
@@ -162,7 +153,8 @@ doctorSchema.statics.addOneDoctor = async function (
       email,
       password,
       fullName,
-      new mongoose.Types.ObjectId(doctor._id)
+      new mongoose.Types.ObjectId(doctor._id),
+      address
     );
     // console.log(user);
     return doctor;

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const { validate } = require("deep-email-validator");
+const addressSchema = require("../model/addressSchema");
 
 const Schema = mongoose.Schema;
 
@@ -21,7 +22,8 @@ const userSchema = new Schema({
   },
 
   address: {
-    type: String,
+    // this will be basically disctrict
+    type: addressSchema,
     // required: true,
   },
   type: {
@@ -39,7 +41,7 @@ userSchema.statics.signup = async function (
   fullname,
   address
 ) {
-  if (!email || !password || !fullname || !address) {
+  if (!email || !password || !fullname) {
     throw Error("All fields must be filled");
   }
 
@@ -152,7 +154,8 @@ userSchema.statics.signupDoctor = async function (
   email,
   password,
   fullname,
-  _id
+  _id,
+  address
 ) {
   if (!email || !password || !fullname) {
     throw Error("All fields must be filled");
@@ -182,6 +185,7 @@ userSchema.statics.signupDoctor = async function (
     password: hashedPassword,
     fullname,
     type: "doctor",
+    address,
   });
 
   return user;

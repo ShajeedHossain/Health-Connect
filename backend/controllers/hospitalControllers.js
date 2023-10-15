@@ -72,6 +72,7 @@ const createDoctorSignup = async (req, res) => {
   const specializationsList = specializations.split(",");
   try {
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    const hospital = await Hospital.findById({ _id });
 
     const doctor = await Doctor.addOneDoctor(
       fullname,
@@ -83,14 +84,12 @@ const createDoctorSignup = async (req, res) => {
       email,
       specializationsList,
       bma_id,
-      district,
-      town,
-      latitude,
-      longitude
+      hospital.address
     );
     console.log(doctor);
     res.status(201).json({ doctor });
   } catch (error) {
+    console.log(error);
     res.status(401).json({
       error: error.message,
     });

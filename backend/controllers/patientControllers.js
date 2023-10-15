@@ -8,8 +8,25 @@ const {
 // const { formatDate } = require("../utilities/utilities.js");
 
 const updatePatient = async (req, res) => {
-  const { email, fullname, address, dob, height, weight, gender, contact } =
-    req.body;
+  const {
+    email,
+    fullname,
+    dob,
+    height,
+    weight,
+    gender,
+    contact,
+    district,
+    town,
+    latitude,
+    longitude,
+  } = req.body;
+  const address = {
+    district,
+    town,
+    latitude,
+    longitude,
+  };
   const { authorization } = req.headers;
   const token = authorization.split(" ")[1];
   try {
@@ -27,9 +44,9 @@ const updatePatient = async (req, res) => {
       _id
     );
 
-    res.status(201).json({ email, user });
+    res.status(200).json({ email, user });
   } catch (error) {
-    res.status(401).json({
+    res.status(400).json({
       error: error.message,
     });
   }

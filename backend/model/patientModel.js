@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-// const User = require("../model/userModel");
+const addressSchema = require("../model/addressSchema");
 const { calculateBMI, calculateAge } = require("../utilities/utilities");
 
 const Schema = mongoose.Schema;
@@ -46,7 +46,7 @@ const patientSchema = new Schema({
     // required: true,
   },
   address: {
-    type: String,
+    type: addressSchema,
     // required: true,
   },
   bmi: {
@@ -85,6 +85,7 @@ patientSchema.statics.updatePatient = async function (
   if (!validator.isMobilePhone(contact, "bn-BD")) {
     throw Error("Invalid phone number");
   }
+
   try {
     const result = await this.findByIdAndUpdate(
       new mongoose.Types.ObjectId(_id),

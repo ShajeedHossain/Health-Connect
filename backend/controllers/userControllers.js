@@ -25,14 +25,16 @@ const generateToken = (_id) => {
 
 //Signup Function
 const checkSignup = async (req, res) => {
-  const { email, fullname, address, password } = req.body;
+  const { email, fullname, password, district, town } = req.body;
   try {
     const patientExists = await Patient.findOne({ email });
     if (patientExists) {
       throw Error("Email already in use");
     }
+
+    const address = { district: district, town: town };
     // console.log('User 1');
-    const user = await User.signup(email, password, fullname, address);
+    const user = await User.signup(email, password, fullname, address); //here assume address is district
     const patient = await Patient.create({
       _id: user._id,
       email,

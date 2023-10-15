@@ -17,7 +17,10 @@ export default axios.create({
 // const response = await PatientApi.put(
 //     "/update-patient",
 //     {
-//       email, fullname, address, dob, height, weight,gender, contact
+//       email, fullname, dob, height, weight,gender, contact , district,
+    // town,
+    // latitude,
+    // longitude,
 //     },
 //     {
 //       headers: {

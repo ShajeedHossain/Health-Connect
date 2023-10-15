@@ -13,25 +13,7 @@ export default axios.create({
 /** Adding appointment info (town optional)*/
 
 
-/** Adding hospital (town optional)*/
 
-// const response = await AdminApi.post(
-//     "/add-hospital",
-//     {
-    // hospitalName,
-    // district,
-    // town,
-    // totalBeds,
-    // totalCabins,
-    // availableBeds,
-    // availableCabins,
-//     },
-//     {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     }
-//   );
 
 
 
