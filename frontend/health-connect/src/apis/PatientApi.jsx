@@ -131,7 +131,7 @@ export default axios.create({
 //     }
 //   );
 
-//Update data
+/** Update patient */
 // const response = await PatientApi.post(
 //     "/update-patient",
 // { email, fullname, address, dob, height, weight, gender, contact } 
@@ -139,6 +139,17 @@ export default axios.create({
 //       headers: {
 //         Authorization: `Bearer ${user.token}`,
 //         "Content-Type": "application/json",
+//       },
+//     }
+//   );
+
+/** Get patient data*/
+
+// const response = await PatientApi.get(
+//     "/get-patient",
+//     {
+//       headers: {
+//         Authorization: `Bearer ${user.token}`,
 //       },
 //     }
 //   );

@@ -69,8 +69,25 @@ const getSortedDoctorList = async (req, res) => {
   }
 };
 
+const getPatient = async (req, res) => {
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    const patient = await Patient.findById({ _id });
+    console.log(patient);
+
+    res.status(200).json({ patient });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   updatePatient,
   getAllDoctor,
   getSortedDoctorList,
+  getPatient,
 };
