@@ -9,6 +9,14 @@ const addressSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  latitude: {
+    type: String,
+    default: null,
+  },
+  longitude: {
+    type: String,
+    default: null,
+  },
 });
 
 module.export = addressSchema;

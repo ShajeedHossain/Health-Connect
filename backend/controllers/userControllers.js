@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../model/userModel");
 const nodemailer = require("nodemailer");
+const Patient = require("../model/patientModel");
 
 //Get user data
 const getUser = async (req, res) => {
@@ -26,9 +27,19 @@ const generateToken = (_id) => {
 const checkSignup = async (req, res) => {
   const { email, fullname, address, password } = req.body;
   try {
-    console.log('User 1');
+    const patientExists = await Patient.findOne({ email });
+    if (patientExists) {
+      throw Error("Email already in use");
+    }
+    // console.log('User 1');
     const user = await User.signup(email, password, fullname, address);
-    console.log('User ');
+    const patient = await Patient.create({
+      _id: user._id,
+      email,
+      fullName: fullname,
+      address,
+    });
+    // console.log('User ');
     //create a token
     const token = generateToken(user._id);
 

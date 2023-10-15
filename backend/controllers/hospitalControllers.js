@@ -13,6 +13,8 @@ const addHospital = async (req, res) => {
     availableCabins,
     email,
     password,
+    latitude,
+    longitude,
   } = req.body;
 
   try {
@@ -25,7 +27,9 @@ const addHospital = async (req, res) => {
       availableBeds,
       availableCabins,
       email,
-      password
+      password,
+      latitude,
+      longitude
     );
 
     res.status(201).json({ hospital });

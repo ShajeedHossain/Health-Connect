@@ -1,8 +1,8 @@
+const User = require("../model/userModel");
 const mongoose = require("mongoose");
 const addressSchema = require("./addressSchema");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
-const User = require("../model/userModel");
 
 const Schema = mongoose.Schema;
 
@@ -48,11 +48,15 @@ hospitalSchema.statics.addHospital = async function (
   availableBeds,
   availableCabins,
   email,
-  password
+  password,
+  latitude,
+  longitude
 ) {
   const address = {
     district,
     town,
+    latitude,
+    longitude,
   };
   try {
     if (
@@ -61,7 +65,9 @@ hospitalSchema.statics.addHospital = async function (
       !totalBeds ||
       !totalCabins ||
       !email ||
-      !password
+      !password ||
+      !latitude ||
+      !longitude
     ) {
       throw Error("Fields can't be empty");
     }
@@ -86,9 +92,10 @@ hospitalSchema.statics.addHospital = async function (
     }
 
     const exists = await this.findOne({ email });
-    const userExist = await User.findOne({ email });
+    const userExists = await User.findOne({ email: email });
+    console.log("SUUUUUU");
 
-    if (exists || userExist) {
+    if (exists || userExists) {
       throw Error("Email already in use");
     }
 
@@ -115,6 +122,7 @@ hospitalSchema.statics.addHospital = async function (
 
     return hospital;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const User = require("../model/userModel");
+// const User = require("../model/userModel");
 const { calculateBMI, calculateAge } = require("../utilities/utilities");
 
 const Schema = mongoose.Schema;
