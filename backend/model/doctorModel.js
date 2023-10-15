@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const User = require("../model/userModel");
+const addressSchema = require("../model/addressSchema");
 const Hospital = require("../model/hospitalModel");
 const { validate } = require("deep-email-validator");
 // const { formatDate } = require("../../utilities/utilities");
@@ -58,10 +59,7 @@ const doctorSchema = new Schema({
       type: String,
     },
   ],
-  location: {
-    type: String,
-    default: "Some address",
-  },
+  address: addressSchema,
   bma_id: {
     type: String,
     required: true,
@@ -99,7 +97,10 @@ doctorSchema.statics.addOneDoctor = async function (
   email,
   specializations,
   bma_id,
-  location
+  district,
+  town,
+  latitude,
+  longitude
 ) {
   if (
     !fullName ||
@@ -127,6 +128,12 @@ doctorSchema.statics.addOneDoctor = async function (
   }
 
   const hosId = new mongoose.Types.ObjectId(hospitalId);
+  const address = {
+    district,
+    town,
+    latitude,
+    longitude,
+  };
 
   try {
     const hospital = await Hospital.findById({ _id: hosId });
@@ -141,6 +148,7 @@ doctorSchema.statics.addOneDoctor = async function (
       education,
       specializations,
       bma_id,
+      address,
     });
 
     // console.log(doctor);

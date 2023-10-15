@@ -47,7 +47,10 @@ export default axios.create({
 //     education,
 //     specializations, //will be array
 //     bma_id,
-//     location,
+// district,
+//   town,
+//   latitude,
+//   longitude
 //   } ,
 //     {
 //       headers: {

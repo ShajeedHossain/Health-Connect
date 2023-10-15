@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const addressSchema = new mongoose.Schema({
   district: {
     type: String,
-    required: true,
+    // required: true,
   },
   town: {
     type: String,
-    required: true,
+    // required: true,
   },
   latitude: {
     type: String,

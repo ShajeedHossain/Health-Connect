@@ -62,7 +62,10 @@ const createDoctorSignup = async (req, res) => {
     education,
     specializations,
     bma_id,
-    location,
+    district,
+    town,
+    latitude,
+    longitude,
   } = req.body;
   const { authorization } = req.headers;
   const token = authorization.split(" ")[1];
@@ -80,7 +83,10 @@ const createDoctorSignup = async (req, res) => {
       email,
       specializationsList,
       bma_id,
-      location
+      district,
+      town,
+      latitude,
+      longitude
     );
     console.log(doctor);
     res.status(201).json({ doctor });
