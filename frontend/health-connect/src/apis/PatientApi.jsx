@@ -130,3 +130,15 @@ export default axios.create({
 //       },
 //     }
 //   );
+
+//Update data
+// const response = await PatientApi.post(
+//     "/update-patient",
+// { email, fullname, address, dob, height, weight, gender, contact } 
+//     {
+//       headers: {
+//         Authorization: `Bearer ${user.token}`,
+//         "Content-Type": "application/json",
+//       },
+//     }
+//   );

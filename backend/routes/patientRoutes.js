@@ -2,7 +2,7 @@ const express = require("express");
 const requireAuth = require("../middlewares/requireAuth");
 
 const {
-  addPatient,
+  updatePatient,
   getAllDoctor,
   getSortedDoctorList,
 } = require("../controllers/patientControllers");
@@ -20,7 +20,7 @@ const {
 
 const router = express.Router();
 
-router.route("/update-patient").put(requireAuth, addPatient);
+router.route("/update-patient").put(requireAuth, updatePatient);
 router.route("/add-appointment").post(requireAuth, addAppointment);
 router.route("/add-reservation").post(requireAuth, addReservation);
 router.route("/previous-appointment").get(requireAuth, getPreviousAppointments);

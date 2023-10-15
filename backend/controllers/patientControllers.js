@@ -7,7 +7,7 @@ const {
 } = require("../utilities/utilities");
 // const { formatDate } = require("../utilities/utilities.js");
 
-const addPatient = async (req, res) => {
+const updatePatient = async (req, res) => {
   const { email, fullname, address, dob, height, weight, gender, contact } =
     req.body;
   const { authorization } = req.headers;
@@ -15,7 +15,7 @@ const addPatient = async (req, res) => {
   try {
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
-    let user = await Patient.addPatient(
+    let user = await Patient.updatePatient(
       fullname,
       email,
       new Date(dob),
@@ -70,7 +70,7 @@ const getSortedDoctorList = async (req, res) => {
 };
 
 module.exports = {
-  addPatient,
+  updatePatient,
   getAllDoctor,
   getSortedDoctorList,
 };

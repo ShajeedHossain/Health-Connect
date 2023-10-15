@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const { validate } = require("deep-email-validator");
+const Patient = require("../model/patientModel");
 
 const Schema = mongoose.Schema;
 
@@ -54,14 +55,18 @@ userSchema.statics.signup = async function (
   }
 
   const exists = await this.findOne({ email });
+  const patientExists = await Patient.findOne({ email });
 
-  if (exists) {
+  if (exists || patientExists) {
     throw Error("Email already in use");
   }
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
+  const patient = await Patient.create({ email, fullName: fullname, address });
+
   const user = await this.create({
+    _id: patient._id,
     email,
     password: hashedPassword,
     fullname,

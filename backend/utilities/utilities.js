@@ -49,9 +49,40 @@ function convertToDateObject(dateString) {
   return new Date(year, month - 1, day); // Month is 0-based, so subtract 1
 }
 
+//function to calculate BMI
+function calculateBMI(height, weight) {
+  if (weight && height) {
+    // Calculate BMI if both weight and height are provided
+    const heightInMeters = height / 100; // Convert height to meters
+    return weight / (heightInMeters * heightInMeters);
+  }
+  return null; // BMI is not calculated if data is missing
+}
+
+//function to calculate age
+function calculateAge(dob) {
+  if (dob) {
+    // Calculate age based on date of birth
+    const today = new Date();
+    const birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  }
+  return null; // Age is not calculated if date of birth is missing
+}
+
 module.exports = {
   formatDate,
   generateSerial,
   generatePatientCount,
   convertToDateObject,
+  calculateBMI,
+  calculateAge,
 };

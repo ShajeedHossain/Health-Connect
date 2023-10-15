@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const User = require("../model/userModel");
+const { calculateBMI, calculateAge } = require("../utilities/utilities");
 
 const Schema = mongoose.Schema;
 
@@ -16,7 +18,7 @@ const patientSchema = new Schema({
   },
   dob: {
     type: Date,
-    required: true,
+    // required: true,
   },
   weight: {
     type: Number,
@@ -37,52 +39,29 @@ const patientSchema = new Schema({
   gender: {
     type: String,
     enum: ["Male", "Female", "Other"],
-    required: true,
+    // required: true,
   },
   contact: {
     type: String,
-    required: true,
+    // required: true,
   },
   address: {
     type: String,
-    required: true,
+    // required: true,
   },
   bmi: {
     type: Number,
-    default: function () {
-      if (this.weight && this.height) {
-        // Calculate BMI if both weight and height are provided
-        const heightInMeters = this.height / 100; // Convert height to meters
-        return this.weight / (heightInMeters * heightInMeters);
-      }
-      return null; // BMI is not calculated if data is missing
-    },
+    default: calculateBMI(this.height, this.weight),
   },
   age: {
     type: Number,
-    default: function () {
-      if (this.dob) {
-        // Calculate age based on date of birth
-        const today = new Date();
-        const birthDate = new Date(this.dob);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDiff = today.getMonth() - birthDate.getMonth();
-        if (
-          monthDiff < 0 ||
-          (monthDiff === 0 && today.getDate() < birthDate.getDate())
-        ) {
-          age--;
-        }
-        return age;
-      }
-      return null; // Age is not calculated if date of birth is missing
-    },
+    default: calculateAge(this.dob),
   },
 });
 
 // Import required modules and define patientSchema...
 
-patientSchema.statics.addPatient = async function (
+patientSchema.statics.updatePatient = async function (
   fullName,
   email,
   dob,
@@ -93,11 +72,13 @@ patientSchema.statics.addPatient = async function (
   address,
   _id
 ) {
-  const exists = await this.findOne({ email });
+  // const exists = await this.findOne({ email });
+  // const user = await User.findOne({ email });
 
-  if (exists) {
-    throw Error("Email already in use");
-  }
+  // if (exists || user) {
+  //   throw Error("Email already in use");
+  // }
+  console.log(_id);
   if (height < 0 || weight < 0) {
     throw Error("Negative height or weight are not allowed");
   }
@@ -105,19 +86,27 @@ patientSchema.statics.addPatient = async function (
     throw Error("Invalid phone number");
   }
   try {
-    const patient = await this.create({
-      _id: new mongoose.Types.ObjectId(_id),
-      fullName,
-      email,
-      dob,
-      weight,
-      height,
-      gender,
-      contact,
-      address,
-    });
-
-    return patient;
+    const result = await this.findByIdAndUpdate(
+      new mongoose.Types.ObjectId(_id),
+      {
+        $set: {
+          height: height,
+          weight: weight,
+          fullName: fullName,
+          bmi: calculateBMI(height, weight),
+          // email: email,
+          dob: dob,
+          age: calculateAge(dob),
+          gender: gender,
+          contact: contact,
+          address: address,
+        },
+      },
+      { new: true } // Return the updated document
+    );
+    result.save();
+    console.log(result);
+    return result;
   } catch (error) {
     console.log(error.message);
     throw error;
