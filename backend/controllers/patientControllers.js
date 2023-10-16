@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Patient = require("../model/patientModel");
 const Doctor = require("../model/doctorModel");
+const fetch = require("node-fetch");
 const {
   generateSerial,
   generatePatientCount,
@@ -102,9 +103,23 @@ const getPatient = async (req, res) => {
   }
 };
 
+const receiveMapUrl = async (req, res) => {
+  const { url } = req.body;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.status(200).json({ data });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   updatePatient,
   getAllDoctor,
   getSortedDoctorList,
   getPatient,
+  receiveMapUrl,
 };

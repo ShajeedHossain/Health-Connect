@@ -6,6 +6,7 @@ const {
   getAllDoctor,
   getSortedDoctorList,
   getPatient,
+  receiveMapUrl,
 } = require("../controllers/patientControllers");
 const {
   addAppointment,
@@ -36,5 +37,6 @@ router
   .route("/get-upcoming-reservation")
   .get(requireAuth, patientUpcomingReservations);
 router.route("/get-patient").get(requireAuth, getPatient);
+router.route("/get-distance").post(requireAuth, receiveMapUrl);
 
 module.exports = router;

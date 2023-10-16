@@ -156,3 +156,14 @@ export default axios.create({
 //       },
 //     }
 //   );
+
+/**Get the distance */
+// const response = await PatientApi.post(
+//     "/get-distance",
+// {url},
+//     {
+//       headers: {
+//         Authorization: `Bearer ${user.token}`,
+//       },
+//     }
+//   );
