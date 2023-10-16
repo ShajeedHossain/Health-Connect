@@ -82,7 +82,7 @@ reservationSchema.statics.findPreviousReservations = async function (
       hospitalId: hosId,
       reservationDate: { $lt: new Date() },
     })
-      .populate("hospitalId", "hospitalName")
+      .populate("hospitalId", "hospitalName address")
       .populate("patientId", "fullName")
       .exec();
     console.log(reservations);
@@ -101,7 +101,7 @@ reservationSchema.statics.patientPreviousReservations = async function (
       patientId: patId,
       reservationDate: { $lt: new Date() },
     })
-      .populate("hospitalId", "hospitalName")
+      .populate("hospitalId", "hospitalName address")
       .populate("patientId", "fullName")
       .exec();
     console.log(reservations);
@@ -121,7 +121,7 @@ reservationSchema.statics.findUpcomingReservations = async function (
       hospitalId: hosId,
       reservationDate: { $gt: new Date() },
     })
-      .populate("hospitalId", "hospitalName")
+      .populate("hospitalId", "hospitalName address")
       .populate("patientId", "fullName")
       .exec();
     console.log(reservations);
@@ -140,7 +140,7 @@ reservationSchema.statics.patientUpcomingReservations = async function (
       patientId: patId,
       reservationDate: { $gt: new Date() },
     })
-      .populate("hospitalId", "hospitalName")
+      .populate("hospitalId", "hospitalName address")
       .populate("patientId", "fullName")
       .exec();
     console.log(reservations);
