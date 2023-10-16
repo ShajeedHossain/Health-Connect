@@ -1,7 +1,8 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PatientApi from "../../../apis/PatientApi";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import classes from "../../../styles/SeatBooking.module.css";
+import { useState } from "react";
 
 export default function SeatBooking() {
     const { user } = useAuthContext();
@@ -10,9 +11,11 @@ export default function SeatBooking() {
     const { hospitalId } = location.state;
     console.log(hospitalId);
 
+    const navigate = useNavigate();
+    const [error, setError] = useState(false);
     async function handleConfirmation(e) {
         e.preventDefault();
-
+        setError(false);
         const formData = new FormData(e.target);
         const formDataObject = Object.fromEntries(formData);
         formDataObject["hospitalId"] = hospitalId;
@@ -30,7 +33,10 @@ export default function SeatBooking() {
                 }
             );
             console.log("SEAT BOOKING API: RESPONSE ", response);
+            navigate("/dashboard/hospitalBooking/");
         } catch (err) {
+            setError(err.response.data.error);
+
             console.log("SEAT BOOKING API: ERROR ", err);
         }
     }
@@ -63,6 +69,8 @@ export default function SeatBooking() {
                 </div>
 
                 <input type="date" name="reservationDate" id="" />
+
+                {error && <p style={{ color: "red" }}>{error}</p>}
                 <input type="submit" value="Confirm Reservation" />
             </form>
         </div>

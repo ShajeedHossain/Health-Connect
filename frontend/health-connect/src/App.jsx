@@ -23,6 +23,7 @@ import Settings from "./components/Patient/pages/Settings";
 import ViewDoctorList from "./components/Hospital/pages/ViewDoctorsList";
 import SettingsHospital from "./components/Hospital/pages/SettingsHospital";
 import SeatBooking from "./components/Patient/pages/SeatBooking";
+import AppointmentConfirmation from "./components/Patient/pages/AppointmentConfirmation";
 
 function App() {
     return (
@@ -40,6 +41,11 @@ function App() {
                                 path="takeAppointment"
                                 element={<TakeAppointment />}
                             />
+
+                            <Route
+                                path="takeAppointment/confirm-appointment"
+                                element={<AppointmentConfirmation />}
+                            />
                             <Route
                                 path="hospitalBooking"
                                 element={<HospitalBooking />}
@@ -52,6 +58,7 @@ function App() {
                                 path="hospitalBooking/bookseat/complete-reservation"
                                 element={<SeatBooking />}
                             />
+
                             <Route path="settings" element={<Settings />} />
                         </Route>
 

@@ -58,14 +58,14 @@
 
 .BookHospitalCard2ndrow {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 10px;
     padding: 10px;
 }
 .BookHospitalCard1strow {
     background-color: #dbefec;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 10px;
     padding: 10px;
 }

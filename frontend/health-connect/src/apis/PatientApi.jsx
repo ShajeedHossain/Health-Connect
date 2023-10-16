@@ -18,9 +18,9 @@ export default axios.create({
 //     "/update-patient",
 //     {
 //       email, fullname, dob, height, weight,gender, contact , district,
-    // town,
-    // latitude,
-    // longitude,
+// town,
+// latitude,
+// longitude,
 //     },
 //     {
 //       headers: {
@@ -137,7 +137,7 @@ export default axios.create({
 /** Update patient */
 // const response = await PatientApi.post(
 //     "/update-patient",
-// { email, fullname, address, dob, height, weight, gender, contact } 
+// { email, fullname, address, dob, height, weight, gender, contact }
 //     {
 //       headers: {
 //         Authorization: `Bearer ${user.token}`,

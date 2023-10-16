@@ -1,7 +1,9 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/hospital`,
+    baseURL: `http://localhost:${
+        import.meta.env.VITE_BACKEND_PORT
+    }/api/hospital`,
 });
 
 /* To use the api, import this file as AdminApi */
@@ -12,19 +14,18 @@ export default axios.create({
 
 /** Adding appointment info (town optional)*/
 
-
 /** Adding hospital (town optional)*/
 
 // const response = await AdminApi.post(
 //     "/add-hospital",
 //     {
-    // hospitalName,
-    // district,
-    // town,
-    // totalBeds,
-    // totalCabins,
-    // availableBeds,
-    // availableCabins,
+// hospitalName,
+// district,
+// town,
+// totalBeds,
+// totalCabins,
+// availableBeds,
+// availableCabins,
 //     },
 //     {
 //       headers: {
@@ -32,7 +33,6 @@ export default axios.create({
 //       },
 //     }
 //   );
-
 
 /** Adding one doctor*/
 
@@ -60,7 +60,6 @@ export default axios.create({
 //     }
 //   );
 
-
 /** Get previous reservations*/
 
 // const response = await AdminApi.get(
@@ -87,7 +86,7 @@ export default axios.create({
 
 /** Get hospital doctor list*/
 
-// const response = await AdminApi.get(
+// const response = await HospitalApi.get(
 //     "/get-doctors",
 //     {
 //       headers: {
@@ -96,5 +95,3 @@ export default axios.create({
 //       },
 //     }
 //   );
-
-

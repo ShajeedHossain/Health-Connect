@@ -26,12 +26,21 @@ const Home = () => {
                                 <Link className="btn" onClick={handleLogout}>
                                     Log Out
                                 </Link>
-                                <Link
-                                    className="btn"
-                                    to="/dashboard/appointment"
-                                >
-                                    Dashboard
-                                </Link>
+                                {newUser.type === "hospital" ? (
+                                    <Link
+                                        className="btn"
+                                        to="/hospital-dashboard/"
+                                    >
+                                        Dashboard
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        className="btn"
+                                        to="/dashboard/appointment"
+                                    >
+                                        Dashboard
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     )}
