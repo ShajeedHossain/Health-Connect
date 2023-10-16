@@ -61,6 +61,13 @@ reservationSchema.statics.addReservation = async function (
   const patId = new mongoose.Types.ObjectId(patientId);
   const date = convertToDateObject(reservationDate);
   try {
+    const exists = await this.findOne({
+      patientId: patId,
+      reservationDate: date,
+    });
+    if (exists) {
+      throw Error("Reservation already exist at this date");
+    }
     const reservation = await this.create({
       reservationType,
       hospitalId: hosId,
