@@ -22,6 +22,17 @@
     flex-direction: column;
 }
 
+.sortButton {
+    padding: 10px 20px;
+    background-color: #76d5cb;
+    border: 0;
+}
+
+.sortButton:hover {
+    padding: 10px 20px;
+    background-color: #99e5de;
+    border: 0;
+}
 /*------media query for the upcoming-appointment header,button---*/
 
 @media screen and (min-width: 576px) and (max-width: 768px) {
