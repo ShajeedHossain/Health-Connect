@@ -20,15 +20,24 @@ export default function SingleDoctor({ doctorData, user }) {
     return (
         <div className={classes["single-bookappoint-card"]}>
             <div className={classes["single-bookappoint-card_1strow"]}>
-                <p>Doctor name: {fullName}</p>
                 <p>
-                    Specialization: {specializations.map((sp) => sp).join(", ")}
+                    <b>Doctor name:</b> {fullName}
+                </p>
+                <p>
+                    <b>Specialization:</b>{" "}
+                    {specializations.map((sp) => sp).join(", ")}
+                </p>
+                <p>
+                    <b>Hospital:</b> {hospitalName}
                 </p>
             </div>
             <div className={classes["single-bookappoint-card_2ndrow"]}>
-                <p>Hospital: {hospitalName}</p>
-                <p>Email: {email}</p>
-                <p>Contact: {contact}</p>
+                <p>
+                    <b>Email:</b> {email}
+                </p>
+                <p>
+                    <b>Contact: </b> {contact}
+                </p>
                 <Link
                     state={{
                         hospitalId,

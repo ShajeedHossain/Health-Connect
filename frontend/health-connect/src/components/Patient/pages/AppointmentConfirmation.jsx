@@ -62,7 +62,16 @@ export default function AppointmentConfirmation() {
                 <input type="date" name="reservationDate" id="" />
 
                 {/* TIME MUST BE AUTOMATED  */}
-                <input type="time" name="reservationTime" id="" />
+                <input
+                    type="time"
+                    name="reservationTime"
+                    id=""
+                    style={{
+                        width: "300px",
+                        marginTop: "10px",
+                        padding: "10px 0",
+                    }}
+                />
                 <input type="submit" value="Confirm Reservation" />
 
                 {error && <p style={{ color: "red" }}>{error}</p>}

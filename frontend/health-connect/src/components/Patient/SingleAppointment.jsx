@@ -34,24 +34,40 @@ export default function SingleAppointment({ className, doctorDetails }) {
     return (
         <div className={classes[className]}>
             <div className={classes["single-appoint-card_1strow"]}>
-                <p>Doctor name: {doctorName} </p>
                 <p>
-                    Specialization: {specializations.map((sp) => sp).join(", ")}
+                    <b>Doctor name:</b> {doctorName}{" "}
+                </p>
+                <p>
+                    <b>Specialization:</b>{" "}
+                    {specializations.map((sp) => sp).join(", ")}
+                </p>
+                <p>
+                    <Link
+                        style={{
+                            color: "green",
+                            verticalAlign: "center",
+                            display: "flex",
+                        }}
+                        to={`https://www.google.com/maps/dir/?api=1&origin=${currentLatitude},${currentLongitude}&destination=${latitude},${longitude}`}
+                        target="_blank"
+                    >
+                        <span className="material-symbols-outlined">
+                            person_pin_circle
+                        </span>{" "}
+                        <span>Map</span>
+                    </Link>
                 </p>
             </div>
             <div className={classes["single-appoint-card_2ndrow"]}>
                 {/* <p>Location: {`${address.town}, ${address.district}`}</p> */}
-                <p>Serial: {serial}</p>
                 <p>
-                    Date: {date}, {time}
+                    <b>Serial:</b> {serial}
                 </p>
                 <p>
-                    <Link
-                        to={`https://www.google.com/maps/dir/?api=1&origin=${currentLatitude},${currentLongitude}&destination=${latitude},${longitude}`}
-                        target="_blank"
-                    >
-                        View Map
-                    </Link>
+                    <b>Date:</b> {date}
+                </p>
+                <p>
+                    <b>Time:</b> {time}
                 </p>
             </div>
         </div>

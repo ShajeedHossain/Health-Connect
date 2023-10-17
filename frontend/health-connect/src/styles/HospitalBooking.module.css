@@ -112,12 +112,12 @@
 .single-admissionchk-card_1strow {
     background-color: #dbefec;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     padding: 10px;
 }
 .single-admissionchk-card_2ndrow {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     padding: 10px;
     /* grid-column-gap: 10px; */
 }
@@ -207,13 +207,13 @@
 
 .single-prev-hospbook-card_1strow {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     padding: 10px;
     background-color: #dbefec;
 }
 .single-prev-hospbook-card_2ndrow {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     padding: 10px;
 }
 

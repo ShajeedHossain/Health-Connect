@@ -4,8 +4,20 @@ import { useUpcomingReservation } from "../../../hooks/Patient/useUpcomingReserv
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { usePreviousReservation } from "../../../hooks/Patient/usePreviousReservation";
 import { formatDateAndTime } from "../../../Utility/formateTime";
+import { useEffect, useState } from "react";
 
 export default function HospitalBooking() {
+    const [currentLatitude, setCurrentLatitude] = useState();
+    const [currentLongitude, setCurrentLongitude] = useState();
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            setCurrentLatitude(position.coords.latitude);
+            setCurrentLongitude(position.coords.longitude);
+            console.log("Latitude is :", position.coords.latitude);
+            console.log("Longitude is :", position.coords.longitude);
+        });
+    }, []);
     const { user } = useAuthContext();
     console.log("user : ", user);
     const { upcomingData, upcomingLoading, upcomingError } =
@@ -54,13 +66,40 @@ export default function HospitalBooking() {
                                     }
                                 >
                                     <p>
-                                        Hospital Name:{" "}
+                                        <b>Hospital Name:</b>{" "}
                                         {
                                             singleReservation.hospitalId
                                                 .hospitalName
                                         }
                                     </p>
-                                    <p>Location: Dhanmondi,Dhaka</p>
+                                    <p>
+                                        <b>Location</b>:&nbsp;
+                                        {
+                                            singleReservation.hospitalId.address
+                                                .town
+                                        }
+                                        ,&nbsp;
+                                        {
+                                            singleReservation.hospitalId.address
+                                                .district
+                                        }
+                                    </p>
+                                    <p>
+                                        <Link
+                                            style={{
+                                                color: "green",
+                                                verticalAlign: "center",
+                                                display: "flex",
+                                            }}
+                                            to={`https://www.google.com/maps/dir/?api=1&origin=${currentLatitude},${currentLongitude}&destination=${singleReservation.hospitalId.address.latitude},${singleReservation.hospitalId.address.longitude}`}
+                                            target="_blank"
+                                        >
+                                            <span className="material-symbols-outlined">
+                                                person_pin_circle
+                                            </span>{" "}
+                                            <span>Map</span>
+                                        </Link>
+                                    </p>
                                 </div>
                                 <div
                                     className={
@@ -70,14 +109,16 @@ export default function HospitalBooking() {
                                     }
                                 >
                                     <p style={{ textTransform: "capitalize" }}>
-                                        Reservation Type:{" "}
+                                        <b>Reservation Type:</b>{" "}
                                         {singleReservation.reservationType}
                                     </p>
-                                    <p>Room number:03</p>
-                                    <p>Status:Not Done Yet</p>
+
+                                    <p>
+                                        <b>Status:</b> Not Done Yet
+                                    </p>
                                     {/* Date Must Be processed */}
                                     <p>
-                                        Date: &nbsp;
+                                        <b>Date:</b> &nbsp;
                                         {
                                             formatDateAndTime(
                                                 singleReservation.reservationDate
@@ -95,17 +136,23 @@ export default function HospitalBooking() {
                     <h2>Hospital Admission History</h2>
                 </div>
                 {/* {
-    "_id": "652bdad3f0f1c2211c8d28c6",
+    "_id": "652bdad6f0f1c2211c8d28cc",
     "reservationType": "cabin",
     "hospitalId": {
         "_id": "652bd860f0f1c2211c8d2877",
-        "hospitalName": "Dhaka Medical College"
+        "hospitalName": "Dhaka Medical College",
+        "address": {
+            "district": "Dhaka",
+            "town": "Shahbagh",
+            "latitude": "23.72620",
+            "longitude": "90.39756"
+        }
     },
     "patientId": {
         "_id": "652bd708f0f1c2211c8d2870",
         "fullName": "Shajeed Hossain"
     },
-    "reservationDate": "2024-12-11T18:00:00.000Z",
+    "reservationDate": "2024-12-10T18:00:00.000Z",
     "__v": 0
 } */}
 
@@ -133,7 +180,34 @@ export default function HospitalBooking() {
                                                 .hospitalName
                                         }
                                     </p>
-                                    <p>Location: Dhanmondi,Dhaka</p>
+                                    <p>
+                                        Location:{" "}
+                                        {
+                                            singleReservation.hospitalId.address
+                                                .town
+                                        }
+                                        ,&nbsp;
+                                        {
+                                            singleReservation.hospitalId.address
+                                                .district
+                                        }
+                                    </p>
+                                    <p>
+                                        <Link
+                                            style={{
+                                                color: "grey",
+                                                verticalAlign: "center",
+                                                display: "flex",
+                                            }}
+                                            to={`https://www.google.com/maps/dir/?api=1&origin=${currentLatitude},${currentLongitude}&destination=${singleReservation.hospitalId.address.latitude},${singleReservation.hospitalId.address.longitude}`}
+                                            target="_blank"
+                                        >
+                                            <span className="material-symbols-outlined">
+                                                person_pin_circle
+                                            </span>{" "}
+                                            <span>Map</span>
+                                        </Link>
+                                    </p>
                                 </div>
                                 <div
                                     className={
@@ -146,7 +220,6 @@ export default function HospitalBooking() {
                                         Reservation Type:{" "}
                                         {singleReservation.reservationType}
                                     </p>
-                                    <p>Room number:03</p>
                                     <p>Status:Not Done Yet</p>
                                     {/* Date Must Be processed */}
                                     <p>
