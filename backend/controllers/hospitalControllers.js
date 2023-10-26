@@ -8,25 +8,34 @@ const addHospital = async (req, res) => {
     hospitalName,
     district,
     town,
-    totalBeds,
-    totalCabins,
-    availableBeds,
-    availableCabins,
+    // totalBeds,
+    // totalCabins,
+    // availableBeds,
+    // availableCabins,
+    cabins,
+    beds,
+    facilities,
     email,
     password,
     latitude,
     longitude,
   } = req.body;
 
+  const facilitiesList = facilities.split(",");
+  console.log(facilitiesList);
+
   try {
     const hospital = await Hospital.addHospital(
       hospitalName,
       district,
       town,
-      totalBeds,
-      totalCabins,
-      availableBeds,
-      availableCabins,
+      //   totalBeds,
+      //   totalCabins,
+      //   availableBeds,
+      //   availableCabins,
+      cabins,
+      beds,
+      facilitiesList,
       email,
       password,
       latitude,

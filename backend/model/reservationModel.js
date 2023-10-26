@@ -6,8 +6,13 @@ const { convertToDateObject } = require("../utilities/utilities");
 const reservationSchema = new mongoose.Schema({
   reservationType: {
     type: String,
-    enum: ["cabin", "bed"],
     required: true,
+  },
+  reservationCategory: {
+    type: String,
+  },
+  reservationFee: {
+    type: Number,
   },
   hospitalId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -24,6 +29,11 @@ const reservationSchema = new mongoose.Schema({
     default: Date.now, //set to default null can be changed if added
     required: true,
   },
+  additional_requirements: [
+    {
+      type: String,
+    },
+  ],
 });
 
 // Define the post-save middleware for the Reservation schema
@@ -55,7 +65,10 @@ reservationSchema.statics.addReservation = async function (
   reservationType,
   hospitalId,
   patientId,
-  reservationDate
+  reservationDate,
+  additional_requirements,
+  reservationCategory,
+  reservationFee
 ) {
   const hosId = new mongoose.Types.ObjectId(hospitalId);
   const patId = new mongoose.Types.ObjectId(patientId);
@@ -73,7 +86,11 @@ reservationSchema.statics.addReservation = async function (
       hospitalId: hosId,
       patientId: patId,
       reservationDate: date,
+      additional_requirements: additional_requirements.split(","),
+      reservationCategory,
+      reservationFee,
     });
+    console.log(reservation);
     return reservation;
   } catch (error) {
     throw error;

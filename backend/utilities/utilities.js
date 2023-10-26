@@ -55,7 +55,9 @@ const generatePatientCount = async (doctorId) => {
 //to convert yyyy-mm-dd to date object
 function convertToDateObject(dateString) {
   const [year, month, day] = dateString.split("-").map(Number);
-  return new Date(year, month - 1, day); // Month is 0-based, so subtract 1
+  const date = new Date(year, month - 1, day);
+  date.setHours(date.getHours() + 6);
+  return date; // Month is 0-based, so subtract 1
 }
 
 //function to calculate BMI

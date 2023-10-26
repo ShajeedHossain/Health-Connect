@@ -4,7 +4,14 @@ const Admin = require("../model/adminModel");
 const mongoose = require("mongoose");
 
 const addReservation = async (req, res) => {
-  const { reservationType, reservationDate, hospitalId } = req.body;
+  const {
+    reservationType,
+    reservationDate,
+    hospitalId,
+    additional_requirements,
+    reservationCategory,
+    reservationFee,
+  } = req.body;
 
   const { authorization } = req.headers;
   const token = authorization.split(" ")[1];
@@ -15,7 +22,10 @@ const addReservation = async (req, res) => {
       reservationType,
       hospitalId,
       _id,
-      reservationDate
+      reservationDate,
+      additional_requirements,
+      reservationCategory,
+      reservationFee
     );
     console.log(reservation);
     res.status(200).json({ reservation });

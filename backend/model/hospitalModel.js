@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const addressSchema = require("./addressSchema");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
+const cabinSchema = require("./cabinSchema");
 
 const Schema = mongoose.Schema;
 
@@ -12,30 +13,33 @@ const hospitalSchema = new Schema({
     required: true,
   },
   address: addressSchema,
-  availableBeds: {
-    type: Number,
-    default: function () {
-      return this.totalBeds || 0; // Default to 0 if totalBeds is not set
-    },
-  },
-  availableCabins: {
-    type: Number,
-    default: function () {
-      return this.totalCabins || 0; // Default to 0 if totalCabins is not set
-    },
-  },
-  totalBeds: {
-    type: Number,
-    required: true,
-  },
-  totalCabins: {
-    type: Number,
-    required: true,
-  },
+  // availableBeds: {
+  //   type: Number,
+  //   default: function () {
+  //     return this.totalBeds || 0; // Default to 0 if totalBeds is not set
+  //   },
+  // },
+  // availableCabins: {
+  //   type: Number,
+  //   default: function () {
+  //     return this.totalCabins || 0; // Default to 0 if totalCabins is not set
+  //   },
+  // },
+  // totalBeds: {
+  //   type: Number,
+  //   required: true,
+  // },
+  // totalCabins: {
+  //   type: Number,
+  //   required: true,
+  // },
+  cabins: [cabinSchema],
+  beds: [cabinSchema],
   email: {
     type: String,
     required: true,
   },
+  facilities: [{ type: String }],
 });
 
 // Define a static method to add a hospital
@@ -43,10 +47,13 @@ hospitalSchema.statics.addHospital = async function (
   hospitalName,
   district,
   town,
-  totalBeds,
-  totalCabins,
-  availableBeds,
-  availableCabins,
+  // totalBeds,
+  // totalCabins,
+  // availableBeds,
+  // availableCabins,
+  cabins,
+  beds,
+  facilities,
   email,
   password,
   latitude,
@@ -59,11 +66,12 @@ hospitalSchema.statics.addHospital = async function (
     longitude,
   };
   try {
+    // console.log(hospitalName, district, email, password, latitude, longitude);
     if (
       !hospitalName ||
       !district ||
-      !totalBeds ||
-      !totalCabins ||
+      // !totalBeds ||
+      // !totalCabins ||
       !email ||
       !password ||
       !latitude ||
@@ -105,10 +113,13 @@ hospitalSchema.statics.addHospital = async function (
     const hospital = await this.create({
       hospitalName,
       address,
-      totalBeds,
-      totalCabins,
-      availableBeds,
-      availableCabins,
+      // totalBeds,
+      // totalCabins,
+      // availableBeds,
+      // availableCabins,
+      cabins,
+      beds,
+      facilities,
       email,
     });
 
