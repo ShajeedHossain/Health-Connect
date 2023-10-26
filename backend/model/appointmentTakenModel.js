@@ -32,6 +32,9 @@ const appointmentTakenSchema = new mongoose.Schema({
     type: Boolean,
     default: false, // Set a default value to false
   },
+  shift: {
+    type: String,
+  },
 });
 
 // Define a custom validation function to check for duplicate appointments
@@ -63,7 +66,8 @@ appointmentTakenSchema.statics.addAppointment = async function (
   patientId,
   startTime,
   hospitalId,
-  serial
+  serial,
+  shift
 ) {
   // const address = {
   //   district,
@@ -77,6 +81,7 @@ appointmentTakenSchema.statics.addAppointment = async function (
       hospitalId,
       // address,
       serial,
+      shift,
     };
 
     const appointment = await this.create(appointmentData);

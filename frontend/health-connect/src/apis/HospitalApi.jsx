@@ -36,7 +36,7 @@ export default axios.create({
 
 /** Adding one doctor*/
 
-// const response = await AdminApi.post(
+// const response = await HospitalApi.post(
 //     "/add-one-doctor",
 // {
 //     email,
@@ -50,7 +50,11 @@ export default axios.create({
 // district,
 //   town,
 //   latitude,
-//   longitude
+//   longitude,
+// appointment_fees,
+// morning_shift_time,
+// evening_shift_time,
+// available_days,
 //   } ,
 //     {
 //       headers: {

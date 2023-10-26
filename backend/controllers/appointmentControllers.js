@@ -8,6 +8,7 @@ const addAppointment = async (req, res) => {
     doctorId,
     startTime,
     hospitalId,
+    shift,
     // district,
     // town,
   } = req.body;
@@ -33,7 +34,8 @@ const addAppointment = async (req, res) => {
       _id,
       start,
       hosId,
-      serial
+      serial,
+      shift
     );
     res.status(201).json({ appointment });
   } catch (error) {

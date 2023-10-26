@@ -9,28 +9,37 @@ function formatDate(date) {
   return `${day}-${month}-${year}`;
 }
 
+// //Utility function to generate serial
+// const generateSerial = async (start, doctorId) => {
+//   const count = await AppointmentTaken.countDocuments({
+//     doctorId: doctorId,
+//     startTime: {
+//       $gte: new Date(
+//         start.getFullYear(),
+//         start.getMonth(),
+//         start.getDate(),
+//         0,
+//         0,
+//         0
+//       ),
+//       $lt: new Date(
+//         start.getFullYear(),
+//         start.getMonth(),
+//         start.getDate() + 1,
+//         0,
+//         0,
+//         0
+//       ),
+//     },
+//   });
+//   return count;
+// };
+
 //Utility function to generate serial
 const generateSerial = async (start, doctorId) => {
   const count = await AppointmentTaken.countDocuments({
     doctorId: doctorId,
-    startTime: {
-      $gte: new Date(
-        start.getFullYear(),
-        start.getMonth(),
-        start.getDate(),
-        0,
-        0,
-        0
-      ),
-      $lt: new Date(
-        start.getFullYear(),
-        start.getMonth(),
-        start.getDate() + 1,
-        0,
-        0,
-        0
-      ),
-    },
+    startTime: start,
   });
   return count;
 };
@@ -78,6 +87,19 @@ function calculateAge(dob) {
   return null; // Age is not calculated if date of birth is missing
 }
 
+function convertTimeToDateTime(timeString) {
+  // Ensure timeStrings is an array
+  const [hours, minutes] = timeString.split(":").map(Number);
+
+  // Create a new Date object and set the time components
+  const date = new Date();
+  date.setHours(hours + 6);
+  date.setMinutes(minutes);
+  date.setSeconds(0); // You may set seconds and milliseconds to 0 if needed
+
+  return date;
+}
+
 module.exports = {
   formatDate,
   generateSerial,
@@ -85,4 +107,5 @@ module.exports = {
   convertToDateObject,
   calculateBMI,
   calculateAge,
+  convertTimeToDateTime,
 };

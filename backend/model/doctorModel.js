@@ -85,6 +85,27 @@ const doctorSchema = new Schema({
       return null; // Age is not calculated if date of birth is missing
     },
   },
+
+  appointment_fees: {
+    type: String,
+    required: true,
+  },
+
+  available_days: [
+    {
+      type: String,
+    },
+  ],
+  morning_shift_time: {
+    type: Date,
+  },
+  evening_shift_time: {
+    type: Date,
+  },
+  availability: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 doctorSchema.statics.addOneDoctor = async function (
@@ -97,8 +118,13 @@ doctorSchema.statics.addOneDoctor = async function (
   email,
   specializations,
   bma_id,
-  address
+  address,
+  appointment_fees,
+  morning_shift_time,
+  evening_shift_time,
+  available_days
 ) {
+  console.log(available_days);
   if (
     !fullName ||
     !hospitalId ||
@@ -106,7 +132,8 @@ doctorSchema.statics.addOneDoctor = async function (
     !gender ||
     !education ||
     !specializations ||
-    !bma_id
+    !bma_id ||
+    !appointment_fees
   ) {
     throw Error("Fields can't be empty");
   }
@@ -140,9 +167,13 @@ doctorSchema.statics.addOneDoctor = async function (
       specializations,
       bma_id,
       address,
+      appointment_fees,
+      morning_shift_time,
+      evening_shift_time,
+      available_days,
     });
 
-    // console.log(doctor);
+    console.log(available_days);
 
     const password = email + "D*123";
 
@@ -168,7 +199,7 @@ doctorSchema.statics.addOneDoctor = async function (
 // Define a static method to get a list of all doctors
 doctorSchema.statics.getAllDoctor = async function () {
   try {
-    const doctors = await this.find({}).lean(); //lean helps it to convert to js object
+    const doctors = await this.find({ availability: true }).lean(); //lean helps it to convert to js object
     return doctors;
   } catch (error) {
     throw error;
