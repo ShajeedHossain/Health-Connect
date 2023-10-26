@@ -98,12 +98,17 @@ export default axios.create({
 // HERE THE RESERVATION TYPE WILL BE "cabin" or "bed"
 // HERE DATE WILL BE IN (YYYY-MM-DD) FORMAT CONVERSION IS DONE BACKEND
 
+//additional_requirements=> must be a single string seperated with commas like "food,airpurifier" 
+
 // const response = await PatientApi.post(
 //     "/add-reservation",
 //     {
 // reservationType,
 // reservationDate,
 // hospitalId,
+// additional_requirements,
+// reservationCategory,
+// reservationFee,
 //     },
 //     {
 //       headers: {

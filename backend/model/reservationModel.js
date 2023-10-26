@@ -37,28 +37,68 @@ const reservationSchema = new mongoose.Schema({
 });
 
 // Define the post-save middleware for the Reservation schema
+// reservationSchema.pre("save", async function (next) {
+//   const hospital = await Hospital.findById(this.hospitalId);
+
+//   if (hospital.availableBeds - 1 < 0) {
+//     return next(new Error("No available beds."));
+//   }
+//   if (hospital.availableCabins - 1 < 0) {
+//     return next(new Error("No available cabins."));
+//   }
+//   const reservationCount = await Reservation.countDocuments({
+//     hospitalId: this.hospitalId,
+//     reservationType: this.reservationType,
+//   });
+
+//   if (this.reservationType === "bed") {
+//     hospital.availableBeds = hospital.totalBeds - reservationCount - 1;
+//   } else if (this.reservationType === "cabin") {
+//     hospital.availableCabins = hospital.totalCabins - reservationCount - 1;
+//   }
+
+//   await hospital.save();
+//   next();
+// });
+
+// // Define the post-save middleware for the Reservation schema
 reservationSchema.pre("save", async function (next) {
-  const hospital = await Hospital.findById(this.hospitalId);
+  try {
+    const hospital = await Hospital.findById(this.hospitalId);
 
-  if (hospital.availableBeds - 1 < 0) {
-    return next(new Error("No available beds."));
-  }
-  if (hospital.availableCabins - 1 < 0) {
-    return next(new Error("No available cabins."));
-  }
-  const reservationCount = await Reservation.countDocuments({
-    hospitalId: this.hospitalId,
-    reservationType: this.reservationType,
-  });
+    if (this.reservationType.toLowerCase() === "cabin") {
+      const categoryCabins = hospital.cabins.find(
+        (cabin) => cabin.category === this.reservationCategory
+      );
 
-  if (this.reservationType === "bed") {
-    hospital.availableBeds = hospital.totalBeds - reservationCount - 1;
-  } else if (this.reservationType === "cabin") {
-    hospital.availableCabins = hospital.totalCabins - reservationCount - 1;
-  }
+      const count = categoryCabins.count;
+      const remaining = categoryCabins.remaining;
+      if (remaining - 1 < 0) {
+        return next(new Error("No such cabins available at the moment."));
+      } else {
+        console.log(categoryCabins.remaining);
+        categoryCabins.remaining -= 1;
+      }
+    } else {
+      const categoryBeds = hospital.beds.find(
+        (beds) => beds.category === this.reservationCategory
+      );
+      // console.log(this.reservationCategory.toLowerCase());
+      const count = categoryBeds.count;
+      const remaining = categoryBeds.remaining;
+      if (remaining - 1 < 0) {
+        return next(new Error("No such beds available at the moment."));
+      } else {
+        categoryBeds.remaining -= 1;
+      }
+    }
 
-  await hospital.save();
-  next();
+    await hospital.save();
+    next();
+  } catch (err) {
+    console.log(err.message);
+    throw err;
+  }
 });
 
 reservationSchema.statics.addReservation = async function (

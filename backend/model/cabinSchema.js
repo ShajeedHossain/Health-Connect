@@ -14,6 +14,12 @@ const cabinSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  remaining: {
+    type: Number,
+    default: function () {
+      return this.count;
+    },
+  },
 });
 
 module.exports = cabinSchema;
