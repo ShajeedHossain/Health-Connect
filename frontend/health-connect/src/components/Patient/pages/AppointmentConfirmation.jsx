@@ -9,8 +9,9 @@ export default function AppointmentConfirmation() {
     console.log("APPOINTMENT CONFIRMATION PAGE");
 
     const location = useLocation();
-    const { hospitalId, doctorId } = location.state;
+    const { hospitalId, doctorId, doctorData } = location.state;
     console.log("HOSPITAL ID : ", hospitalId);
+    console.log("Doctor Data : ", doctorData);
 
     const [error, setError] = useState(false);
     async function handleAppointment(e) {
@@ -52,19 +53,85 @@ export default function AppointmentConfirmation() {
             console.log("HANDLE APPOINTMENT FUNCTION RESPONSE: ERROR", err);
         }
     }
+
+    //     {
+    //     "_id": "652bd9e2f0f1c2211c8d289b",
+    //     "fullName": "Tanvir Hossain Dihan",
+    //     "hospitalName": "AMZ Hospital Ltd.",
+    //     "hospitalId": "652bd8b2f0f1c2211c8d287e",
+    //     "education": "Phd",
+    //     "email": "ultimone4271@gmail.com",
+    //     "dob": "1998-02-09T00:00:00.000Z",
+    //     "gender": "Male",
+    //     "contact": "01911111111",
+    //     "specializations": [
+    //         "Osteologist"
+    //     ],
+    //     "address": {
+    //         "district": "Dhaka",
+    //         "town": "Badda",
+    //         "latitude": "23.78432",
+    //         "longitude": "90.42605"
+    //     },
+    //     "bma_id": "001",
+    //     "age": 25,
+    //     "__v": 0
+    // }
     return (
         <div>
+            {doctorData && (
+                <div className={classes.doctorInfo}>
+                    <p>
+                        <b>Doctor Name: </b>
+                        {doctorData.fullName}
+                    </p>
+                    <p>
+                        <b>Specialization: </b>
+                        {doctorData.specializations?.map((sp) => sp).join(", ")}
+                    </p>
+                    <p>
+                        <b>Address: </b>
+                        <address>
+                            {doctorData.hospitalName}, {doctorData.address.town}
+                            , {doctorData.address.district}
+                        </address>
+                    </p>
+
+                    <p>
+                        <b>Appointment Fee: </b>
+                        {/* // {doctorData.fullName} */}
+                    </p>
+
+                    <p>
+                        <b>Availabe Days: </b>Must be an array
+                        {/* // {doctorData.fullName} */}
+                    </p>
+                </div>
+            )}
+
             <form
                 action=""
                 className={classes["seat-booking-form"]}
                 onSubmit={handleAppointment}
             >
                 <input type="date" name="reservationDate" id="" />
-
                 {/* TIME MUST BE AUTOMATED  */}
-                <input type="time" name="reservationTime" id="" />
+                <select name="timeSlot" id="">
+                    <option value="morning">Morning</option>
+                    <option value="evening">Evening</option>
+                </select>
+                {/* <input
+                    type="time"
+                    name="reservationTime"
+                    id=""
+                    style={{
+                        width: "300px",
+                        marginTop: "10px",
+                        padding: "10px 0",
+                    }}
+                /> */}
+                TIME MUST BE AUTOMATED
                 <input type="submit" value="Confirm Reservation" />
-
                 {error && <p style={{ color: "red" }}>{error}</p>}
             </form>
         </div>

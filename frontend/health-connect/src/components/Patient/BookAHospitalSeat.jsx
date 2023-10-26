@@ -42,18 +42,39 @@ export default function BookAHospitalSeat() {
                                     }
                                 >
                                     <p>
-                                        Hospital name: {hospital.hospitalName}
+                                        <b>Hospital name:</b>{" "}
+                                        {hospital.hospitalName}
                                     </p>
-                                    <p>Email: {hospital.email}</p>
                                     <p>
-                                        Address: {hospital.address.town}, &nbsp;
+                                        <b>Email:</b> {hospital.email}
+                                    </p>
+                                    <p
+                                        style={{
+                                            display: "flex",
+                                        }}
+                                    >
+                                        <b>Address:</b>&nbsp;
+                                        {hospital.address.town}, &nbsp;
                                         {hospital.address.district}
                                         <Link
+                                            style={{
+                                                color: "green",
+                                                verticalAlign: "baseline",
+                                                display: "flex",
+                                            }}
                                             to={`https://www.google.com/maps/dir/?api=1&origin=${currentLatitude},${currentLongitude}&destination=${hospital.address.latitude},${hospital.address.longitude}`}
                                             target="_blank"
-                                            style={{ color: "green" }}
                                         >
-                                            &nbsp; View Map
+                                            <span
+                                                style={{
+                                                    color: "green",
+                                                    verticalAlign: "baseline",
+                                                }}
+                                                className="material-symbols-outlined"
+                                            >
+                                                person_pin_circle
+                                            </span>{" "}
+                                            <span>Map</span>
                                         </Link>
                                     </p>
                                 </div>
@@ -63,15 +84,17 @@ export default function BookAHospitalSeat() {
                                     }
                                 >
                                     <p>
-                                        Available Beds: {hospital.availableBeds}
+                                        <b>Available Beds</b>{" "}
+                                        {hospital.availableBeds}
                                     </p>
                                     <p>
-                                        Available Cabins:{" "}
+                                        <b>Available Cabins:</b>{" "}
                                         {hospital.availableCabins}
                                     </p>
                                     <Link
                                         state={{
                                             hospitalId: hospital._id,
+                                            hospital,
                                         }}
                                         to="/dashboard/hospitalBooking/bookseat/complete-reservation"
                                         className={classes["BookHospitalBtn"]}

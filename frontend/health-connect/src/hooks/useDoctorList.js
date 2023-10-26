@@ -7,9 +7,9 @@ export const useDoctorList = (user) => {
     const [data, setData] = useState([]);
     console.log("user : ", user);
 
-    const { doctorList } = data;
     function bubbleSort(doctorDistance, doctorData) {
         console.log(doctorData, " dfdfs ", doctorDistance);
+        console.log("SORT FUNCTION CALLED");
         const n = doctorDistance.length;
         for (let i = 0; i < n - 1; i++) {
             for (let j = 0; j < n - i - 1; j++) {
@@ -34,59 +34,61 @@ export const useDoctorList = (user) => {
     }
 
     useEffect(() => {
-        async function sortByDistance() {
-            const doctorDistance = [];
-            let destination = "destinations=";
-            doctorList.forEach((doctor) => {
-                doctorDistance.push({
-                    id: doctor._id,
-                    lat: doctor.address.latitude,
-                    lng: doctor.address.longitude,
-                });
-                destination +=
-                    doctor.address.latitude +
-                    "%2C" +
-                    doctor.address.longitude +
-                    "%7C";
-            });
-            destination = destination.slice(0, -3);
-            console.log(destination);
-            console.log(doctorDistance);
-            try {
-                /**Get the distance */
-                const response = await PatientApi.post(
-                    "/get-distance",
-                    {
-                        url: `https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${destination}&origins=23.94821289164638%2C90.37926469346104&key=AIzaSyCw9Xz5vT5x6m8DTutXNygenRnDX8jIYXs`,
-                    },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${user.token}`,
-                        },
-                    }
-                );
-                console.log(response.data.data.rows[0].elements);
-                for (
-                    let i = 0;
-                    i < response.data.data.rows[0].elements.length;
-                    i++
-                ) {
-                    console.log(response.data.data.rows[0].elements[i]);
-                    doctorDistance[i]["distance"] =
-                        response.data.data.rows[0].elements[i].status === "OK"
-                            ? response.data.data.rows[0].elements[i].distance
-                                  .text
-                            : "9999999 km";
-                }
-                console.log(doctorDistance);
-                bubbleSort(doctorDistance, doctorList);
-                console.log("AFTER SORT ", doctorDistance, doctorList);
-                setData(doctorList);
-                // setSortedDoctorList(doctorList);
-            } catch (err) {
-                //
-            }
-        }
+        // async function sortByDistance(doctorList) {
+        //     console.log("DOCTOR LIST IN SORT FUNCTION ", doctorList);
+        //     const doctorDistance = [];
+        //     let destination = "destinations=";
+        //     doctorList.forEach((doctor) => {
+        //         doctorDistance.push({
+        //             id: doctor._id,
+        //             lat: doctor.address.latitude,
+        //             lng: doctor.address.longitude,
+        //         });
+        //         destination +=
+        //             doctor.address.latitude +
+        //             "%2C" +
+        //             doctor.address.longitude +
+        //             "%7C";
+        //     });
+        //     destination = destination.slice(0, -3);
+        //     console.log(destination);
+        //     console.log(doctorDistance);
+        //     try {
+        //         /**Get the distance */
+        //         const response = await PatientApi.post(
+        //             "/get-distance",
+        //             {
+        //                 url: `https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${destination}&origins=23.94821289164638%2C90.37926469346104&key=AIzaSyCw9Xz5vT5x6m8DTutXNygenRnDX8jIYXs`,
+        //             },
+        //             {
+        //                 headers: {
+        //                     Authorization: `Bearer ${user.token}`,
+        //                 },
+        //             }
+        //         );
+        //         console.log(response.data.data.rows[0].elements);
+        //         for (
+        //             let i = 0;
+        //             i < response.data.data.rows[0].elements.length;
+        //             i++
+        //         ) {
+        //             console.log(response.data.data.rows[0].elements[i]);
+        //             doctorDistance[i]["distance"] =
+        //                 response.data.data.rows[0].elements[i].status === "OK"
+        //                     ? response.data.data.rows[0].elements[i].distance
+        //                           .text
+        //                     : "9999999 km";
+        //         }
+        //         console.log(doctorDistance);
+        //         console.log("BUBBLE SORT HERE");
+        //         bubbleSort(doctorDistance, doctorList);
+        //         console.log("AFTER SORT ", doctorDistance, doctorList);
+        //         setData(doctorList);
+        //         // setSortedDoctorList(doctorList);
+        //     } catch (err) {
+        //         console.log("SORT FUNCTION ERROR", err);
+        //     }
+        // }
         const fetchAppointmentList = async () => {
             try {
                 /** Patient gets available appointments*/
@@ -98,18 +100,20 @@ export const useDoctorList = (user) => {
                 });
 
                 setLoading(false);
-                setData(response.data);
                 console.log("Doctor List Response Data : ", response.data);
+                // const { doctorList } = response.data;
+                // sortByDistance(doctorList);
+
+                // console.log("DOCTOR SORTED LIST ", doctorList);
+                setData(response.data);
             } catch (err) {
-                console.log(err);
+                console.log("DOCTOR FETCH ERROR ", err);
                 setLoading(false);
                 setError(true);
             }
         };
 
         fetchAppointmentList();
-
-        sortByDistance();
     }, [user.token]);
 
     return {
