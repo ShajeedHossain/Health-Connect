@@ -94,6 +94,7 @@ export default function BookAHospitalSeat() {
                                     <Link
                                         state={{
                                             hospitalId: hospital._id,
+                                            hospital,
                                         }}
                                         to="/dashboard/hospitalBooking/bookseat/complete-reservation"
                                         className={classes["BookHospitalBtn"]}

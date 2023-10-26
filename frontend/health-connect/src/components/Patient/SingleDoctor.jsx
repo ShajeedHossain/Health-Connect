@@ -40,6 +40,7 @@ export default function SingleDoctor({ doctorData, user }) {
                 </p>
                 <Link
                     state={{
+                        doctorData,
                         hospitalId,
                         doctorId: _id,
                     }}
