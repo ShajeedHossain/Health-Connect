@@ -34,6 +34,10 @@ const reservationSchema = new mongoose.Schema({
       type: String,
     },
   ],
+  ambulance_address: {
+    type: String,
+    default: null,
+  },
 });
 
 // Define the post-save middleware for the Reservation schema
@@ -108,7 +112,8 @@ reservationSchema.statics.addReservation = async function (
   reservationDate,
   additional_requirements,
   reservationCategory,
-  reservationFee
+  reservationFee,
+  ambulance_address
 ) {
   const hosId = new mongoose.Types.ObjectId(hospitalId);
   const patId = new mongoose.Types.ObjectId(patientId);
@@ -129,6 +134,7 @@ reservationSchema.statics.addReservation = async function (
       additional_requirements: additional_requirements.split(","),
       reservationCategory,
       reservationFee,
+      ambulance_address,
     });
     console.log(reservation);
     return reservation;

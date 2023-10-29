@@ -11,6 +11,7 @@ const addReservation = async (req, res) => {
     additional_requirements,
     reservationCategory,
     reservationFee,
+    ambulance_address,
   } = req.body;
 
   const { authorization } = req.headers;
@@ -25,7 +26,8 @@ const addReservation = async (req, res) => {
       reservationDate,
       additional_requirements,
       reservationCategory,
-      reservationFee
+      reservationFee,
+      ambulance_address
     );
     console.log(reservation);
     res.status(200).json({ reservation });
