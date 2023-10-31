@@ -135,6 +135,17 @@ small {
     border: 1px solid #ddd;
     border-radius: 5px;
 }
+.login-signup-form form button {
+    background-color: #ddd;
+    border: none;
+    padding: 15px 15px;
+    border: 1px solid #ddd;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.login-signup-form form button:hover {
+    background-color: #fff;
+}
 .login-signup-form form input[type="submit"] {
     background-color: #77d5ca;
     border: none;

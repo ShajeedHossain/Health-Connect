@@ -17,10 +17,16 @@ export default function SingleAppointment({ className, doctorDetails }) {
     }, []);
 
     console.log("SINGLE APPOINTMENT : Doctor details ", doctorDetails);
-    const { serial, startTime, doctorName, specializations, address } =
-        doctorDetails;
+    const {
+        serial,
+        startTime,
+        doctorName,
+        specializations,
+        address,
+        hospitalName,
+    } = doctorDetails;
 
-    const { latitude, longitude } = address;
+    const { latitude, longitude, district, town } = address;
     console.log("LAT LNG : ", latitude, longitude);
 
     const { date, time } = formatDateAndTime(startTime);
@@ -32,14 +38,17 @@ export default function SingleAppointment({ className, doctorDetails }) {
     // console.log(`${day}-${month}-${year}`);
     // const dayTime = `${day}-${month}-${year}`;
     return (
+        // [TODO] : CARD SYSTEM CSS
         <div className={classes[className]}>
             <div className={classes["single-appoint-card_1strow"]}>
                 <p>
                     <b>Doctor name:</b> {doctorName}{" "}
                 </p>
                 <p>
-                    <b>Specialization:</b>{" "}
-                    {specializations.map((sp) => sp).join(", ")}
+                    <b>Address:</b>{" "}
+                    <address>
+                        {hospitalName}, {district}, {town}
+                    </address>
                 </p>
                 <p>
                     <Link

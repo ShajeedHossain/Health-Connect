@@ -8,8 +8,12 @@ export function formatDateAndTime(dateString) {
     let year = date.getFullYear();
 
     // Get the hours and minutes
-    let hours = date.getHours();
+    let hours = date.getHours() - 6;
+    if (hours < 0) {
+        hours += 24;
+    }
     let minutes = date.getMinutes();
+    console.log(date);
 
     // Determine AM or PM
     const amOrPm = hours >= 12 ? "PM" : "AM";
@@ -30,4 +34,12 @@ export function formatDateAndTime(dateString) {
     const formattedTime = `${hours}:${minutes} ${amOrPm}`;
 
     return { date: formattedDate, time: formattedTime };
+}
+
+export function convertDateToTime(dateString) {
+    const date = new Date(dateString);
+    const hours = String(date.getUTCHours()).padStart(2, "0");
+    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+    const seconds = String(date.getUTCSeconds()).padStart(2, "0");
+    return `${hours}:${minutes}:${seconds}`;
 }

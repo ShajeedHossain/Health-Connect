@@ -18,6 +18,7 @@ export default function SeatBooking() {
     const navigate = useNavigate();
     const [error, setError] = useState(false);
 
+    console.log("HOSPITAL ", hospital);
     async function handleConfirmation(e) {
         e.preventDefault();
         setError(false);
@@ -26,26 +27,47 @@ export default function SeatBooking() {
         const formDataObject = Object.fromEntries(formData);
 
         formDataObject["hospitalId"] = hospitalId;
+        formDataObject["additional_requirements"] = `${
+            formDataObject["ambulance"] ? formDataObject["ambulance"] + "," : ""
+        }${
+            formDataObject["stretcher"] ? formDataObject["stretcher"] + "," : ""
+        }${
+            formDataObject["wheelchair"]
+                ? formDataObject["wheelchair"] + ","
+                : ""
+        }${formDataObject["oxygen"] ? formDataObject["oxygen"] : ""}`;
         console.log("Form Data Example : ", formDataObject);
 
-        // try {
-        //     const response = await PatientApi.post(
-        //         "/add-reservation",
-        //         { ...formDataObject },
         //         {
-        //             headers: {
-        //                 Authorization: `Bearer ${user.token}`,
-        //                 "Content-Type": "application/json",
-        //             },
-        //         }
-        //     );
-        //     console.log("SEAT BOOKING API: RESPONSE ", response);
-        //     navigate("/dashboard/hospitalBooking/");
-        // } catch (err) {
-        //     setError(err.response.data.error);
-
-        //     console.log("SEAT BOOKING API: ERROR ", err);
+        //     "reservationType": "cabins",
+        //     "reservationCategory": "normal",
+        //     "reservationDate": "2023-10-30",
+        //     "wheelchair": "wheelchair",
+        //     "oxygen": "oxygen",
+        //     "ambulance": "ambulance",
+        //     "ambulance_address": "Chattogram",
+        //     "hospitalId": "653abb6034fe6e11f367ba18",
+        //     "additional_requirements": "ambulance,wheelchair,oxygen"
         // }
+
+        try {
+            const response = await PatientApi.post(
+                "/add-reservation",
+                formDataObject,
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            console.log("SEAT BOOKING API: RESPONSE ", response);
+            navigate("/dashboard/hospitalBooking/");
+        } catch (err) {
+            setError(err.response.data.error);
+
+            console.log("SEAT BOOKING API: ERROR ", err);
+        }
     }
 
     return (
@@ -83,10 +105,6 @@ export default function SeatBooking() {
                         will be created
                         {/* // {doctorData.fullName} */}
                     </p>
-                    <p>
-                        <b>Availabe Days: </b>Must be an array
-                        {/* // {doctorData.fullName} */}
-                    </p>
                 </div>
             )}
             <form
@@ -101,8 +119,8 @@ export default function SeatBooking() {
                             type="radio"
                             name="reservationType"
                             id="cabin"
-                            value="cabin"
-                            checked={reservationType === "cabin"}
+                            value="cabins"
+                            checked={reservationType === "cabins"}
                             onChange={(e) => setReservationType(e.target.value)}
                         />
                         Cabin
@@ -112,8 +130,8 @@ export default function SeatBooking() {
                             type="radio"
                             name="reservationType"
                             id="beds"
-                            value="bed"
-                            checked={reservationType === "bed"}
+                            value="beds"
+                            checked={reservationType === "beds"}
                             onChange={(e) => setReservationType(e.target.value)}
                         />
                         Beds
@@ -129,36 +147,35 @@ export default function SeatBooking() {
                         <tr>
                             <th>Category:</th>
                             <th>Price</th>
+                            <th>Available</th>
                         </tr>
-                        <tr>
-                            <td>
-                                <input
-                                    type="radio"
-                                    name="reservation_category"
-                                    id=""
-                                    value="normal"
-                                />{" "}
-                                Normal
-                            </td>
 
-                            <td>1000k/night</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input
-                                    type="radio"
-                                    name="reservation_category"
-                                    id=""
-                                    value="normal"
-                                />{" "}
-                                Premium
-                            </td>
-                            <td>1000k/night</td>
-                        </tr>
+                        {reservationType &&
+                            hospital[reservationType].map((rsType, index) => (
+                                <tr key={`${index}_${rsType.category}`}>
+                                    <td>
+                                        <input
+                                            type="radio"
+                                            name="reservationCategory"
+                                            id=""
+                                            value={rsType.category}
+                                        />{" "}
+                                        {rsType.category}
+                                    </td>
+
+                                    <td>{rsType.price}/night</td>
+                                    <td>{rsType.remaining}</td>
+                                </tr>
+                            ))}
                     </table>
                 )}
 
-                <input type="date" name="reservationDate" id="" />
+                <input
+                    type="date"
+                    name="reservationDate"
+                    id=""
+                    min={new Date().toISOString().split("T")[0]}
+                />
 
                 <div className={classes.additional_req}>
                     <p>
@@ -209,7 +226,7 @@ export default function SeatBooking() {
                         <label htmlFor="address">Address</label>
                         <input
                             type="text"
-                            name="address"
+                            name="ambulance_address"
                             placeholder="Address"
                         />
                     </div>
