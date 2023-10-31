@@ -1,30 +1,33 @@
 /*-----css for the single upcoming appointment cards---*/
 .single-upappoint-card {
+    border: 1px solid #ddd;
     border-bottom: solid 3px var(--color-primary-paste);
     box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
 
     margin-bottom: 30px;
     background-color: var(--deep-white);
+    width: calc(50% - 10px);
 }
 
-.single-appoint-card_1strow {
-    background-color: #dbefec;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.single-upappoint-card table {
+    border-collapse: collapse;
 }
-.single-appoint-card_2ndrow {
-    padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* grid-column-gap: 10px; */
+.single-upappoint-card table tr:first-child td {
+    background-color: var(--color-primary-paste);
+    padding: 10px 10px;
 }
-
-.single-appoint-card_1strow,
-.single-appoint-card_2ndrow h3 {
-    text-align: left;
+.single-upappoint-card table tr td {
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
 }
-
+.single-upappoint-card table tr td:first-child {
+    width: 30%;
+    vertical-align: top;
+}
+.single-upappoint-card table tr td:last-child {
+    width: 70%;
+    vertical-align: top;
+}
 /* //----------Media Query(upcoming appointment cards)----------------// */
 
 @media screen and (min-width: 576px) and (max-width: 768px) {

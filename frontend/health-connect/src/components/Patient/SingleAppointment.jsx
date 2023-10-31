@@ -16,7 +16,6 @@ export default function SingleAppointment({ className, doctorDetails }) {
         });
     }, []);
 
-    console.log("SINGLE APPOINTMENT : Doctor details ", doctorDetails);
     const {
         serial,
         startTime,
@@ -27,58 +26,76 @@ export default function SingleAppointment({ className, doctorDetails }) {
     } = doctorDetails;
 
     const { latitude, longitude, district, town } = address;
-    console.log("LAT LNG : ", latitude, longitude);
 
     const { date, time } = formatDateAndTime(startTime);
-    // console.log("Start Time:", startTime);
-    // const date = new Date(startTime);
-    // const day = date.getDate().toString().padStart(2, "0");
-    // const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-indexed
-    // const year = date.getFullYear().toString();
-    // console.log(`${day}-${month}-${year}`);
-    // const dayTime = `${day}-${month}-${year}`;
+
     return (
         // [TODO] : CARD SYSTEM CSS
         <div className={classes[className]}>
-            <div className={classes["single-appoint-card_1strow"]}>
-                <p>
-                    <b>Doctor name:</b> {doctorName}{" "}
-                </p>
-                <p>
-                    <b>Address:</b>{" "}
-                    <address>
-                        {hospitalName}, {district}, {town}
-                    </address>
-                </p>
-                <p>
-                    <Link
-                        style={{
-                            color: "green",
-                            verticalAlign: "center",
-                            display: "flex",
-                        }}
-                        to={`https://www.google.com/maps/dir/?api=1&origin=${currentLatitude},${currentLongitude}&destination=${latitude},${longitude}`}
-                        target="_blank"
-                    >
-                        <span className="material-symbols-outlined">
-                            person_pin_circle
-                        </span>{" "}
-                        <span>Map</span>
-                    </Link>
-                </p>
-            </div>
-            <div className={classes["single-appoint-card_2ndrow"]}>
-                {/* <p>Location: {`${address.town}, ${address.district}`}</p> */}
-                <p>
-                    <b>Serial:</b> {serial}
-                </p>
-                <p>
-                    <b>Date:</b> {date}
-                </p>
-                <p>
-                    <b>Time:</b> {time}
-                </p>
-            </div>
+            <table>
+                <tr>
+                    <td>
+                        <b>Doctor name: </b>
+                    </td>
+                    <td>{doctorName}</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <b>Address:</b>
+                    </td>
+                    <td>
+                        {" "}
+                        {hospitalName}, {district}, {town} CMG KDJFKL KKDBI
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <Link
+                            style={{
+                                color: "green",
+                            }}
+                            to={`https://www.google.com/maps/dir/?api=1&origin=${currentLatitude},${currentLongitude}&destination=${latitude},${longitude}`}
+                            target="_blank"
+                        >
+                            <span
+                                style={{
+                                    verticalAlign: "middle",
+                                }}
+                                className="material-symbols-outlined"
+                            >
+                                person_pin_circle
+                            </span>
+                            <span
+                                style={{
+                                    verticalAlign: "middle",
+                                }}
+                            >
+                                Map
+                            </span>
+                        </Link>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Serial:</b>
+                    </td>
+                    <td>{serial}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Date:</b>
+                    </td>
+                    <td>{date}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Time:</b>
+                    </td>
+                    <td> {time}</td>
+                </tr>
+            </table>
         </div>
     );
 }

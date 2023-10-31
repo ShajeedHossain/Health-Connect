@@ -10,7 +10,7 @@ import Signup from "./components/signup";
 import { AuthContextProvider } from "./context/AuthContext";
 
 // Import from Patient Dashboard
-import Dashboard from "./components/Patient/Dashboard";
+import Dashboard from "./components/Dashboard";
 import BookAHospitalSeat from "./components/Patient/BookAHospitalSeat";
 import TakeAppointment from "./components/Patient/TakeAppointment";
 import Appointment from "./components/Patient/pages/Appointment";
@@ -20,7 +20,6 @@ import SeatBooking from "./components/Patient/pages/SeatBooking";
 import AppointmentConfirmation from "./components/Patient/pages/AppointmentConfirmation";
 
 // Import from Hospital Dashboard
-import HospitalDashboard from "./components/Hospital/HospitalDashboard";
 import AddDoctor from "./components/Hospital/pages/AddDoctor";
 import ViewDoctorList from "./components/Hospital/pages/ViewDoctorsList";
 import SettingsHospital from "./components/Hospital/pages/SettingsHospital";
@@ -32,7 +31,10 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/*" element={<PrivateRoute />}>
-                        <Route path="dashboard/*" element={<Dashboard />}>
+                        <Route
+                            path="dashboard/*"
+                            element={<Dashboard userType="patient" />}
+                        >
                             <Route
                                 path="appointment"
                                 element={<Appointment />}
@@ -64,7 +66,7 @@ function App() {
 
                         <Route
                             path="hospital-dashboard/*"
-                            element={<HospitalDashboard />}
+                            element={<Dashboard userType="hospital" />}
                         >
                             <Route path="add-doctor" element={<AddDoctor />} />
                             <Route

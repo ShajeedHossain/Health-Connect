@@ -6,18 +6,26 @@ import SingleAppointment from "./SingleAppointment";
 import { usePreviousAppointment } from "../../hooks/usePreviousAppointment";
 export default function AppointmentList() {
     const { user } = useAuthContext();
-    console.log("user : ", user);
+
+    // Upcoming Appointment Information
     const { upcomingData, upcomingLoading, upcomingError } =
         useUpcomingAppointmentList(user);
     const { upcomingAppointment } = upcomingData;
 
+    // Previous Appointment Information
     const { previousData, previousLoading, previousError } =
         usePreviousAppointment(user);
     const { previousAppointment } = previousData;
-    console.log("AppointmentList Data  from hook: ", upcomingAppointment);
-    // if (!loading) console.log("length ", upcomingAppointment.length);
+
     return (
         <>
+            <div className={classes["take-new-appointment-btn"]}>
+                <button className={classes["appoint-tek-btn"]}>
+                    <Link to="/dashboard/takeAppointment">
+                        <h3>Take New Appointment</h3>
+                    </Link>
+                </button>
+            </div>
             <section className={classes["doc-upcoming-apoint-chk-part"]}>
                 <div className={classes["doc-upcoming-apoint-check-header"]}>
                     <div
@@ -25,16 +33,10 @@ export default function AppointmentList() {
                     >
                         <h2>Upcoming Appointments</h2>
                     </div>
-                    <div className={classes["take-new-appointment-btn"]}>
-                        <button className={classes["appoint-tek-btn"]}>
-                            <Link to="/dashboard/takeAppointment">
-                                <h3>Take New Appointment</h3>
-                            </Link>
-                        </button>
-                    </div>
                 </div>
 
-                <div className={classes["doc-upcoming-appoint-check-cards"]}>
+                {/* Upcoming Appointment Part  */}
+                <div className={classes["appointment-cards"]}>
                     {!upcomingLoading &&
                         !upcomingError &&
                         upcomingAppointment.map((singleAppointment) => (
@@ -45,17 +47,16 @@ export default function AppointmentList() {
                                 loading={upcomingLoading}
                             />
                         ))}
-                    {/* <SingleAppointment className="single-upappoint-card" />
-                    <SingleAppointment className="single-upappoint-card" /> */}
                 </div>
             </section>
 
+            {/* Previous Appointment Part  */}
             <section className={classes["doc-previous-apoint-chk-part"]}>
                 <div className={classes["doc-previous-apoint-check-heading"]}>
                     <h2>Previous Appointments</h2>
                 </div>
 
-                <div className={classes["doc-previous-appoint-check-cards"]}>
+                <div className={classes["appointment-cards"]}>
                     {!previousLoading &&
                         !previousError &&
                         previousAppointment.map((singleAppointment) => (
@@ -66,9 +67,6 @@ export default function AppointmentList() {
                                 loading={previousLoading}
                             />
                         ))}
-                    {/* <SingleAppointment className="single-prevappoint-card" />
-                    <SingleAppointment className="single-prevappoint-card" />
-                    <SingleAppointment className="single-prevappoint-card" /> */}
                 </div>
             </section>
         </>
