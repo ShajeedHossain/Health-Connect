@@ -2,11 +2,20 @@ import { useState } from "react";
 import classes from "../../../styles/Settings.module.css";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useHospitalProfileInfo } from "../../../hooks/Hospital/useHospitalProfileInfo";
+import useGetCurrentLatLng from "../../../hooks/useGetCurrentLatLng";
 
 export default function SettingsHospital() {
     // Get Previous Data
-    const [data, loading, error] = useHospitalProfileInfo();
-    console.log(data);
+    // const [data, loading, error] = useHospitalProfileInfo();
+    // console.log(data);
+
+    const { currentLatitude, currentLongitude, town, district } =
+        useGetCurrentLatLng();
+    const [addressField, setAddressField] = useState("");
+    const getAddress = (e) => {
+        e.preventDefault();
+        setAddressField(`${town}, ${district}`);
+    };
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -16,10 +25,7 @@ export default function SettingsHospital() {
         const formDataObject = Object.fromEntries(formData);
         console.log("Form Data Example : ", formDataObject);
 
-        // UPDATE PROFILE API START...
-        // Add Update Profile API here
-
-        // UPDATE PROFILE API END....
+        // [TODO] : API CALL
     }
     return (
         // Need to change here and add the loading check after previous two are complete
@@ -61,19 +67,36 @@ export default function SettingsHospital() {
                         placeholder="Total Cabin"
                     />
                 </div>
+                <div className={classes["date-gender"]}>
+                    <textarea
+                        placeholder="Facilities with Beds"
+                        name="beds-facilities"
+                        id=""
+                        cols="30"
+                        rows="10"
+                    ></textarea>
+                    <textarea
+                        placeholder="Facilities with Cabins"
+                        name="cabins-facilities"
+                        id=""
+                        cols="30"
+                        rows="10"
+                    ></textarea>
+                </div>
 
                 <div className={classes["date-gender"]}>
                     <input
                         type="text"
-                        name="district"
-                        id="district"
-                        placeholder="District"
+                        name="address"
+                        id="address"
+                        placeholder="Address"
+                        value={addressField ? addressField : ""}
+                        disabled
                     />
                     <input
-                        type="text"
-                        name="town"
-                        id="town"
-                        placeholder="Town"
+                        type="button"
+                        value="Get Current Location"
+                        onClick={getAddress}
                     />
                 </div>
 

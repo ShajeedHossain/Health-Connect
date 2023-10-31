@@ -7,7 +7,8 @@
 }
 
 .patient-profile-update-form input,
-.patient-profile-update-form select {
+.patient-profile-update-form select,
+.patient-profile-update-form textarea {
     padding: 10px;
     margin-bottom: 10px;
 }

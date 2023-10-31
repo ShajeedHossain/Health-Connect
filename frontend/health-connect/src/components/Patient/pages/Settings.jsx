@@ -24,11 +24,13 @@ export default function Settings() {
     //     "__v": 0
     // }
     const { fullName, email, weight, height, address, gender, contact } = data;
-    const [addressField, setAddressField] = useState("");
+
     const [fullNameField, setFullNameField] = useState("");
     const [emailField, setEmailField] = useState("");
     const { currentLatitude, currentLongitude, town, district } =
         useGetCurrentLatLng();
+
+    const [addressField, setAddressField] = useState("");
     const getAddress = (e) => {
         e.preventDefault();
         setAddressField(`${town}, ${district}`);
