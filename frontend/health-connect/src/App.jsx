@@ -15,15 +15,15 @@ import BookAHospitalSeat from "./components/Patient/BookAHospitalSeat";
 import TakeAppointment from "./components/Patient/TakeAppointment";
 import Appointment from "./components/Patient/pages/Appointment";
 import HospitalBooking from "./components/Patient/pages/HospitalBooking";
+import Settings from "./components/Patient/pages/Settings";
+import SeatBooking from "./components/Patient/pages/SeatBooking";
+import AppointmentConfirmation from "./components/Patient/pages/AppointmentConfirmation";
 
 // Import from Hospital Dashboard
 import HospitalDashboard from "./components/Hospital/HospitalDashboard";
 import AddDoctor from "./components/Hospital/pages/AddDoctor";
-import Settings from "./components/Patient/pages/Settings";
 import ViewDoctorList from "./components/Hospital/pages/ViewDoctorsList";
 import SettingsHospital from "./components/Hospital/pages/SettingsHospital";
-import SeatBooking from "./components/Patient/pages/SeatBooking";
-import AppointmentConfirmation from "./components/Patient/pages/AppointmentConfirmation";
 
 function App() {
     return (

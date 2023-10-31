@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import PatientApi from "../../apis/PatientApi";
 
-export const usePatientProfileInfo = () => {
+export const usePatientProfileInfo = (user) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
@@ -10,11 +11,20 @@ export const usePatientProfileInfo = () => {
             try {
                 setLoading(true);
 
-                // API CALL to get patient own details.
-                const response = null;
+                const response = await PatientApi.get("/get-patient", {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                });
+
                 setLoading(false);
-                // setData(response.data); // Uncomment this line
+                setData(response.data.patient); // Uncomment this line
+                console.log(
+                    "RESPONSE FROM PATIENT API: ",
+                    response.data.patient
+                );
             } catch (err) {
+                console.log("ERROR FROM PATIENT API");
                 console.log(err);
                 setLoading(false);
                 setError(true);
