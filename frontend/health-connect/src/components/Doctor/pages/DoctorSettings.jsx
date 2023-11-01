@@ -4,7 +4,7 @@ import classes from "../../../styles/Settings.module.css";
 import useGetCurrentLatLng from "../../../hooks/useGetCurrentLatLng";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 
-export default function Settings() {
+export default function DoctorSettings() {
     // Get Previous Data
     // const [data, loading, error] = usePatientProfileInfo();
     // console.log(data);
@@ -48,7 +48,7 @@ export default function Settings() {
                     type="text"
                     name="fullname"
                     id="doctor-name"
-                    placeholder={`Full Name:`}
+                    placeholder={`Doctor Name:`}
                 />
                 <input
                     type="email"
@@ -70,21 +70,33 @@ export default function Settings() {
                     </select>
                 </div>
 
+                <input
+                    type="text"
+                    name="education"
+                    id="contact"
+                    placeholder="Educational Qualifications"
+                />
+
+                <input
+                    type="text"
+                    name="specialization"
+                    id="contact"
+                    placeholder="Specializations"
+                />
                 <div className={classes["date-gender"]}>
                     <input
                         type="text"
-                        name="height"
-                        id="height"
-                        placeholder="Height"
+                        name="bma"
+                        id="contact"
+                        placeholder="BMA ID"
                     />
                     <input
                         type="text"
-                        name="weight"
-                        id="weight"
-                        placeholder="Weight"
+                        name="fees"
+                        id="contact"
+                        placeholder="Fees"
                     />
                 </div>
-
                 <div className={classes["date-gender"]}>
                     <input
                         type="text"

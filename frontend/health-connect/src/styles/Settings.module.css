@@ -16,16 +16,18 @@
 .patient-profile-update-form input:focus,
 .patient-profile-update-form select:focus {
     outline: 0 !important;
-    border: 2px solid #76d5cb;
+    border: 2px solid var(--color-primary-paste);
 }
 .patient-profile-update-form input[type="submit"] {
-    background-color: #76d5cb;
+    background-color: var(--color-primary-paste);
     outline: 0;
     border: none;
-    border: 2px solid #76d5cb;
+    border: 2px solid var(--color-primary-paste);
+    color: #fff;
 }
 .patient-profile-update-form input[type="submit"]:hover {
-    background-color: #dbefec;
+    background-color: var(--color-light-paste);
+    color: #000;
 }
 .date-gender {
     display: flex;

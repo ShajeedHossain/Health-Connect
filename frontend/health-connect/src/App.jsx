@@ -24,6 +24,7 @@ import AddDoctor from "./components/Hospital/pages/AddDoctor";
 import ViewDoctorList from "./components/Hospital/pages/ViewDoctorsList";
 import SettingsHospital from "./components/Hospital/pages/SettingsHospital";
 import IndividualDoctorSignup from "./components/IndividualDoctorSignup";
+import DoctorSettings from "./components/Doctor/pages/DoctorSettings";
 
 function App() {
     return (
@@ -77,6 +78,16 @@ function App() {
                             <Route
                                 path="settings"
                                 element={<SettingsHospital />}
+                            />
+                        </Route>
+
+                        <Route
+                            path="doctor-dashboard/*"
+                            element={<Dashboard userType="doctor" />}
+                        >
+                            <Route
+                                path="settings"
+                                element={<DoctorSettings />}
                             />
                         </Route>
                     </Route>

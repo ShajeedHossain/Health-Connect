@@ -33,10 +33,17 @@ const Home = () => {
                                     >
                                         Dashboard
                                     </Link>
-                                ) : (
+                                ) : newUser.type === "patient" ? (
                                     <Link
                                         className="btn"
                                         to="/dashboard/appointment"
+                                    >
+                                        Dashboard
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        className="btn"
+                                        to="/doctor-dashboard"
                                     >
                                         Dashboard
                                     </Link>
