@@ -2,19 +2,22 @@ import { Link } from "react-router-dom";
 import classes from "../../styles/SingleAppointment.module.css";
 import { useEffect, useState } from "react";
 import { formatDateAndTime } from "../../Utility/formateTime";
+import useGetCurrentLatLng from "../../hooks/useGetCurrentLatLng";
 
 export default function SingleAppointment({ className, doctorDetails }) {
-    const [currentLatitude, setCurrentLatitude] = useState();
-    const [currentLongitude, setCurrentLongitude] = useState();
+    // const [currentLatitude, setCurrentLatitude] = useState();
+    // const [currentLongitude, setCurrentLongitude] = useState();
 
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            setCurrentLatitude(position.coords.latitude);
-            setCurrentLongitude(position.coords.longitude);
-            console.log("Latitude is :", position.coords.latitude);
-            console.log("Longitude is :", position.coords.longitude);
-        });
-    }, []);
+    // useEffect(() => {
+    //     navigator.geolocation.getCurrentPosition(function (position) {
+    //         setCurrentLatitude(position.coords.latitude);
+    //         setCurrentLongitude(position.coords.longitude);
+    //         console.log("Latitude is :", position.coords.latitude);
+    //         console.log("Longitude is :", position.coords.longitude);
+    //     });
+    // }, []);
+
+    const { currentLatitude, currentLongitude } = useGetCurrentLatLng();
 
     const {
         serial,
@@ -30,8 +33,7 @@ export default function SingleAppointment({ className, doctorDetails }) {
     const { date, time } = formatDateAndTime(startTime);
 
     return (
-        // [TODO] : CARD SYSTEM CSS
-        <div className={classes[className]}>
+        <div className={`dashboard-card ${classes.className}`}>
             <table>
                 <tr>
                     <td>
@@ -46,7 +48,7 @@ export default function SingleAppointment({ className, doctorDetails }) {
                     </td>
                     <td>
                         {" "}
-                        {hospitalName}, {district}, {town} CMG KDJFKL KKDBI
+                        {hospitalName}, {town}, {district}
                     </td>
                 </tr>
                 <tr>

@@ -1,3 +1,8 @@
+.doctorList-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 .doc-upcoming-apoint-chk-part {
     display: flex;
     flex-direction: column;

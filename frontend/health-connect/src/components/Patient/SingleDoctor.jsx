@@ -29,50 +29,71 @@ export default function SingleDoctor({ doctorData, user }) {
         timeConverter(evening_shift_time).time
     );
     return (
-        <div className={classes["single-bookappoint-card"]}>
-            <div className={classes["single-bookappoint-card_1strow"]}>
-                <p>
-                    <b>Doctor name:</b> {fullName}
-                </p>
-                <p>
-                    <b>Specialization:</b>{" "}
-                    {specializations.map((sp) => sp).join(", ")}
-                </p>
-                <p>
-                    <b>Hospital:</b> {hospitalName}
-                </p>
-            </div>
-
-            {/* [TODO] : CSS MUST BE CHANGED */}
-            <div className={classes["single-bookappoint-card_2ndrow"]}>
-                <p>
-                    <b>Fees:</b> {appointment_fees}tk
-                </p>
-                <p>
-                    <b>Contact: </b> {contact}
-                </p>
-                <p>
-                    <b>Time: </b> {timeConverter(morning_shift_time).time},{" "}
-                    {timeConverter(evening_shift_time).time}
-                </p>
-            </div>
-            <div className={classes["single-bookappoint-card_2ndrow"]}>
-                <p>
-                    <b>Available Days: </b>{" "}
-                    {available_days?.map((day) => day).join(", ")}
-                </p>
-                <Link
-                    state={{
-                        doctorData,
-                        hospitalId,
-                        doctorId: _id,
-                    }}
-                    className={classes["appoint-book-btn"]}
-                    to="/dashboard/takeAppointment/confirm-appointment"
-                >
-                    Book Appointment
-                </Link>
-            </div>
+        // .dashboard-card
+        <div className={`${classes["single-bookappoint-card"]} dashboard-card`}>
+            <table>
+                <tr>
+                    <td>
+                        <b>Doctor name:</b>
+                    </td>
+                    <td>{fullName}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Specialization:</b>
+                    </td>
+                    <td>{specializations.map((sp) => sp).join(", ")}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Hospital:</b>
+                    </td>
+                    <td>{hospitalName}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Fees:</b>
+                    </td>
+                    <td>{appointment_fees}tk</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Contact: </b>
+                    </td>
+                    <td>{contact}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Time: </b>
+                    </td>
+                    <td>
+                        {timeConverter(morning_shift_time).time},{" "}
+                        {timeConverter(evening_shift_time).time}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Available Days: </b>
+                    </td>
+                    <td> {available_days?.map((day) => day).join(", ")}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <Link
+                            state={{
+                                doctorData,
+                                hospitalId,
+                                doctorId: _id,
+                            }}
+                            className={classes["appoint-book-btn"]}
+                            to="/dashboard/takeAppointment/confirm-appointment"
+                        >
+                            Book Appointment
+                        </Link>
+                    </td>
+                </tr>
+            </table>
         </div>
     );
 }

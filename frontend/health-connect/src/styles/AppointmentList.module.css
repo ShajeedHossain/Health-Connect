@@ -3,7 +3,11 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
+.take-new-appointment-btn {
+    text-align: right;
+    margin-right: 60px;
+    margin-top: 20px;
+}
 .doc-upcoming-apoint-chk-part {
     display: flex;
     flex-direction: column;

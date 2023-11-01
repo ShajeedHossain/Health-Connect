@@ -34,7 +34,7 @@ aside .sidebar span {
 }
 
 aside .sidebar-option.active {
-    background: #dbefec;
+    background: #b7d3ff;
     color: #000;
     /* margin-left: 0px; */
 }
@@ -42,7 +42,7 @@ aside .sidebar-option.active {
 aside .sidebar-option.active::before {
     content: "";
     width: 6px;
-    background: #76d5cb;
+    background: #00296b;
     height: 50px;
     margin: 0;
 }
@@ -53,7 +53,7 @@ aside .sidebar-option span h3 {
 
 .sidebar-option:hover span,
 .sidebar-option:hover h3 {
-    color: #76d5cb;
+    color: #00296b;
     /* margin-left: 2rem; */
 }
 

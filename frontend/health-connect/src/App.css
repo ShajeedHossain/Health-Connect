@@ -176,3 +176,43 @@ small {
         color: #ff5500; /* Change color on hover */
     }
 }
+
+/* Dashboard Cards */
+.dashboard-card {
+    border: 1px solid #ddd;
+    border-bottom: solid 3px var(--color-primary-paste);
+    box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-bottom: 30px;
+    background-color: var(--deep-white);
+    width: calc(50% - 10px);
+}
+
+.dashboard-card table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+.dashboard-card table tr:first-child td {
+    background-color: var(--color-primary-paste);
+    padding: 10px 10px;
+    color: #fff;
+}
+
+.dashboard-card table tr td {
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+}
+.dashboard-card table tr td:first-child {
+    width: 30%;
+    vertical-align: top;
+}
+.dashboard-card table tr td:last-child {
+    width: 70%;
+    vertical-align: top;
+}
+.dashboard-card button,
+.dashboard-card a {
+    color: white;
+}

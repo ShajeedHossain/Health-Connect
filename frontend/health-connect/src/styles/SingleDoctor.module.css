@@ -5,6 +5,11 @@
     background-color: var(--deep-white);
 }
 
+.single-bookappoint-card table tr:last-child td {
+    padding: 10px 10px;
+    color: #fff;
+    text-align: right;
+}
 .single-bookappoint-card {
     display: flex;
     flex-direction: column;
