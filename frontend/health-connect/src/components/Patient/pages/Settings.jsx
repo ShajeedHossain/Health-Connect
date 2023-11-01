@@ -10,9 +10,6 @@ export default function Settings() {
     // console.log(data);
 
     const { user } = useAuthContext();
-    const { data, loading, error } = usePatientProfileInfo(user);
-
-    const { fullName, email, weight, height, address, gender, contact } = data;
 
     const [fullNameField, setFullNameField] = useState("");
     const [emailField, setEmailField] = useState("");
@@ -91,7 +88,7 @@ export default function Settings() {
                         name="address"
                         id="address"
                         placeholder="Address"
-                        value={addressField ? addressField : address}
+                        value={addressField ? addressField : ""}
                         disabled
                     />
                     <input
