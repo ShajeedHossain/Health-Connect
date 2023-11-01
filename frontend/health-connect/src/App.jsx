@@ -23,6 +23,7 @@ import AppointmentConfirmation from "./components/Patient/pages/AppointmentConfi
 import AddDoctor from "./components/Hospital/pages/AddDoctor";
 import ViewDoctorList from "./components/Hospital/pages/ViewDoctorsList";
 import SettingsHospital from "./components/Hospital/pages/SettingsHospital";
+import IndividualDoctorSignup from "./components/IndividualDoctorSignup";
 
 function App() {
     return (
@@ -82,6 +83,10 @@ function App() {
 
                     <Route path="/*" element={<PublicRoute />}>
                         <Route path="signup" element={<Signup />} />
+                        <Route
+                            path="individual-signup"
+                            element={<IndividualDoctorSignup />}
+                        />
                         <Route path="login" element={<Login />} />
                         <Route
                             path="forgot-password"

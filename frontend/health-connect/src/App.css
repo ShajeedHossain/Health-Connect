@@ -12,7 +12,7 @@
 :root {
     --color-info-dark: #7d8da1;
     --color-primary-paste: #00296b;
-    --color-light-paste: #dbefec;
+    --color-light-paste: #c2daff;
     --deep-white: whitesmoke;
     --background-white: #f2f4f8;
 }
@@ -110,13 +110,13 @@ small {
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 100vh;
 }
 .login-signup-form {
+    margin: 20px 0;
     background-color: #fff;
     padding: 40px;
     border-radius: 10px;
-    border: 1px solid #77d5ca;
+    border: 1px solid var(--color-primary-paste);
 }
 
 .login-signup-title {
@@ -127,8 +127,9 @@ small {
     flex-direction: column;
 }
 
-.login-signup-form form input {
-    width: 300px;
+.login-signup-form form input,
+.login-signup-form form select {
+    width: 500px;
     padding: 10px 15px;
     font-size: 16px;
     margin-bottom: 15px;
@@ -147,16 +148,18 @@ small {
     background-color: #fff;
 }
 .login-signup-form form input[type="submit"] {
-    background-color: #77d5ca;
+    background-color: var(--color-primary-paste);
     border: none;
+    color: white;
     padding: 15px 15px;
-    border: 1px solid #77d5ca;
+    border: 1px solid var(--color-primary-paste);
     font-weight: 500;
 }
 
 .login-signup-form form input[type="submit"]:hover {
-    background-color: #bce8e2;
-    border: 1px solid #77d5ca;
+    background-color: var(--color-light-paste);
+    color: #000;
+    border: 1px solid var(--color-primary-paste);
 }
 
 .error {
