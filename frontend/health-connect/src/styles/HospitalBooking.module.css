@@ -99,7 +99,8 @@
 /*-----css for the single hospital admission check cards---*/
 .hospital-admission-check-cards {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 .single-admissionchk-card1,
 .single-admissionchk-card2 {
