@@ -121,34 +121,52 @@ export default function AppointmentConfirmation() {
     return (
         <div>
             {doctorData && (
-                <div className={classes.doctorInfo}>
-                    <p>
-                        <b>Doctor Name: </b>
-                        {doctorData.fullName}
-                    </p>
-                    <p>
-                        <b>Specialization: </b>
-                        {doctorData.specializations?.map((sp) => sp).join(", ")}
-                    </p>
-                    <p>
-                        <b>Address: </b>
-                        <address>
-                            {doctorData.hospitalName}, {doctorData.address.town}
-                            , {doctorData.address.district}
-                        </address>
-                    </p>
+                <div className={`${classes.doctorInfo} dashboard-card-full `}>
+                    <table>
+                        <tr>
+                            <td>
+                                <b>Doctor Name: </b>
+                            </td>{" "}
+                            <td>{doctorData.fullName}</td>
+                        </tr>
 
-                    <p>
-                        <b>Appointment Fee: </b>
-                        {doctorData.appointment_fees}tk
-                    </p>
-
-                    <p>
-                        <b>Availabe Days:</b>{" "}
-                        {doctorData.available_days
-                            ?.map((day) => day)
-                            .join(", ")}
-                    </p>
+                        <tr>
+                            <td>
+                                <b>Specialization: </b>
+                            </td>
+                            <td>
+                                {doctorData.specializations
+                                    ?.map((sp) => sp)
+                                    .join(", ")}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Address: </b>
+                            </td>
+                            <td>
+                                {doctorData.hospitalName},{" "}
+                                {doctorData.address.town},{" "}
+                                {doctorData.address.district}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Appointment Fee: </b>
+                            </td>
+                            <td>{doctorData.appointment_fees}tk</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Availabe Days:</b>
+                            </td>
+                            <td>
+                                {doctorData.available_days
+                                    ?.map((day) => day)
+                                    .join(", ")}
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             )}
 
@@ -181,17 +199,6 @@ export default function AppointmentConfirmation() {
                         {formatDateAndTime(doctorData.evening_shift_time).time}
                     </option>
                 </select>
-                {/* <input
-                    type="time"
-                    name="reservationTime"
-                    id=""
-                    style={{
-                        width: "300px",
-                        marginTop: "10px",
-                        padding: "10px 0",
-                    }}
-                /> */}
-                TIME MUST BE AUTOMATED
                 <input
                     disabled={dateError}
                     type="submit"

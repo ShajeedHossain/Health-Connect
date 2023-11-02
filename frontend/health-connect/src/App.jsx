@@ -26,6 +26,7 @@ import SettingsHospital from "./components/Hospital/pages/SettingsHospital";
 import IndividualDoctorSignup from "./components/IndividualDoctorSignup";
 import DoctorSettings from "./components/Doctor/pages/DoctorSettings";
 import AddDoctorCSV from "./components/Hospital/pages/AddDoctorCSV";
+import DoctorViewAllAppointment from "./components/Doctor/pages/DoctorViewAllAppointment";
 
 function App() {
     return (
@@ -93,6 +94,10 @@ function App() {
                             <Route
                                 path="settings"
                                 element={<DoctorSettings />}
+                            />
+                            <Route
+                                path="view-appointments"
+                                element={<DoctorViewAllAppointment />}
                             />
                         </Route>
                     </Route>

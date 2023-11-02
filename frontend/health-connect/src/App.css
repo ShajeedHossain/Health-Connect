@@ -220,6 +220,42 @@ small {
     color: white;
 }
 
+.dashboard-card-full {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-bottom: 30px;
+    background-color: var(--deep-white);
+    width: calc(50% - 10px);
+}
+
+.dashboard-card-full table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+.dashboard-card-full table tr:first-child td {
+    background-color: var(--color-primary-paste);
+    padding: 10px 10px;
+    color: #fff;
+}
+
+.dashboard-card-full table tr td {
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+}
+.dashboard-card-full table tr td:first-child {
+    width: 30%;
+    vertical-align: top;
+}
+.dashboard-card-full table tr td:last-child {
+    width: 70%;
+    vertical-align: top;
+}
+.dashboard-card-full button,
+.dashboard-card-full a {
+    color: white;
+}
+
 .filter-field {
     margin-top: 10px;
     margin: 10px 0;

@@ -25,12 +25,12 @@ export default function DoctorSidebar({ activeState }) {
                         <h3>Dashboard</h3>
                     </div>
                 </Link>
-                <Link to="/hospital-dashboard/add-doctor">
+                <Link to="/doctor-dashboard/view-appointments">
                     <div className={classes["sidebar-option"]}>
                         <span className="material-symbols-outlined">
                             clinical_notes
                         </span>
-                        <h3>Add Doctor</h3>
+                        <h3>View Appointments</h3>
                     </div>
                 </Link>
                 <Link to="/hospital-dashboard/view-doctors">
