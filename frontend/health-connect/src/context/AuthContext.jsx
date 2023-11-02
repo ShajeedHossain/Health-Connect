@@ -15,7 +15,7 @@ export const AuthContextProvider = (props) => {
     // if (user) {
     //     dispatch({ type: "LOGIN", payload: user });
     // }
-    console.log("IMAS: ", user.token);
+    // console.log("IMAS: ", user.token);
     const getUserDetails = async () => {
       const response = await UserLog.get("/", {
         headers: {
