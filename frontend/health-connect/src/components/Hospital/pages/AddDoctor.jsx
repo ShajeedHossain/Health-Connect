@@ -2,6 +2,7 @@ import { useState } from "react";
 import HospitalApi from "../../../apis/HospitalApi";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import classes from "../../../styles/AddDoctor.module.css";
+import { Link } from "react-router-dom";
 export default function AddDoctor() {
     const { user, newUser } = useAuthContext();
     console.log("ADD DOCTOR PAGE: USER", newUser);
@@ -82,6 +83,11 @@ export default function AddDoctor() {
     }
     return (
         <div>
+            <div>
+                <Link to="/hospital-dashboard/add-doctor/add-csv">
+                    Add From CSV
+                </Link>
+            </div>
             <form
                 action=""
                 className={classes["add-doctor-form"]}

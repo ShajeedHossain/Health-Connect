@@ -44,3 +44,118 @@
 </body>
 
 </html>
+
+
+
+
+import React, { useState, useEffect } from 'react';
+import Papa from 'papaparse';
+
+function App() {
+const [csvData, setCsvData] = useState([]);
+const [editedData, setEditedData] = useState([]);
+const [isEditing, setIsEditing] = useState(false);
+
+useEffect(() => {
+// Read and parse the CSV file on component mount
+async function fetchData() {
+const response = await fetch('your-csv-file.csv');
+const reader = response.body.getReader();
+const result = await reader.read();
+const text = new TextDecoder().decode(result.value);
+Papa.parse(text, {
+header: true,
+complete: (results) => {
+setCsvData(results.data);
+},
+});
+}
+fetchData();
+}, []);
+
+const handleEditClick = () => {
+setIsEditing(true);
+// Copy the original data to the edited data
+setEditedData([...csvData]);
+};
+
+const handleSaveClick = () => {
+setIsEditing(false);
+// Save the edited data to state or perform an API call to update the data
+// For this example, we're just updating the state
+setCsvData([...editedData]);
+};
+
+const handleCancelClick = () => {
+setIsEditing(false);
+// Reset the edited data to match the original data
+setEditedData([...csvData]);
+};
+
+const handleInputChange = (e, rowIndex, columnName) => {
+// Update the edited data when input values change
+const newValue = e.target.value;
+setEditedData((prevData) => {
+const newData = [...prevData];
+newData[rowIndex][columnName] = newValue;
+return newData;
+});
+};
+
+return (
+<div>
+    {isEditing ? (
+    <div>
+        <button onClick={handleSaveClick}>Save</button>
+        <button onClick={handleCancelClick}>Cancel</button>
+    </div>
+    ) : (
+    <button onClick={handleEditClick}>Edit</button>
+    )}
+    <table>
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>BMA ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {csvData.map((data, rowIndex) => (
+            <tr key={rowIndex}>
+                <td>
+                    {isEditing ? (
+                    <input type="text" value={editedData[rowIndex]['fullName']} onChange={(e)=> handleInputChange(e,
+                    rowIndex, 'fullName')}
+                    />
+                    ) : (
+                    editedData[rowIndex]['fullName']
+                    )}
+                </td>
+                <td>
+                    {isEditing ? (
+                    <input type="text" value={editedData[rowIndex]['email']} onChange={(e)=> handleInputChange(e,
+                    rowIndex, 'email')}
+                    />
+                    ) : (
+                    editedData[rowIndex]['email']
+                    )}
+                </td>
+                <td>
+                    {isEditing ? (
+                    <input type="text" value={editedData[rowIndex]['bma_id']} onChange={(e)=> handleInputChange(e,
+                    rowIndex, 'bma_id')}
+                    />
+                    ) : (
+                    editedData[rowIndex]['bma_id']
+                    )}
+                </td>
+            </tr>
+            ))}
+        </tbody>
+    </table>
+</div>
+);
+}
+
+export default App;

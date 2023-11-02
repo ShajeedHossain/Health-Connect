@@ -25,6 +25,7 @@ import ViewDoctorList from "./components/Hospital/pages/ViewDoctorsList";
 import SettingsHospital from "./components/Hospital/pages/SettingsHospital";
 import IndividualDoctorSignup from "./components/IndividualDoctorSignup";
 import DoctorSettings from "./components/Doctor/pages/DoctorSettings";
+import AddDoctorCSV from "./components/Hospital/pages/AddDoctorCSV";
 
 function App() {
     return (
@@ -78,6 +79,10 @@ function App() {
                             <Route
                                 path="settings"
                                 element={<SettingsHospital />}
+                            />
+                            <Route
+                                path="add-doctor/add-csv"
+                                element={<AddDoctorCSV />}
                             />
                         </Route>
 
