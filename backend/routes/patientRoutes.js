@@ -31,7 +31,7 @@ router.route("/upcoming-appointment").get(requireAuth, getUpcomingAppointments);
 router.route("/get-all-hospital").get(requireAuth, getAllHospital);
 router.route("/get-all-doctor").get(requireAuth, getAllDoctor);
 router.route("/get-sorted-doctor").get(requireAuth, getSortedDoctorList);
-router.route("/get-sorted-doctor-data").get(requireAuth, getSortedDoctorData);
+router.route("/get-sorted-doctor-data").post(requireAuth, getSortedDoctorData);
 router
   .route("/get-previous-reservation")
   .get(requireAuth, patientPreviousReservations);

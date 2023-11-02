@@ -174,6 +174,8 @@ async function calculateDistances(doctorList, userLatitude, userLongitude) {
 const getSortedDoctorData = async (req, res) => {
   const { specializationFilter, districtFilter, sortByDistance } = req.body;
   const { authorization } = req.headers;
+  console.log(req.body);
+
   const token = authorization.split(" ")[1];
 
   const query = {};
@@ -188,8 +190,8 @@ const getSortedDoctorData = async (req, res) => {
     query.specializations = specializationFilter;
   }
   try {
-    const doctorData = await Doctor.find(query).lean();
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    const doctorData = await Doctor.find(query).lean();
     const patient = await Patient.findById({ _id });
     if (parseInt(sortByDistance)) {
       const doctorList = await calculateDistances(
@@ -202,7 +204,7 @@ const getSortedDoctorData = async (req, res) => {
       return;
     }
 
-    res.status(200).json({ doctorData }); //without sorting on distance
+    res.status(200).json({ doctorList: doctorData }); //without sorting on distance
     return;
   } catch (error) {
     res.status(400).json({
