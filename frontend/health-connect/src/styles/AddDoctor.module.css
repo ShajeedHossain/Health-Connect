@@ -38,7 +38,8 @@
     padding: 10px 60px;
 }
 
-.input-panal button {
+.input-panal button,
+.btn {
     margin-right: 10px;
     padding: 10px 25px;
     background-color: var(--color-primary-paste);
@@ -94,9 +95,10 @@
     padding: 10px 60px;
 }
 .input-data-table table {
-    width: 100%;
+    overflow: auto;
     border-collapse: collapse;
     border: 1px solid #ddd;
+    margin-bottom: 10px;
 }
 .input-data-table thead {
     background-color: #0056b3;
@@ -105,7 +107,6 @@
 .input-data-table thead tr th,
 .input-data-table tbody tr td {
     padding: 10px;
-    width: 33%;
 }
 .input-data-table thead tr th {
     color: #fff;
