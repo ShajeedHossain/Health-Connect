@@ -61,58 +61,58 @@ const patientSchema = new Schema({
 
 // Import required modules and define patientSchema...
 
-patientSchema.statics.updatePatient = async function (
-  fullName,
-  email,
-  dob,
-  weight,
-  height,
-  gender,
-  contact,
-  address,
-  _id
-) {
-  // const exists = await this.findOne({ email });
-  // const user = await User.findOne({ email });
+// patientSchema.statics.updatePatient = async function (
+//   fullName,
+//   email,
+//   dob,
+//   weight,
+//   height,
+//   gender,
+//   contact,
+//   address,
+//   _id
+// ) {
+//   // const exists = await this.findOne({ email });
+//   // const user = await User.findOne({ email });
 
-  // if (exists || user) {
-  //   throw Error("Email already in use");
-  // }
-  console.log(_id);
-  if (height < 0 || weight < 0) {
-    throw Error("Negative height or weight are not allowed");
-  }
-  if (!validator.isMobilePhone(contact, "bn-BD")) {
-    throw Error("Invalid phone number");
-  }
+//   // if (exists || user) {
+//   //   throw Error("Email already in use");
+//   // }
+//   console.log(_id);
+//   if (height < 0 || weight < 0) {
+//     throw Error("Negative height or weight are not allowed");
+//   }
+//   if (!validator.isMobilePhone(contact, "bn-BD")) {
+//     throw Error("Invalid phone number");
+//   }
 
-  try {
-    const result = await this.findByIdAndUpdate(
-      new mongoose.Types.ObjectId(_id),
-      {
-        $set: {
-          height: height,
-          weight: weight,
-          fullName: fullName,
-          bmi: calculateBMI(height, weight),
-          // email: email,
-          dob: dob,
-          age: calculateAge(dob),
-          gender: gender,
-          contact: contact,
-          address: address,
-        },
-      },
-      { new: true } // Return the updated document
-    );
-    result.save();
-    console.log(result);
-    return result;
-  } catch (error) {
-    console.log(error.message);
-    throw error;
-  }
-};
+//   try {
+//     const result = await this.findByIdAndUpdate(
+//       new mongoose.Types.ObjectId(_id),
+//       {
+//         $set: {
+//           height: height,
+//           weight: weight,
+//           fullName: fullName,
+//           bmi: calculateBMI(height, weight),
+//           // email: email,
+//           dob: dob,
+//           age: calculateAge(dob),
+//           gender: gender,
+//           contact: contact,
+//           address: address,
+//         },
+//       },
+//       { new: true } // Return the updated document
+//     );
+//     result.save();
+//     console.log(result);
+//     return result;
+//   } catch (error) {
+//     console.log(error.message);
+//     throw error;
+//   }
+// };
 
 // Create the Patient model...
 

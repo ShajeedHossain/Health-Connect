@@ -3,16 +3,30 @@ const Patient = require("../model/patientModel");
 const Doctor = require("../model/doctorModel");
 const Hospital = require("../model/hospitalModel");
 const fetchs = require("node-fetch");
+const validator = require("validator");
+const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 const {
   generateSerial,
   generatePatientCount,
+  calculateAge,
+  calculateBMI,
 } = require("../utilities/utilities");
+const User = require("../model/userModel");
 // const { formatDate } = require("../utilities/utilities.js");
 
+const generateToken = (_id) => {
+  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+};
+
 const updatePatient = async (req, res) => {
+  let emailFlag = false;
+  let passwordFlag = false;
+  let newToken = null;
+  let hashedPassword;
   const {
     email,
-    fullname,
+    fullName,
     dob,
     height,
     weight,
@@ -22,6 +36,9 @@ const updatePatient = async (req, res) => {
     town,
     latitude,
     longitude,
+    currentPassword,
+    newPassword,
+    confirmPassword,
   } = req.body;
   const address = {
     district,
@@ -31,22 +48,130 @@ const updatePatient = async (req, res) => {
   };
   const { authorization } = req.headers;
   const token = authorization.split(" ")[1];
+
   try {
+    if (email && !validator.isEmail(email)) {
+      throw Error("Email is not valid");
+    }
+
+    if (!currentPassword && (newPassword || confirmPassword)) {
+      throw Error("Must provide current password to update password");
+    } else if (currentPassword) {
+      if (!newPassword) {
+        throw Error("Provide the new password");
+      }
+      if (!confirmPassword) {
+        throw Error("Provide the confirm password");
+      }
+      if (newPassword !== confirmPassword) {
+        throw Error("Passwords don't match");
+      }
+      if (!validator.isStrongPassword(newPassword)) {
+        throw Error("Password not strong enough");
+      }
+      passwordFlag = true;
+      const salt = await bcrypt.genSalt(10);
+      hashedPassword = await bcrypt.hash(newPassword, salt);
+    }
+
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
-    let user = await Patient.updatePatient(
-      fullname,
-      email,
-      new Date(dob),
-      weight,
-      height,
-      gender,
-      contact,
-      address,
-      _id
+    const currentPatient = await Patient.findById(_id);
+    const currentUser = await User.findById(_id);
+
+    if (passwordFlag) {
+      const match = await bcrypt.compare(currentPassword, currentUser.password);
+
+      if (!match) {
+        throw Error("Invalid password");
+      }
+    }
+
+    if (currentPatient.email !== email && currentUser.email !== email) {
+      const patientExist = await Patient.findOne({
+        email,
+      });
+      const userExist = await User.findOne({ email });
+      if (patientExist || userExist) {
+        throw Error("Email already in use");
+      }
+      emailFlag = true;
+    }
+
+    const updateData = {
+      $set: {},
+    };
+
+    if (height) {
+      updateData.$set.height = height;
+    }
+
+    if (weight) {
+      updateData.$set.weight = weight;
+    }
+
+    if (fullName) {
+      updateData.$set.fullName = fullName;
+    }
+
+    if (height && weight) {
+      console.log(height, weight);
+      updateData.$set.bmi = calculateBMI(height, weight);
+    }
+
+    if (email) {
+      updateData.$set.email = email;
+    }
+
+    if (dob) {
+      updateData.$set.dob = dob;
+      updateData.$set.age = calculateAge(dob);
+    }
+
+    if (gender) {
+      updateData.$set.gender = gender;
+    }
+
+    if (contact) {
+      updateData.$set.contact = contact;
+      console.log(contact);
+    }
+
+    if (address) {
+      updateData.$set.address = address;
+    }
+
+    const result = await Patient.findByIdAndUpdate(
+      new mongoose.Types.ObjectId(_id),
+      updateData,
+      { new: true } // Return the updated document
     );
 
-    res.status(200).json({ email, user });
+    result.save();
+    //Updating the user schema if new email or password provided
+    console.log("PATIENT RESULT: ", result);
+    const userUpdateData = {
+      $set: {},
+    };
+
+    if (emailFlag) {
+      userUpdateData.$set.email = email;
+    }
+    if (passwordFlag) {
+      userUpdateData.$set.password = hashedPassword;
+      newToken = generateToken(_id);
+    }
+
+    const userResult = await User.findByIdAndUpdate(
+      new mongoose.Types.ObjectId(_id),
+      userUpdateData,
+      { new: true }
+    );
+    userResult.save();
+
+    console.log("USER RESULT: ", userResult);
+
+    res.status(200).json({ result, token: newToken });
   } catch (error) {
     res.status(400).json({
       error: error.message,
