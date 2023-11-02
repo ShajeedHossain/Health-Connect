@@ -137,7 +137,7 @@ const updatePatient = async (req, res) => {
       console.log(contact);
     }
 
-    if (address) {
+    if (district || town || latitude || longitude) {
       updateData.$set.address = address;
     }
 
@@ -160,6 +160,12 @@ const updatePatient = async (req, res) => {
     if (passwordFlag) {
       userUpdateData.$set.password = hashedPassword;
       newToken = generateToken(_id);
+    }
+    if (district || town || latitude || longitude) {
+      userUpdateData.$set.address = address;
+    }
+    if (fullName) {
+      userUpdateData.$set.fullname = fullName;
     }
 
     const userResult = await User.findByIdAndUpdate(
