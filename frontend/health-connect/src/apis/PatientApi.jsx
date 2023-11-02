@@ -1,9 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: `http://localhost:${
-        import.meta.env.VITE_BACKEND_PORT
-    }/api/patient`,
+  baseURL: `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/patient`,
 });
 
 /* To use the api, import this file as PatientApi */
@@ -98,7 +96,7 @@ export default axios.create({
 // HERE THE RESERVATION TYPE WILL BE "cabin" or "bed"
 // HERE DATE WILL BE IN (YYYY-MM-DD) FORMAT CONVERSION IS DONE BACKEND
 
-//additional_requirements=> must be a single string seperated with commas like "food,airpurifier" 
+//additional_requirements=> must be a single string seperated with commas like "food,airpurifier"
 
 // const response = await PatientApi.post(
 //     "/add-reservation",
@@ -168,6 +166,19 @@ export default axios.create({
 // const response = await PatientApi.post(
 //     "/get-distance",
 // {url},
+//     {
+//       headers: {
+//         Authorization: `Bearer ${user.token}`,
+//       },
+//     }
+//   );
+
+// const { specializationFilter, districtFilter, sortByDistance }
+
+/**Get sorted doctor data */
+// const response = await PatientApi.get(
+//     "/get-sorted-doctor-data",
+// { specializationFilter, districtFilter, sortByDistance },
 //     {
 //       headers: {
 //         Authorization: `Bearer ${user.token}`,
