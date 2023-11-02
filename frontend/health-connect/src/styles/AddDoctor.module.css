@@ -33,3 +33,85 @@
 .date-gender > * {
     flex: 0 49%;
 }
+
+.input-panal {
+    padding: 10px 60px;
+}
+
+.input-panal button {
+    margin-right: 10px;
+    padding: 10px 25px;
+    background-color: var(--color-primary-paste);
+    color: #fff;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
+}
+
+.file-input-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Style for the visible input field (hidden by default) */
+.file-input {
+    display: none;
+}
+
+/* Style for the label that appears as a button */
+.file-label {
+    padding: 10px 20px;
+    background-color: #0074d9; /* Button background color */
+    color: #fff; /* Text color */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
+}
+
+/* Style for the label on hover */
+.file-label:hover {
+    background-color: #0056b3; /* Button background color on hover */
+}
+
+/* Style for the file name display (optional) */
+.file-name {
+    margin-left: 10px;
+}
+
+.input-data-table {
+    padding: 10px 60px;
+}
+.input-data-table table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+.input-data-table thead {
+    background-color: #0056b3;
+}
+
+.input-data-table thead tr th,
+.input-data-table tbody tr td {
+    padding: 10px;
+    width: 33%;
+}
+.input-data-table thead tr th {
+    color: #fff;
+}
+
+.input-data-table tbody tr td input {
+    padding: 10px;
+    width: 100%;
+}
