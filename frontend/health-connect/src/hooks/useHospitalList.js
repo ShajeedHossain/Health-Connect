@@ -6,6 +6,9 @@ export const useHospitalList = (user) => {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
 
+    const [districtFilter, setDistrictFilter] = useState("");
+    const [sortByDistance, setSortByDistance] = useState(false);
+
     console.log("useHospitalList USER : ", user);
 
     useEffect(() => {
@@ -34,11 +37,15 @@ export const useHospitalList = (user) => {
         };
 
         fetchHospitalList();
-    }, []);
+    }, [user.token]);
 
     return {
         data,
         loading,
         error,
+        districtFilter,
+        sortByDistance,
+        setDistrictFilter,
+        setSortByDistance,
     };
 };

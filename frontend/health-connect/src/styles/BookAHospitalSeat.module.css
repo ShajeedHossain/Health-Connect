@@ -43,6 +43,16 @@
     font-weight: 500;
 }
 
+.BookHospitalCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.BookHospitalCards table tr:last-child td {
+    padding: 10px 10px;
+    color: #fff;
+    text-align: right;
+}
 .BookHospitalCard {
     border-bottom: solid 1px var(--color-primary-paste);
     box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);

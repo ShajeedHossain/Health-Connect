@@ -47,7 +47,7 @@ export default function TakeAppointment() {
 
     return (
         <section className={classes["take-appointment-part"]}>
-            <div className={classes["filter-field"]}>
+            <div className="filter-field">
                 <form>
                     <label htmlFor="filter-specialization">
                         Specializations :{" "}
