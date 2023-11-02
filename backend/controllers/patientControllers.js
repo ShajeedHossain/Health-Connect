@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Patient = require("../model/patientModel");
 const Doctor = require("../model/doctorModel");
+const Hospital = require("../model/hospitalModel");
 const fetchs = require("node-fetch");
 const {
   generateSerial,
@@ -53,39 +54,39 @@ const updatePatient = async (req, res) => {
   }
 };
 
-const getAllDoctor = async (req, res) => {
-  try {
-    const doctorList = await Doctor.getAllDoctor();
-    console.log(doctorList);
+// const getAllDoctor = async (req, res) => {
+//   try {
+//     const doctorList = await Doctor.getAllDoctor();
+//     console.log(doctorList);
 
-    res.status(200).json({ doctorList });
-  } catch (error) {
-    res.status(400).json({
-      error: error.message,
-    });
-  }
-};
+//     res.status(200).json({ doctorList });
+//   } catch (error) {
+//     res.status(400).json({
+//       error: error.message,
+//     });
+//   }
+// };
 
-const getSortedDoctorList = async (req, res) => {
-  try {
-    const doctorList = await Doctor.getAllDoctor();
+// const getSortedDoctorList = async (req, res) => {
+//   try {
+//     const doctorList = await Doctor.getAllDoctor();
 
-    for (const doctor of doctorList) {
-      const patientCount = await generatePatientCount(doctor._id); // May need to use generate serial for specific date
-      doctor.patientCount = patientCount;
-      Object.assign(doctor, { patientCount: patientCount });
-      console.log("DOCTOR", doctor);
-    }
+//     for (const doctor of doctorList) {
+//       const patientCount = await generatePatientCount(doctor._id); // May need to use generate serial for specific date
+//       doctor.patientCount = patientCount;
+//       Object.assign(doctor, { patientCount: patientCount });
+//       console.log("DOCTOR", doctor);
+//     }
 
-    doctorList.sort((a, b) => b.patientCount - a.patientCount); //reverse to get ascending sort
+//     doctorList.sort((a, b) => b.patientCount - a.patientCount); //reverse to get ascending sort
 
-    res.status(200).json({ doctorList });
-  } catch (error) {
-    res.status(400).json({
-      error: error.message,
-    });
-  }
-};
+//     res.status(200).json({ doctorList });
+//   } catch (error) {
+//     res.status(400).json({
+//       error: error.message,
+//     });
+//   }
+// };
 
 const getPatient = async (req, res) => {
   const { authorization } = req.headers;
@@ -116,12 +117,12 @@ const receiveMapUrl = async (req, res) => {
   }
 };
 
-async function calculateDistances(doctorList, userLatitude, userLongitude) {
+async function calculateDistances(dataList, userLatitude, userLongitude) {
   const apiKey = "AIzaSyCw9Xz5vT5x6m8DTutXNygenRnDX8jIYXs"; // Replace with your API key
 
   try {
-    // const doctorList = await Doctor.getAllDoctor();
-    const destinations = doctorList
+    // const dataList = await Doctor.getAllDoctor();
+    const destinations = dataList
       .map((coord) => `${coord.address.latitude},${coord.address.longitude}`)
       .join("|");
 
@@ -130,18 +131,18 @@ async function calculateDistances(doctorList, userLatitude, userLongitude) {
     const response = await fetch(url);
     const data = await response.json();
 
-    //adding the distance in the doctorList as property
+    //adding the distance in the dataList as property
     if (data.rows.length > 0) {
       for (let i = 0; i < data.rows[0].elements.length; i++) {
         const element = data.rows[0].elements[i];
         if (element.distance) {
-          doctorList[i].distance = element.distance.text.split(" ")[0];
+          dataList[i].distance = element.distance.text.split(" ")[0];
         } else {
-          doctorList[i].distance = "Distance not available";
+          dataList[i].distance = "Distance not available";
         }
       }
-      // Sort the doctorList by distance in ascending order
-      doctorList.sort((a, b) => {
+      // Sort the dataList by distance in ascending order
+      dataList.sort((a, b) => {
         // Parse the distance text to compare numeric values
         const distanceA = parseFloat(a.distance);
         const distanceB = parseFloat(b.distance);
@@ -160,7 +161,7 @@ async function calculateDistances(doctorList, userLatitude, userLongitude) {
           return -1; // Move b to the end
         }
       });
-      return doctorList;
+      return dataList;
     } else {
       console.log("No distance data available.");
     }
@@ -213,11 +214,49 @@ const getSortedDoctorData = async (req, res) => {
   }
 };
 
+const getSortedHospitalData = async (req, res) => {
+  const { districtFilter, sortByDistance } = req.body;
+  const { authorization } = req.headers;
+  console.log(req.body);
+  const token = authorization.split(" ")[1];
+
+  const query = {};
+
+  // Check if district is provided and add it to the query
+  if (districtFilter) {
+    query["address.district"] = districtFilter;
+  }
+
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    const hospitalData = await Hospital.find(query).lean();
+    const patient = await Patient.findById({ _id });
+    if (parseInt(sortByDistance)) {
+      const hospitalList = await calculateDistances(
+        hospitalData,
+        patient.address.latitude,
+        patient.address.longitude
+      );
+      //   console.log(hospitalList);
+      res.status(200).json({ hospitalList }); //sorting on distance
+      return;
+    }
+
+    res.status(200).json({ hospitalList: hospitalData }); //without sorting on distance
+    return;
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   updatePatient,
-  getAllDoctor,
-  getSortedDoctorList,
+  //   getAllDoctor,
+  //   getSortedDoctorList,
   getPatient,
   receiveMapUrl,
   getSortedDoctorData,
+  getSortedHospitalData,
 };

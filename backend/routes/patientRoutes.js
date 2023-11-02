@@ -3,11 +3,12 @@ const requireAuth = require("../middlewares/requireAuth");
 
 const {
   updatePatient,
-  getAllDoctor,
-  getSortedDoctorList,
+  // getAllDoctor,
+  // getSortedDoctorList,
   getPatient,
   receiveMapUrl,
   getSortedDoctorData,
+  getSortedHospitalData,
 } = require("../controllers/patientControllers");
 const {
   addAppointment,
@@ -29,9 +30,12 @@ router.route("/add-reservation").post(requireAuth, addReservation);
 router.route("/previous-appointment").get(requireAuth, getPreviousAppointments);
 router.route("/upcoming-appointment").get(requireAuth, getUpcomingAppointments);
 router.route("/get-all-hospital").get(requireAuth, getAllHospital);
-router.route("/get-all-doctor").get(requireAuth, getAllDoctor);
-router.route("/get-sorted-doctor").get(requireAuth, getSortedDoctorList);
+// router.route("/get-all-doctor").get(requireAuth, getAllDoctor);
+// router.route("/get-sorted-doctor").get(requireAuth, getSortedDoctorList);
 router.route("/get-sorted-doctor-data").post(requireAuth, getSortedDoctorData);
+router
+  .route("/get-sorted-hospital-data")
+  .post(requireAuth, getSortedHospitalData);
 router
   .route("/get-previous-reservation")
   .get(requireAuth, patientPreviousReservations);
