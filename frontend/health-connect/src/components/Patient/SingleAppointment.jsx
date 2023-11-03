@@ -5,18 +5,6 @@ import { formatDateAndTime } from "../../Utility/formateTime";
 import useGetCurrentLatLng from "../../hooks/useGetCurrentLatLng";
 
 export default function SingleAppointment({ className, doctorDetails }) {
-    // const [currentLatitude, setCurrentLatitude] = useState();
-    // const [currentLongitude, setCurrentLongitude] = useState();
-
-    // useEffect(() => {
-    //     navigator.geolocation.getCurrentPosition(function (position) {
-    //         setCurrentLatitude(position.coords.latitude);
-    //         setCurrentLongitude(position.coords.longitude);
-    //         console.log("Latitude is :", position.coords.latitude);
-    //         console.log("Longitude is :", position.coords.longitude);
-    //     });
-    // }, []);
-
     const { currentLatitude, currentLongitude } = useGetCurrentLatLng();
 
     const {

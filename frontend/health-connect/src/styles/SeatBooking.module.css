@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: start;
     align-items: start;
-    margin: 0 10%;
+    padding: 10px 60px;
 }
 
 .reservation-type {
@@ -25,19 +25,22 @@
 }
 
 .seat-booking-form input[type="submit"] {
-    background-color: #76d5cb;
+    background-color: #00296b;
     outline: 0;
     border: none;
-    border: 2px solid #76d5cb;
+    border: 2px solid #00296b;
+    color: #fff;
 }
 
 .seat-booking-form input[type="submit"]:hover {
-    background-color: #dbefec;
+    background-color: #bad5ff;
+    color: #000;
 }
 
 .doctorInfo {
-    margin-left: 10%;
-    margin-top: 2%;
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px 60px;
 }
 .doctorInfo > * {
     margin-bottom: 10px;
