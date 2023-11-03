@@ -87,7 +87,11 @@ const updatePatient = async (req, res) => {
       }
     }
 
-    if (currentPatient.email !== email && currentUser.email !== email) {
+    if (
+      email &&
+      currentPatient.email !== email &&
+      currentUser.email !== email
+    ) {
       const patientExist = await Patient.findOne({
         email,
       });
@@ -178,6 +182,7 @@ const updatePatient = async (req, res) => {
     console.log("USER RESULT: ", userResult);
 
     res.status(200).json({ result, token: newToken });
+    console.log("INNNNNNNNNNN");
   } catch (error) {
     res.status(400).json({
       error: error.message,

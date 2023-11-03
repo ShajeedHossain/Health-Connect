@@ -1,105 +1,136 @@
 import { useState } from "react";
-import { usePatientProfileInfo } from "../../../hooks/Patient/usePatientProfileInfo";
-import classes from "../../../styles/Settings.module.css";
-import useGetCurrentLatLng from "../../../hooks/useGetCurrentLatLng";
+import { useNavigate } from "react-router-dom";
+import PatientApi from "../../../apis/PatientApi";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import useGetCurrentLatLng from "../../../hooks/useGetCurrentLatLng";
+import classes from "../../../styles/Settings.module.css";
 
 export default function Settings() {
-    // Get Previous Data
-    // const [data, loading, error] = usePatientProfileInfo();
-    // console.log(data);
+  // Get Previous Data
+  // const [data, loading, error] = usePatientProfileInfo();
+  // console.log(data);
 
-    const { user } = useAuthContext();
+  const { user } = useAuthContext();
+  const navigate = useNavigate();
 
-    const [fullNameField, setFullNameField] = useState("");
-    const [emailField, setEmailField] = useState("");
-    const { currentLatitude, currentLongitude, town, district } =
-        useGetCurrentLatLng();
+  const [fullNameField, setFullNameField] = useState("");
+  const [emailField, setEmailField] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const { currentLatitude, currentLongitude, town, district } =
+    useGetCurrentLatLng();
+  const [error, setError] = useState(false);
 
-    const [addressField, setAddressField] = useState("");
-    const getAddress = (e) => {
-        e.preventDefault();
-        setAddressField(`${town}, ${district}`);
-    };
+  const [addressField, setAddressField] = useState("");
+  const getAddress = (e) => {
+    e.preventDefault();
+    setAddressField(`${town}, ${district}`);
+  };
 
-    function handleSubmit(e) {
-        e.preventDefault();
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(false);
 
-        // Form Data Object
-        const formData = new FormData(e.target);
-        const formDataObject = Object.fromEntries(formData);
-        formDataObject["town"] = town;
-        formDataObject["district"] = district;
-        console.log("Form Data Example : ", formDataObject);
+    // Form Data Object
+    const formData = new FormData(e.target);
+    const formDataObject = Object.fromEntries(formData);
+    formDataObject["town"] = town;
+    formDataObject["district"] = district;
+    formDataObject["latitude"] = currentLatitude;
+    formDataObject["longitude"] = currentLongitude;
+    console.log("Form Data Example : ", formDataObject);
 
-        // [TODO] : API CALL HERE WITH FORMDATA
+    try {
+      const response = await PatientApi.put("/update-patient", formDataObject, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      console.log("SEAT BOOKING API: RESPONSE ", response);
+      navigate("/dashboard/appointment");
+    } catch (err) {
+      setError(err.response.data.error);
+
+      console.log("SEAT BOOKING API: ERROR ", err);
     }
-    return (
-        <div>
-            <form
-                action=""
-                className={classes["patient-profile-update-form"]}
-                onSubmit={handleSubmit}
-            >
-                <input
-                    type="text"
-                    name="fullname"
-                    id="doctor-name"
-                    placeholder={`Full Name:`}
-                />
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder={`Email:`}
-                />
-                <input
-                    type="text"
-                    name="contact"
-                    id="contact"
-                    placeholder="Contact Number"
-                />
-                <div className={classes["date-gender"]}>
-                    <input type="date" name="dob" id="dob" />
-                    <select name="gender" id="gender">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-
-                <div className={classes["date-gender"]}>
-                    <input
-                        type="text"
-                        name="height"
-                        id="height"
-                        placeholder="Height"
-                    />
-                    <input
-                        type="text"
-                        name="weight"
-                        id="weight"
-                        placeholder="Weight"
-                    />
-                </div>
-
-                <div className={classes["date-gender"]}>
-                    <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        placeholder="Address"
-                        value={addressField ? addressField : ""}
-                        disabled
-                    />
-                    <input
-                        type="button"
-                        value="Get Current Location"
-                        onClick={getAddress}
-                    />
-                </div>
-
-                <input type="submit" value="Update Information" />
-            </form>
+  }
+  return (
+    <div>
+      <form
+        action=""
+        className={classes["patient-profile-update-form"]}
+        onSubmit={handleSubmit}
+      >
+        <input
+          type="text"
+          name="fullName"
+          id="doctor-name"
+          placeholder={`Full Name:`}
+        />
+        <input type="email" name="email" id="email" placeholder={`Email:`} />
+        <input
+          type="text"
+          name="contact"
+          id="contact"
+          placeholder="Contact Number"
+        />
+        <div className={classes["date-gender"]}>
+          <input type="date" name="dob" id="dob" />
+          <select name="gender" id="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
         </div>
-    );
+
+        <div className={classes["date-gender"]}>
+          <input type="text" name="height" id="height" placeholder="Height" />
+          <input type="text" name="weight" id="weight" placeholder="Weight" />
+        </div>
+
+        <div className={classes["date-gender"]}>
+          <input
+            type="text"
+            name="address"
+            id="address"
+            placeholder="Address"
+            value={addressField ? addressField : ""}
+            disabled
+          />
+          <input
+            type="button"
+            value="Get Current Location"
+            onClick={getAddress}
+          />
+        </div>
+        <label htmlFor="password">Current Password</label>
+        <input
+          type="password"
+          name="currentPassword"
+          id="password"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+        />
+        <label htmlFor="password">New Password</label>
+        <input
+          type="password"
+          name="newPassword"
+          id="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <label htmlFor="confirm-password">Confirm Password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          id="confirm-password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <input type="submit" value="Update Information" />
+      </form>
+    </div>
+  );
 }
