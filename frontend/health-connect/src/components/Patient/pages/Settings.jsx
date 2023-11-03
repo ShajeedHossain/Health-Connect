@@ -48,12 +48,12 @@ export default function Settings() {
           "Content-Type": "application/json",
         },
       });
-      console.log("SEAT BOOKING API: RESPONSE ", response);
+      console.log("UPDATE API: RESPONSE ", response);
       navigate("/dashboard/appointment");
     } catch (err) {
       setError(err.response.data.error);
 
-      console.log("SEAT BOOKING API: ERROR ", err);
+      console.log("UPDATE API: ERROR ", err);
     }
   }
   return (
@@ -85,8 +85,18 @@ export default function Settings() {
         </div>
 
         <div className={classes["date-gender"]}>
-          <input type="text" name="height" id="height" placeholder="Height" />
-          <input type="text" name="weight" id="weight" placeholder="Weight" />
+          <input
+            type="text"
+            name="height"
+            id="height"
+            placeholder="Height (in meters)"
+          />
+          <input
+            type="text"
+            name="weight"
+            id="weight"
+            placeholder="Weight (in kilograms)"
+          />
         </div>
 
         <div className={classes["date-gender"]}>
@@ -111,6 +121,7 @@ export default function Settings() {
           id="password"
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
+          placeholder="Must provide to change password. Else keep empty"
         />
         <label htmlFor="password">New Password</label>
         <input
@@ -119,6 +130,7 @@ export default function Settings() {
           id="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
+          placeholder="Must provide to change password. Else keep empty"
         />
         <label htmlFor="confirm-password">Confirm Password</label>
         <input
@@ -127,6 +139,7 @@ export default function Settings() {
           id="confirm-password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="Must provide to change password. Else keep empty"
         />
         {error && <p style={{ color: "red" }}>{error}</p>}
         <input type="submit" value="Update Information" />

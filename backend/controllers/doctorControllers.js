@@ -4,6 +4,9 @@ const jwt = require("jsonwebtoken");
 const {
   convertTimeToDateTime,
   calculateAge,
+  isHHMMFormat,
+  isCommaSeparatedWithoutSpaces,
+  containsValidNumber,
 } = require("../utilities/utilities");
 const mongoose = require("mongoose");
 const validator = require("validator");
@@ -48,10 +51,25 @@ const updateDoctor = async (req, res) => {
   const token = authorization.split(" ")[1];
 
   try {
+    if (morning_shift_time && !isHHMMFormat(morning_shift_time)) {
+      throw Error("Shift time must be in ( HH:MM ) format ");
+    }
+    if (evening_shift_time && !isHHMMFormat(evening_shift_time)) {
+      throw Error("Shift time must be in ( HH:MM ) format ");
+    }
     if (email && !validator.isEmail(email)) {
       throw Error("Email is not valid");
     }
-
+    if (appointment_fees && !containsValidNumber(appointment_fees)) {
+      throw Error("Please provide valid fees value");
+    }
+    console.log(isCommaSeparatedWithoutSpaces(specializations));
+    if (specializations && !isCommaSeparatedWithoutSpaces(specializations)) {
+      throw Error("Specializations must be comma seperated");
+    }
+    if (available_days && !isCommaSeparatedWithoutSpaces(available_days)) {
+      throw Error("Available days must be comma seperated");
+    }
     if (!currentPassword && (newPassword || confirmPassword)) {
       throw Error("Must provide current password to update password");
     } else if (currentPassword) {
@@ -85,7 +103,7 @@ const updateDoctor = async (req, res) => {
       }
     }
 
-    if (currentDoctor.email !== email && currentUser.email !== email) {
+    if (email && currentDoctor.email !== email && currentUser.email !== email) {
       const doctorExist = await Doctor.findOne({
         email,
       });
@@ -112,6 +130,7 @@ const updateDoctor = async (req, res) => {
     }
 
     if (specializations) {
+      console.log(specializations.split(","));
       updateData.$set.specializations = specializations.split(",");
     }
 
