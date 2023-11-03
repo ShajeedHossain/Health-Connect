@@ -117,6 +117,35 @@ function containsValidNumber(inputString) {
   return !isNaN(number) && isFinite(number);
 }
 
+function convertTimeToHHMM(timeString) {
+  // Extract hours and minutes using regular expressions
+  const match = timeString.match(/(\d+):(\d+) (\w{2})/);
+
+  if (!match) {
+    return "Invalid time format";
+  }
+
+  let hours = parseInt(match[1]);
+  const minutes = parseInt(match[2]);
+  const period = match[3].toLowerCase();
+
+  // Adjust hours for AM/PM
+  if (period === "pm" && hours !== 12) {
+    hours += 12;
+  } else if (period === "am" && hours === 12) {
+    hours = 0;
+  }
+
+  // Convert hours and minutes to two-digit format
+  const hoursString = hours.toString().padStart(2, "0");
+  const minutesString = minutes.toString().padStart(2, "0");
+
+  // Combine hours and minutes
+  const result = `${hoursString}:${minutesString}`;
+
+  return result;
+}
+
 module.exports = {
   formatDate,
   generateSerial,
@@ -128,4 +157,5 @@ module.exports = {
   isHHMMFormat,
   isCommaSeparatedWithoutSpaces,
   containsValidNumber,
+  convertTimeToHHMM,
 };

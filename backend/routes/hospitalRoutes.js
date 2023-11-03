@@ -4,6 +4,7 @@ const requireAuth = require("../middlewares/requireAuth");
 const {
   createDoctorSignup,
   getHospitalDoctors,
+  addManyDoctor,
 } = require("../controllers/hospitalControllers");
 const {
   findPreviousReservations,
@@ -20,5 +21,6 @@ router
   .route("/get-upcoming-reservations")
   .get(requireAuth, findUpcomingReservations);
 router.route("/get-doctors").get(requireAuth, getHospitalDoctors);
+router.route("/add-many-doctor").post(requireAuth, addManyDoctor);
 
 module.exports = router;

@@ -1,2 +1,3 @@
-"fullName","email","contact","bma_id","education","specializations","appointment_fees","available_days","morning_shift_time","evening_shift_time"
-"Zannatul Samarukh Elma","elma@gmail.com","01714444444","002","MBBS","Medicine,Heart","1000","Saturday, Sunday, Monday","9:00 AM","7:00 PM"
+fullName,email,contact,bma_id,education,specializations,appointment_fees,available_days,morning_shift_time,evening_shift_time
+Zannatul Samarukh Elma,elma@gmail.com,1714444444,2,MBBS,"Medicine,Heart",1000,"Saturday,Sunday,Monday",11:30 AM,7:30 PM
+Sami Vy,sami@gmail.com,1867777777,9,Something,Osteologist,4500,"Saturday,Thursday",10:30 AM,7:30 PM

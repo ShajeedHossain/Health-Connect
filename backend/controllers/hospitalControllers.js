@@ -1,7 +1,13 @@
 const Hospital = require("../model/hospitalModel");
 const Doctor = require("../model/doctorModel");
+const User = require("../model/userModel");
 const jwt = require("jsonwebtoken");
-const { convertTimeToDateTime } = require("../utilities/utilities");
+const {
+  convertTimeToDateTime,
+  convertTimeToHHMM,
+} = require("../utilities/utilities");
+const validator = require("validator");
+const mongoose = require("mongoose");
 
 const addHospital = async (req, res) => {
   const {
@@ -72,10 +78,10 @@ const createDoctorSignup = async (req, res) => {
     education,
     specializations,
     bma_id,
-    district,
-    town,
-    latitude,
-    longitude,
+    // district,
+    // town,
+    // latitude,
+    // longitude,
     appointment_fees,
     morning_shift_time,
     evening_shift_time,
@@ -132,9 +138,118 @@ const getHospitalDoctors = async (req, res) => {
   }
 };
 
+function processManyDoctorData(
+  doctorDataArray,
+  hospitalId,
+  hospitalName,
+  address
+) {
+  doctorDataArray.forEach((doctor) => {
+    //Adding hospitalId, hospitalName and address
+    doctor.hospitalId = hospitalId;
+    doctor.hospitalName = hospitalName;
+    doctor.address = address;
+
+    // Convert contact to string and add a '0' at the beginning
+    doctor.contact = "0" + doctor.contact.toString();
+    doctor.bma_id = doctor.bma_id.toString();
+
+    // Split available_days and specializations into arrays
+    doctor.available_days = doctor.available_days.split(",");
+    doctor.specializations = doctor.specializations.split(",");
+
+    // Convert time formats
+    console.log(doctor.morning_shift_time);
+    console.log(doctor.evening_shift_time);
+    if (doctor.morning_shift_time) {
+      doctor.morning_shift_time = convertTimeToDateTime(
+        convertTimeToHHMM(doctor.morning_shift_time.toString())
+      );
+    }
+    if (doctor.evening_shift_time) {
+      doctor.evening_shift_time = convertTimeToDateTime(
+        convertTimeToHHMM(doctor.evening_shift_time.toString())
+      );
+    }
+  });
+
+  return doctorDataArray;
+}
+
+const addManyDoctor = async (req, res) => {
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+  let hospital;
+
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    hospital = await Hospital.findById({ _id });
+  } catch (error) {
+    console.log(error.message);
+  }
+
+  const doctorDataArray = req.body;
+  const processedDoctorArray = processManyDoctorData(
+    doctorDataArray,
+    new mongoose.Types.ObjectId(hospital._id),
+    hospital.hospitalName,
+    hospital.address
+  );
+  console.log("PROCESSED: ", processedDoctorArray);
+
+  const createdDocuments = [];
+  const failedEmails = [];
+
+  for (const doctor of processedDoctorArray) {
+    if (!doctor.bma_id || !doctor.email || !doctor.fullName) {
+      throw Error("Email, bma_id and fullName can't be empty");
+    }
+    if (!validator.isMobilePhone(doctor.contact, "bn-BD")) {
+      throw Error("Invalid phone number");
+    }
+    if (!validator.isEmail(doctor.email)) {
+      throw Error("Email is not valid");
+    }
+
+    try {
+      const exists = await Doctor.findOne({ email: doctor.email });
+      const userExists = await User.findOne({ email: doctor.email });
+
+      if (exists || userExists) {
+        throw Error(`Email: ${doctor.email} already in use`);
+      }
+      const document = new Doctor(doctor);
+      const createdDocument = await document.save();
+      createdDocuments.push(createdDocument);
+
+      //signing up the newly created doctor
+      const password = createdDocument.email + "D*123";
+
+      const user = await User.signupDoctor(
+        createdDocument.email,
+        password,
+        createdDocument.fullName,
+        createdDocument.doctorId,
+        createdDocument.address
+      );
+    } catch (error) {
+      failedEmails.push(doctor.email);
+      console.error(error.message);
+    }
+  }
+  console.log("CREATED: ", createdDocuments);
+  console.log("FAILED: ", failedEmails);
+  if (!failedEmails || failedEmails.length === 0) {
+    res.status(200).json({ createdDocuments });
+  } else {
+    res.status(400).json({ createdDocuments, failedEmails });
+  }
+};
+
 module.exports = {
   addHospital,
   getAllHospital,
   createDoctorSignup,
   getHospitalDoctors,
+  addManyDoctor,
 };

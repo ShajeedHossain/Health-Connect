@@ -161,9 +161,9 @@ userSchema.statics.signupDoctor = async function (
     throw Error("All fields must be filled");
   }
 
-  const { valid } = await validate(email);
+  // const { valid } = await validate(email);
 
-  if (!valid) {
+  if (!validator.isEmail(email)) {
     throw Error("Email is not valid");
   }
 

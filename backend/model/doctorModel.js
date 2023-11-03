@@ -15,17 +15,17 @@ const doctorSchema = new Schema({
   },
   hospitalName: {
     type: String,
-    required: true,
+    // required: true,
   },
   hospitalId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Hospital", // Replace with the actual name of your Hospital model
     // type: String,
-    required: true,
+    // required: true,
   },
   education: {
     type: String,
-    required: true,
+    // required: true,
   },
   email: {
     type: String,
@@ -34,7 +34,7 @@ const doctorSchema = new Schema({
   },
   dob: {
     type: Date,
-    required: true,
+    // required: true,
     validate: {
       validator: function (dob) {
         const sixYearsAgo = new Date();
@@ -48,7 +48,7 @@ const doctorSchema = new Schema({
   gender: {
     type: String,
     enum: ["Male", "Female", "Other"],
-    required: true,
+    // required: true,
   },
   contact: {
     type: String,
@@ -129,11 +129,10 @@ doctorSchema.statics.addOneDoctor = async function (
     !fullName ||
     !hospitalId ||
     !education ||
-    !gender ||
-    !education ||
     !specializations ||
     !bma_id ||
-    !appointment_fees
+    !appointment_fees ||
+    !email
   ) {
     throw Error("Fields can't be empty");
   }
