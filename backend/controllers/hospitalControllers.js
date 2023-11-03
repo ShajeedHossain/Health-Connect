@@ -89,7 +89,7 @@ const createDoctorSignup = async (req, res) => {
   try {
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
     const hospital = await Hospital.findById({ _id });
-    console.log("DOCTOR CONTROLLER");
+
     const doctor = await Doctor.addOneDoctor(
       fullname,
       _id,

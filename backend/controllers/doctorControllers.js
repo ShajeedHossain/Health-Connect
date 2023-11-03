@@ -9,6 +9,10 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 
+const generateToken = (_id) => {
+  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+};
+
 const updateDoctor = async (req, res) => {
   let emailFlag = false;
   let passwordFlag = false;

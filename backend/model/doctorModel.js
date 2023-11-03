@@ -146,8 +146,8 @@ doctorSchema.statics.addOneDoctor = async function (
   if (!validator.isMobilePhone(contact, "bn-BD")) {
     throw Error("Invalid phone number");
   }
-  const { valid } = await validate(email);
-  if (!valid) {
+  // const { valid } = await validate(email);
+  if (!validator.isEmail(email)) {
     throw Error("Email is not valid");
   }
 
