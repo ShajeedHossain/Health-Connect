@@ -151,17 +151,6 @@ export default axios.create({
 //     }
 //   );
 
-/** Get patient data*/
-
-// const response = await PatientApi.get(
-//     "/get-patient",
-//     {
-//       headers: {
-//         Authorization: `Bearer ${user.token}`,
-//       },
-//     }
-//   );
-
 /**Get the distance */
 // const response = await PatientApi.post(
 //     "/get-distance",
@@ -179,6 +168,17 @@ export default axios.create({
 // const response = await PatientApi.get(
 //     "/get-sorted-doctor-data",
 // { specializationFilter, districtFilter, sortByDistance },
+//     {
+//       headers: {
+//         Authorization: `Bearer ${user.token}`,
+//       },
+//     }
+//   );
+
+/** Get patient data*/
+
+// const response = await PatientApi.get(
+//     "/get-patient",
 //     {
 //       headers: {
 //         Authorization: `Bearer ${user.token}`,

@@ -1,9 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: `http://localhost:${
-        import.meta.env.VITE_BACKEND_PORT
-    }/api/doctor`,
+  baseURL: `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/doctor`,
 });
 
 /** Doctor upcoming appointments*/
@@ -24,6 +22,18 @@ export default axios.create({
 //     {
 //       headers: {
 //         Authorization: `Bearer ${user.token}`,
+//       },
+//     }
+//   );
+
+/** Get Doctor*/
+
+// const response = await DoctorApi.get(
+//     "/get-doctor",
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+// Authorization: `Bearer ${user.token}`,
 //       },
 //     }
 //   );

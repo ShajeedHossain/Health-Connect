@@ -1,9 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: `http://localhost:${
-        import.meta.env.VITE_BACKEND_PORT
-    }/api/hospital`,
+  baseURL: `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/hospital`,
 });
 
 /* To use the api, import this file as AdminApi */
@@ -92,6 +90,18 @@ export default axios.create({
 
 // const response = await HospitalApi.get(
 //     "/get-doctors",
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+// Authorization: `Bearer ${user.token}`,
+//       },
+//     }
+//   );
+
+/** Get hospital*/
+
+// const response = await HospitalApi.get(
+//     "/get-hospital",
 //     {
 //       headers: {
 //         "Content-Type": "application/json",

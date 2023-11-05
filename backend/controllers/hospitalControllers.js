@@ -246,10 +246,27 @@ const addManyDoctor = async (req, res) => {
   }
 };
 
+const getHospital = async (req, res) => {
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+
+    const hospital = await Hospital.findById(_id);
+    console.log(hospital);
+    res.status(200).json({ hospital });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   addHospital,
   getAllHospital,
   createDoctorSignup,
   getHospitalDoctors,
   addManyDoctor,
+  getHospital,
 };
