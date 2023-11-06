@@ -41,7 +41,7 @@ export default function TakeAppointment() {
 
         setSpecializationList(allSpecialization);
         setDistrictList(allDistrict);
-    }, [doctorList]);
+    }, []);
 
     return (
         <section className={classes["take-appointment-part"]}>
