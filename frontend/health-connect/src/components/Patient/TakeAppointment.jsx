@@ -23,8 +23,8 @@ export default function TakeAppointment() {
     const { doctorList } = doctorData;
 
     useEffect(() => {
-        const allSpecialization = [];
-        const allDistrict = [];
+        const allSpecialization = specializationList;
+        const allDistrict = distrcitList;
 
         doctorList?.forEach((singleDoctor) => {
             singleDoctor.specializations.forEach((specialization) => {
@@ -41,7 +41,7 @@ export default function TakeAppointment() {
 
         setSpecializationList(allSpecialization);
         setDistrictList(allDistrict);
-    }, []);
+    }, [doctorList, specializationList, distrcitList]);
 
     return (
         <section className={classes["take-appointment-part"]}>

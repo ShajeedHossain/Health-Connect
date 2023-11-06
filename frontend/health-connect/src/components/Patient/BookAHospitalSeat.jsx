@@ -20,7 +20,7 @@ export default function BookAHospitalSeat() {
     const [distrcitList, setDistrictList] = useState([]);
 
     useEffect(() => {
-        const allDistrict = [];
+        const allDistrict = distrcitList;
 
         hospitalList?.forEach((hospital) => {
             if (!allDistrict.includes(hospital.address.district)) {
@@ -30,7 +30,7 @@ export default function BookAHospitalSeat() {
         });
 
         setDistrictList(allDistrict);
-    }, []);
+    }, [hospitalList]);
 
     return (
         <section className={classes["BookHospitalSeat"]}>

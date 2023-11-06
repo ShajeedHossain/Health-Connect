@@ -10,6 +10,9 @@ export const useDoctorList = (user) => {
     const [districtFilter, setDistrictFilter] = useState("");
     const [sortByDistance, setSortByDistance] = useState(0);
 
+    // const [specializationList, setSpecializationList] = useState([]);
+    // const [distrcitList, setDistrictList] = useState([]);
+
     // [TODO] :  USE THOSE FILTER STATE
     useEffect(() => {
         const fetchAppointmentList = async () => {
@@ -45,6 +48,27 @@ export const useDoctorList = (user) => {
 
         fetchAppointmentList();
     }, [specializationFilter, districtFilter, sortByDistance]);
+
+    // useEffect(() => {
+    //     const allSpecialization = specializationList;
+    //     const allDistrict = distrcitList;
+
+    //     data.doctorList?.forEach((singleDoctor) => {
+    //         singleDoctor.specializations.forEach((specialization) => {
+    //             if (!allSpecialization.includes(specialization)) {
+    //                 // Avoid duplicates
+    //                 allSpecialization.push(specialization);
+    //             }
+    //         });
+    //         if (!allDistrict.includes(singleDoctor.address.district)) {
+    //             // Avoid duplicates
+    //             allDistrict.push(singleDoctor.address.district);
+    //         }
+    //     });
+
+    //     setSpecializationList(allSpecialization);
+    //     setDistrictList(allDistrict);
+    // }, [data.doctorList]);
 
     return {
         doctorData: data,
