@@ -58,10 +58,10 @@ small {
     font-size: 0.75rem;
 }
 .btn {
-    background-color: #77d5ca;
+    background-color: #00296b;
     border: none;
     padding: 10px 25px;
-    border: 1px solid #77d5ca;
+    border: 1px solid #00296b;
     font-weight: 500;
     border-radius: 5px;
     margin-right: 20px;
@@ -102,7 +102,7 @@ small {
     Login Area
 ==============================*/
 .login-signup {
-    background: url("./assets/images/login-signup-back.jpg");
+    background: url("./assets/images/bg.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -110,13 +110,14 @@ small {
     justify-content: center;
     align-items: center;
     width: 100vw;
+    min-height: 100vh;
 }
 .login-signup-form {
     margin: 20px 0;
     background-color: #fff;
     padding: 40px;
     border-radius: 10px;
-    border: 1px solid var(--color-primary-paste);
+    border: 1px solid #00296b;
 }
 
 .login-signup-title {
@@ -148,18 +149,18 @@ small {
     background-color: #fff;
 }
 .login-signup-form form input[type="submit"] {
-    background-color: var(--color-primary-paste);
+    background-color: #00296b;
     border: none;
     color: white;
     padding: 15px 15px;
-    border: 1px solid var(--color-primary-paste);
+    border: 1px solid #00296b;
     font-weight: 500;
 }
 
 .login-signup-form form input[type="submit"]:hover {
-    background-color: var(--color-light-paste);
+    background-color: #c2daff;
     color: #000;
-    border: 1px solid var(--color-primary-paste);
+    border: 1px solid #00296b;
 }
 
 .error {
@@ -183,7 +184,7 @@ small {
 /* Dashboard Cards */
 .dashboard-card {
     border: 1px solid #ddd;
-    border-bottom: solid 3px var(--color-primary-paste);
+    border-bottom: solid 3px #00296b;
     box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
@@ -198,7 +199,7 @@ small {
     border-radius: 10px;
 }
 .dashboard-card table tr:first-child td {
-    background-color: var(--color-primary-paste);
+    background-color: #00296b;
     padding: 10px 10px;
     color: #fff;
 }
@@ -234,7 +235,7 @@ small {
     border-radius: 10px;
 }
 .dashboard-card-full table tr:first-child td {
-    background-color: var(--color-primary-paste);
+    background-color: #00296b;
     padding: 10px 10px;
     color: #fff;
 }

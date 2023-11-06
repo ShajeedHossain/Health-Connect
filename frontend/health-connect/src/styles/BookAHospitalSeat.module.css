@@ -19,11 +19,11 @@
 }
 
 .FilterNavbarOptions {
-    border: 1px solid var(--color-primary-paste);
+    border: 1px solid #00296b;
     border-radius: 5px;
     margin-bottom: 10px;
     margin-top: 10px;
-    background-color: var(--color-primary-paste);
+    background-color: #00296b;
     padding: 10px 20px;
     display: flex;
     justify-content: space-around;
@@ -54,7 +54,7 @@
     text-align: right;
 }
 .BookHospitalCard {
-    border-bottom: solid 1px var(--color-primary-paste);
+    border-bottom: solid 1px #00296b;
     box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
     margin-bottom: 30px;
     background-color: var(--deep-white);
@@ -85,11 +85,11 @@
 }
 
 .BookHospitalBtn {
-    background-color: var(--color-primary-paste);
+    background-color: #00296b;
     width: 150px;
     padding: 4px;
     text-align: center;
-    border: 2px solid var(--color-primary-paste);
+    border: 2px solid #00296b;
     border-radius: 4px;
     transition-duration: 0.4s;
     cursor: pointer;
@@ -133,21 +133,21 @@
     }
 
     .BookHospitalBtn {
-        background-color: var(--color-primary-paste);
+        background-color: #00296b;
         padding: 5px;
         width: 110px;
         text-align: center;
-        border: 2px solid var(--color-primary-paste);
+        border: 2px solid #00296b;
         border-radius: 4px;
         transition-duration: 0.4s;
         cursor: pointer;
     }
 }
 .appoint-book-btn {
-    background-color: var(--color-primary-paste);
+    background-color: #00296b;
     padding: 5px;
     text-align: center;
-    border: 2px solid var(--color-primary-paste);
+    border: 2px solid #00296b;
     border-radius: 4px;
     transition-duration: 0.4s;
     cursor: pointer;
@@ -186,11 +186,11 @@
         text-align: start;
     }
     .BookHospitalBtn {
-        background-color: var(--color-primary-paste);
+        background-color: #00296b;
         width: 100px;
         padding: 4px;
         text-align: center;
-        border: 2px solid var(--color-primary-paste);
+        border: 2px solid #00296b;
         border-radius: 4px;
         transition-duration: 0.4s;
         cursor: pointer;

@@ -6,12 +6,7 @@ import { useLogout } from "../../hooks/useLogout";
 import Header from "../Header";
 import classes from ".././../styles/Home.module.css";
 
-import img1 from "../../assets/images/medical_appointment.png";
-import img2 from "../../assets/images/prescription.png";
-import img3 from "../../assets/images/subscription-model.png";
-import img4 from "../../assets/images/hospital-bed.png";
-import img5 from "../../assets/images/diagnosis.png";
-
+import img1 from "../../assets/medical-appointment.png";
 const Home = () => {
     const { logout } = useAuthContext();
     // const navigate = useNavigate();
@@ -34,7 +29,7 @@ const Home = () => {
                     <div className={classes["featureCardrow1"]}>
                         <div className={classes["featureSingleCard"]}>
                             <img
-                                src={img3}
+                                src="/health-connect-frontend/images/subscription-model.png"
                                 className={classes["featureCardImg"]}
                                 alt=""
                             />
@@ -64,7 +59,7 @@ const Home = () => {
                         </div>
                         <div className={classes["featureSingleCard"]}>
                             <img
-                                src={img4}
+                                src="/health-connect-frontend/images/hospital-bed.png"
                                 className={classes["featureCardImg"]}
                                 alt=""
                             />
@@ -81,7 +76,7 @@ const Home = () => {
                     <div className={classes["featureCardrow2"]}>
                         <div className={classes["featureSingleCard"]}>
                             <img
-                                src={img5}
+                                src="/health-connect-frontend/images/diagnosis.png"
                                 className={classes["featureCardImg"]}
                                 alt=""
                             />
@@ -97,7 +92,7 @@ const Home = () => {
                         <div className={classes["featureSingleCard"]}>
                             {" "}
                             <img
-                                src={img2}
+                                src="/health-connect-frontend/images/prescription.png"
                                 className={classes["featureCardImg"]}
                                 alt=""
                             />

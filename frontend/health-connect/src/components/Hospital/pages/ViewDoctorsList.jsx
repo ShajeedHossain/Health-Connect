@@ -24,7 +24,7 @@ export default function ViewDoctorList() {
                     <h2>Available Doctor</h2>
                 </div>
 
-                <div className={classes["doc-upcoming-appoint-check-cards"]}>
+                <div className={classes["doctorList-cards"]}>
                     {!doctorLoading &&
                         !doctorError &&
                         doctor.map((singleDoctor) => (

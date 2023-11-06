@@ -34,13 +34,13 @@
 
 .sortButton {
     padding: 10px 20px;
-    background-color: #76d5cb;
+    background-color: #00296b;
     border: 0;
 }
 
 .sortButton:hover {
     padding: 10px 20px;
-    background-color: #99e5de;
+    background-color: #00296b;
     border: 0;
 }
 /*------media query for the upcoming-appointment header,button---*/

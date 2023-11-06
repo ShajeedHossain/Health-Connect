@@ -1,5 +1,5 @@
 .single-bookappoint-card {
-    border-bottom: solid 1px var(--color-primary-paste);
+    border-bottom: solid 1px #00296b;
     box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
     margin-bottom: 30px;
     background-color: var(--deep-white);
@@ -33,10 +33,10 @@
 }
 
 .appoint-book-btn {
-    background-color: var(--color-primary-paste);
+    background-color: #00296b;
     padding: 5px;
     text-align: center;
-    border: 2px solid var(--color-primary-paste);
+    border: 2px solid #00296b;
     border-radius: 4px;
     transition-duration: 0.4s;
     cursor: pointer;
@@ -81,10 +81,10 @@
     }
 
     .appoint-book-btn {
-        background-color: var(--color-primary-paste);
+        background-color: #00296b;
         padding: 5px;
         text-align: center;
-        border: 2px solid var(--color-primary-paste);
+        border: 2px solid #00296b;
         border-radius: 4px;
         transition-duration: 0.4s;
         cursor: pointer;
@@ -109,10 +109,10 @@
     }
 
     .appoint-book-btn {
-        background-color: var(--color-primary-paste);
+        background-color: #00296b;
         padding: 5px;
         text-align: center;
-        border: 2px solid var(--color-primary-paste);
+        border: 2px solid #00296b;
         border-radius: 4px;
         transition-duration: 0.4s;
         cursor: pointer;

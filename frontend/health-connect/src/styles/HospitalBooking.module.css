@@ -17,11 +17,11 @@
 }
 
 .book-seat-btn {
-    background-color: var(--color-primary-paste);
+    background-color: #00296b;
     /* color: white; */
     padding: 16px 30px;
     text-align: center;
-    border: 2px solid var(--color-primary-paste);
+    border: 2px solid #00296b;
     border-radius: 4px;
     transition-duration: 0.4s;
     cursor: pointer;
@@ -57,10 +57,10 @@
     }
 
     .book-seat-btn {
-        background-color: var(--color-primary-paste);
+        background-color: #00296b;
         padding: 10px;
         text-align: center;
-        border: 2px solid var(--color-primary-paste);
+        border: 2px solid #00296b;
         border-radius: 4px;
         transition-duration: 0.4s;
         cursor: pointer;
@@ -84,10 +84,10 @@
     }
 
     .book-seat-btn {
-        background-color: var(--color-primary-paste);
+        background-color: #00296b;
         padding: 4px;
         text-align: center;
-        border: 2px solid var(--color-primary-paste);
+        border: 2px solid #00296b;
         border-radius: 4px;
         transition-duration: 0.4s;
         cursor: pointer;
@@ -104,7 +104,7 @@
 }
 .single-admissionchk-card1,
 .single-admissionchk-card2 {
-    border-bottom: solid 3px var(--color-primary-paste);
+    border-bottom: solid 3px #00296b;
     box-shadow: 10px 10px 12px 0px rgba(221, 221, 221, 1);
     margin-bottom: 30px;
     background-color: var(--deep-white);
@@ -199,7 +199,7 @@
 }
 
 .single-prev-hospbook-card1 {
-    border-bottom: solid 3px var(--color-primary-paste);
+    border-bottom: solid 3px #00296b;
     /* box-shadow: 10px 10px 12px 2px lightblue; */
     margin-bottom: 30px;
     background-color: var(--deep-white);

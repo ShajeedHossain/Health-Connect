@@ -29,11 +29,10 @@
 }
 
 .appoint-tek-btn {
-    background-color: var(--color-primary-paste);
-    /* color: white; */
+    background-color: #00296b;
     padding: 16px 30px;
     text-align: center;
-    border: 2px solid var(--color-primary-paste);
+    border: 2px solid #00296b;
     border-radius: 4px;
     transition-duration: 0.4s;
     cursor: pointer;
@@ -49,8 +48,12 @@
     text-decoration: none;
 }
 
+.appoint-tek-btn:hover {
+    background-color: #c2daff;
+    color: black;
+}
 .appoint-tek-btn:hover a {
-    background-color: var(--color-light-paste);
+    background-color: #c2daff;
     color: black;
 }
 

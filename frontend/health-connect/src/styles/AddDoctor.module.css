@@ -6,6 +6,16 @@
     flex-direction: column;
 }
 
+.add-from-csv {
+    margin-top: 30px;
+}
+.add-from-csv-btn {
+    margin-left: 60px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #0056b3;
+    color: white;
+}
 .add-doctor-form input,
 .add-doctor-form select {
     padding: 10px;
@@ -15,16 +25,17 @@
 .add-doctor-form input:focus,
 .add-doctor-form select:focus {
     outline: 0 !important;
-    border: 2px solid #76d5cb;
+    border: 2px solid #0056b3;
 }
 .add-doctor-form input[type="submit"] {
-    background-color: #76d5cb;
+    background-color: #0056b3;
     outline: 0;
     border: none;
-    border: 2px solid #76d5cb;
+    color: white;
+    border: 2px solid #0056b3;
 }
 .add-doctor-form input[type="submit"]:hover {
-    background-color: #dbefec;
+    background-color: #0074d9;
 }
 .date-gender {
     display: flex;
@@ -42,7 +53,7 @@
 .btn {
     margin-right: 10px;
     padding: 10px 25px;
-    background-color: var(--color-primary-paste);
+    background-color: #0056b3;
     color: #fff;
     padding: 10px 30px;
     border: none;
@@ -54,6 +65,10 @@
     transition:
         background-color 0.3s,
         color 0.3s;
+}
+.input-panal button:hover,
+.btn:hover {
+    background-color: #0074d9;
 }
 
 .file-input-container {

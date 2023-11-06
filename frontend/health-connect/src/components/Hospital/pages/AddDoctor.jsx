@@ -83,8 +83,11 @@ export default function AddDoctor() {
     }
     return (
         <div>
-            <div>
-                <Link to="/hospital-dashboard/add-doctor/add-csv">
+            <div className={classes["add-from-csv"]}>
+                <Link
+                    className={classes["add-from-csv-btn"]}
+                    to="/hospital-dashboard/add-doctor/add-csv"
+                >
                     Add From CSV
                 </Link>
             </div>
