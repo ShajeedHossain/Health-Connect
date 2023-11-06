@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import HospitalApi from "../../apis/HospitalApi";
 
-export const useHospitalProfileInfo = () => {
+export const useHospitalProfileInfo = (user) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
@@ -10,10 +11,14 @@ export const useHospitalProfileInfo = () => {
             try {
                 setLoading(true);
 
-                // API CALL to get hospital own details.
-                const response = null;
+                const response = await HospitalApi.get("/get-hospital", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                });
                 setLoading(false);
-                // setData(response.data); // Uncomment this line
+                setData(response.data); // Uncomment this line
             } catch (err) {
                 console.log(err);
                 setLoading(false);

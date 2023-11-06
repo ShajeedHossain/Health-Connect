@@ -9,9 +9,15 @@ export default function SettingsHospital() {
     // const [data, loading, error] = useHospitalProfileInfo();
     // console.log(data);
 
+    const { user } = useAuthContext();
+    const { data, loading, error } = useHospitalProfileInfo(user);
     const { currentLatitude, currentLongitude, town, district } =
         useGetCurrentLatLng();
     const [addressField, setAddressField] = useState("");
+    const [enableEdit, setEnableEdit] = useState(false);
+
+    const hospital = data.hospital;
+    console.log("Hospital Information", data.hospital);
     const getAddress = (e) => {
         e.preventDefault();
         setAddressField(`${town}, ${district}`);
@@ -35,24 +41,109 @@ export default function SettingsHospital() {
                 className={classes["patient-profile-update-form"]}
                 onSubmit={handleSubmit}
             >
-                <input
-                    type="text"
-                    name="fullname"
-                    id="Hospital Name"
-                    placeholder="Hospital Name"
-                />
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="email"
-                />
-                <input
-                    type="text"
-                    name="contact"
-                    id="contact"
-                    placeholder="Contact Number"
-                />
+                <table>
+                    <tr>
+                        <td>Hospital Name: </td>
+                        <td>
+                            {enableEdit ? (
+                                <input
+                                    type="text"
+                                    name="fullname"
+                                    id="Hospital Name"
+                                    placeholder="Hospital Name"
+                                />
+                            ) : (
+                                hospital?.hospitalName
+                            )}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email: </td>
+                        <td>
+                            {enableEdit ? (
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    placeholder="email"
+                                />
+                            ) : (
+                                hospital?.email
+                            )}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Contact: </td>
+                        <td>
+                            {enableEdit ? (
+                                <input
+                                    type="text"
+                                    name="contact"
+                                    id="contact"
+                                    placeholder="Contact Number"
+                                />
+                            ) : (
+                                hospital?.contact
+                            )}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Address: </td>
+                        <td>
+                            {enableEdit ? (
+                                <div className={classes["date-gender"]}>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        id="address"
+                                        placeholder="Address"
+                                        value={addressField ? addressField : ""}
+                                        disabled
+                                    />
+                                    <input
+                                        type="button"
+                                        value="Get Current Location"
+                                        onClick={getAddress}
+                                    />
+                                </div>
+                            ) : (
+                                `${hospital?.address.town}, ${hospital?.address.district}`
+                            )}
+                        </td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <td rowSpan={hospital?.cabins.length}>Cabins</td>
+                        <td>
+                            <ul>
+                                <li>
+                                    Category: {hospital?.cabins[0].category}
+                                </li>
+                                <li>Price: {hospital?.cabins[0].price}</li>
+                                <li>Total: {hospital?.cabins[0].count}</li>
+                            </ul>
+                        </td>
+                        <td>Facilities: </td>
+                    </tr>
+
+                    {hospital?.cabins.map((cabin, index) => {
+                        if (index != 0)
+                            return (
+                                <tr>
+                                    <td>
+                                        <ul>
+                                            <li>Category: {cabin.category}</li>
+                                            <li>Price: {cabin.price}</li>
+                                            <li>Total: {cabin.count}</li>
+                                        </ul>
+                                    </td>
+                                    <td>Facilities</td>
+                                </tr>
+                            );
+                    })}
+                </table>
                 <div className={classes["date-gender"]}>
                     <input
                         type="text"
@@ -82,22 +173,6 @@ export default function SettingsHospital() {
                         cols="30"
                         rows="10"
                     ></textarea>
-                </div>
-
-                <div className={classes["date-gender"]}>
-                    <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        placeholder="Address"
-                        value={addressField ? addressField : ""}
-                        disabled
-                    />
-                    <input
-                        type="button"
-                        value="Get Current Location"
-                        onClick={getAddress}
-                    />
                 </div>
 
                 <input type="submit" value="Update Information" />
