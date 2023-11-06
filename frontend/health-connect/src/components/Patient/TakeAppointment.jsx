@@ -23,10 +23,11 @@ export default function TakeAppointment() {
     const { doctorList } = doctorData;
 
     useEffect(() => {
-        const allSpecialization = specializationList;
-        const allDistrict = distrcitList;
+        const allSpecialization = [...specializationList];
+        const allDistrict = [...distrcitList];
 
         doctorList?.forEach((singleDoctor) => {
+            console.log("WORKING LIST COLLECTION");
             singleDoctor.specializations.forEach((specialization) => {
                 if (!allSpecialization.includes(specialization)) {
                     // Avoid duplicates
@@ -41,7 +42,7 @@ export default function TakeAppointment() {
 
         setSpecializationList(allSpecialization);
         setDistrictList(allDistrict);
-    }, [doctorList, specializationList, distrcitList]);
+    }, [doctorList]);
 
     return (
         <section className={classes["take-appointment-part"]}>

@@ -20,7 +20,7 @@ export default function BookAHospitalSeat() {
     const [distrcitList, setDistrictList] = useState([]);
 
     useEffect(() => {
-        const allDistrict = distrcitList;
+        const allDistrict = [...distrcitList];
 
         hospitalList?.forEach((hospital) => {
             if (!allDistrict.includes(hospital.address.district)) {
