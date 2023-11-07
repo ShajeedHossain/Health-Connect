@@ -30,7 +30,7 @@ export function formatDateAndTime(dateString) {
     minutes = minutes < 10 ? "0" + minutes : minutes;
 
     // Create the formatted date and time string
-    const formattedDate = `${day}-${month}-${year}`;
+    const formattedDate = `${year}-${month}-${day}`;
     const formattedTime = `${hours}:${minutes} ${amOrPm}`;
 
     return { date: formattedDate, time: formattedTime };

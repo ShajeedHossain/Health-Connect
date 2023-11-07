@@ -32,22 +32,6 @@ export default function Settings() {
 
     console.log("Patient Previous Data ", patientData);
 
-    //     {
-    //     "_id": "6543e3b6032a009ecb80eb89",
-    //     "fullName": "Shajeed Hossain",
-    //     "email": "shakun650@gmail.com",
-    //     "weight": null,
-    //     "height": null,
-    //     "address": {
-    //         "district": "Dhaka District",
-    //         "town": "Badda",
-    //         "latitude": 23.7767362,
-    //         "longitude": 90.4228836
-    //     },
-    //     "bmi": null,
-    //     "age": null,
-    //     "__v": 0
-    // }
     useEffect(() => {
         const tempData = {
             fullName: patientData?.fullName,
