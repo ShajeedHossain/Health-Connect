@@ -33,6 +33,10 @@
     display: flex;
     justify-content: space-between;
 }
-.date-gender > * {
+.date-gender div {
     flex: 0 49%;
+}
+.date-gender div input,
+.date-gender div select {
+    width: 100%;
 }

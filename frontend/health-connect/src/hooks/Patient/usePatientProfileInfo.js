@@ -35,8 +35,8 @@ export const usePatientProfileInfo = (user) => {
     }, []);
 
     return {
-        data,
-        loading,
-        error,
+        patientData: data,
+        patientLoading: loading,
+        patientError: error,
     };
 };

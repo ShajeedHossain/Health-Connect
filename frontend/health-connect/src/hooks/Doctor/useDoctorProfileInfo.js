@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import PatientApi from "../apis/PatientApi";
+import DoctorApi from "../../apis/DoctorApi";
 
-export const useDoctorProfileInfo = () => {
+export const useDoctorProfileInfo = (user) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
@@ -12,9 +12,14 @@ export const useDoctorProfileInfo = () => {
                 setLoading(true);
 
                 // API CALL to get doctor own details.
-                const response = null;
+                const response = await DoctorApi.get("/get-doctor", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                });
                 setLoading(false);
-                // setData(response.data); // Uncomment this line
+                setData(response.data); // Uncomment this line
             } catch (err) {
                 console.log(err);
                 setLoading(false);
@@ -26,8 +31,8 @@ export const useDoctorProfileInfo = () => {
     }, []);
 
     return {
-        data,
-        loading,
-        error,
+        doctorInfo: data,
+        doctorLoading: loading,
+        doctorError: error,
     };
 };
