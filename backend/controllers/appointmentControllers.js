@@ -126,10 +126,28 @@ const doctorPreviousAppointments = async (req, res) => {
   }
 };
 
+const getDoctorAllAppointment = async (req, res) => {
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+
+    const appointments = await AppointmentTaken.find({ doctorId: _id });
+
+    res.status(200).json({ appointments });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   addAppointment,
   getPreviousAppointments,
   getUpcomingAppointments,
   doctorUpcomingAppointments,
   doctorPreviousAppointments,
+  getDoctorAllAppointment,
 };

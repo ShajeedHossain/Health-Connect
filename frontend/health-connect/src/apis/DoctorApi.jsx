@@ -37,3 +37,14 @@ export default axios.create({
 //       },
 //     }
 //   );
+/** Get a doctors all appointment*/
+
+// const response = await DoctorApi.get(
+//     "/get-doctor-appointments",
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+// Authorization: `Bearer ${user.token}`,
+//       },
+//     }
+//   );

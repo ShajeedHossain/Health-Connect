@@ -4,6 +4,7 @@ const requireAuth = require("../middlewares/requireAuth");
 const {
   doctorUpcomingAppointments,
   doctorPreviousAppointments,
+  getDoctorAllAppointment,
 } = require("../controllers/appointmentControllers");
 
 const { updateDoctor, getDoctor } = require("../controllers/doctorControllers");
@@ -18,5 +19,8 @@ router
   .get(requireAuth, doctorPreviousAppointments);
 router.route("/update-doctor").put(requireAuth, updateDoctor);
 router.route("/get-doctor").get(requireAuth, getDoctor);
+router
+  .route("/get-doctor-appointments")
+  .get(requireAuth, getDoctorAllAppointment);
 
 module.exports = router;
