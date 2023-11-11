@@ -225,18 +225,25 @@ const updatePatient = async (req, res) => {
 // };
 
 const getPatient = async (req, res) => {
-  const { authorization } = req.headers;
+  const { authorization, email } = req.headers;
   const token = authorization.split(" ")[1];
+
   try {
-    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
-    const patient = await Patient.findById({ _id });
-    console.log(patient);
+    let patient;
+    if (email) {
+      patient = await Patient.findOne({ email: email });
+    } else {
+      const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+      patient = await Patient.findById(_id);
+    }
+
+    if (!patient) {
+      return res.status(404).json({ error: "Patient not found" });
+    }
 
     res.status(200).json({ patient });
   } catch (error) {
-    res.status(400).json({
-      error: error.message,
-    });
+    res.status(400).json({ error: error.message });
   }
 };
 

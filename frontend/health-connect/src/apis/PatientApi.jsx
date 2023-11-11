@@ -176,12 +176,14 @@ export default axios.create({
 //   );
 
 /** Get patient data*/
+//ENTER THE PATIENT EMAIL IN THE patient.email
 
 // const response = await PatientApi.get(
 //     "/get-patient",
 //     {
 //       headers: {
 //         Authorization: `Bearer ${user.token}`,
+// 'email': patient.email,
 //       },
 //     }
 //   );
