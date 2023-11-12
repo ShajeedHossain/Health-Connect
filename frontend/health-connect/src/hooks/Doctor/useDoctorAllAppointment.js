@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DoctorApi from "../../apis/DoctorApi";
 
-export const useDoctorAllAppointment = (user) => {
+export const useDoctorAllAppointment = (user, doctorId) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
@@ -18,11 +18,12 @@ export const useDoctorAllAppointment = (user) => {
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${user.token}`,
+                            id: doctorId,
                         },
                     }
                 );
                 setLoading(false);
-                setData(response.data); // Uncomment this line
+                setData(response.data.appointments); // Uncomment this line
             } catch (err) {
                 console.log(err);
                 setLoading(false);
