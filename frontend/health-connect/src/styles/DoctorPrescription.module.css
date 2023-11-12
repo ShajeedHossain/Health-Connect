@@ -19,7 +19,7 @@
     margin-top: 20px;
 }
 .prescription-data textarea,
-.prescription-data input,
+.prescription-data input[type="date"],
 .prescription-data button {
     width: 100%;
     padding: 10px;

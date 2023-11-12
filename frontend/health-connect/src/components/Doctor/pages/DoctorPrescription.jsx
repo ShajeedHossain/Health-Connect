@@ -65,7 +65,24 @@ export default function DoctorPrescription() {
         // Form Data Object
         const formData = new FormData(e.target);
         const formDataObject = Object.fromEntries(formData);
+
+        formDataObject["specific_disease"] = specificProblem
+            ?.map((problem) => problem)
+            .join(",");
+
         console.log("Form Data Example : ", formDataObject);
+    }
+
+    function handleSpecificProblem(e) {
+        const tempData = [...specificProblem];
+        console.log("Target Data: ", e.target.value);
+        if (tempData.includes(e.target.value)) {
+            const index = tempData.indexOf(e.target.value);
+            console.log("index of ", e.target.value, index);
+            tempData.splice(index, 1);
+        } else tempData.push(e.target.value);
+        console.log(tempData);
+        setSpecificProblem(tempData);
     }
     return (
         <div className={`${classes["prescription"]}`}>
@@ -126,28 +143,65 @@ export default function DoctorPrescription() {
 
                 <div className={`${classes["prescription-data"]}`}>
                     <form onSubmit={handleComplete}>
-                        <label htmlFor="">Problem Description</label>
+                        <div className={`${classes["specific-problem"]}`}>
+                            <label htmlFor="">
+                                <b>Specific Problem</b>
+                            </label>
+                            <div>
+                                <label htmlFor="diabetes">
+                                    <input
+                                        type="checkbox"
+                                        name="diabetes"
+                                        id="diabetes"
+                                        value={"Diabetes"}
+                                        onChange={handleSpecificProblem}
+                                    />{" "}
+                                    Diabetes
+                                </label>
+                            </div>
+                            <div>
+                                <label htmlFor="allergy">
+                                    <input
+                                        type="checkbox"
+                                        name="allergy"
+                                        id="allergy"
+                                        value={`Allergies`}
+                                        onChange={handleSpecificProblem}
+                                    />{" "}
+                                    Allergies
+                                </label>
+                            </div>
+                        </div>
+                        <label htmlFor="">
+                            <b>Problem Description</b>
+                        </label>
                         <textarea
                             name="problem"
                             id=""
                             cols="30"
                             rows="10"
                         ></textarea>
-                        <label htmlFor="">Medicine list</label>
+                        <label htmlFor="">
+                            <b>Medicine list</b>
+                        </label>
                         <textarea
                             name="medicine"
                             id=""
                             cols="30"
                             rows="10"
                         ></textarea>
-                        <label htmlFor="">Test List</label>
+                        <label htmlFor="">
+                            <b>Test List</b>
+                        </label>
                         <textarea
                             name="test_list"
                             id=""
                             cols="30"
                             rows="10"
                         ></textarea>
-                        <label htmlFor="">Next Appointment Date: </label>
+                        <label htmlFor="">
+                            <b>Next Appointment Date:</b>{" "}
+                        </label>
                         <input type="date" name="next_appointment" id="" />
 
                         <button type="submit" className="btn">

@@ -14,6 +14,18 @@ export default function DoctorPreviousHistory() {
                     <td>12-12-2023</td>
                 </tr>
                 <tr>
+                    <td>Specific Problems</td>
+                    <td>Diabetes, Allergies</td>
+                </tr>
+                <tr>
+                    <td>Problem</td>
+                    <td>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing
+                        elit. Possimus, facere!
+                    </td>
+                </tr>
+
+                <tr>
                     <td>Prescribed Medicines </td>
                     <td>
                         <ul>
@@ -31,6 +43,11 @@ export default function DoctorPreviousHistory() {
                             <li>Ultrasonograph</li>
                         </ul>
                     </td>
+                </tr>
+
+                <tr>
+                    <td>Next Date: </td>
+                    <td>12/12/2023</td>
                 </tr>
             </table>
         </div>
