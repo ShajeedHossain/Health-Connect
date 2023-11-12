@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/doctor`,
+  baseURL: `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/doctor`,
 });
 
 /** Doctor upcoming appointments*/
@@ -39,6 +39,7 @@ export default axios.create({
 //   );
 
 /** Get a doctors all appointment*/
+//provide the doctor id in the id field in headers
 
 // const response = await DoctorApi.get(
 //     "/get-doctor-appointments",
@@ -46,6 +47,7 @@ export default axios.create({
 //       headers: {
 //         "Content-Type": "application/json",
 // Authorization: `Bearer ${user.token}`,
+// 'id': doctor.id,
 //       },
 //     }
 //   );

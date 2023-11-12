@@ -127,13 +127,22 @@ const doctorPreviousAppointments = async (req, res) => {
 };
 
 const getDoctorAllAppointment = async (req, res) => {
-  const { authorization } = req.headers;
+  const { authorization, id } = req.headers;
   const token = authorization.split(" ")[1];
 
   try {
-    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    let appointments;
+    if (id) {
+      appointments = await AppointmentTaken.find({ doctorId: id });
+    } else {
+      const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
-    const appointments = await AppointmentTaken.find({ doctorId: _id });
+      appointments = await AppointmentTaken.find({ doctorId: _id });
+    }
+
+    if (!appointments) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
 
     res.status(200).json({ appointments });
   } catch (error) {
