@@ -28,6 +28,8 @@ import DoctorSettings from "./components/Doctor/pages/DoctorSettings";
 import AddDoctorCSV from "./components/Hospital/pages/AddDoctorCSV";
 import DoctorViewAllAppointment from "./components/Doctor/pages/DoctorViewAllAppointment";
 import HospitalViewAllReservation from "./components/Hospital/pages/HospitalViewAllReservation";
+import DoctorPrescription from "./components/Doctor/pages/DoctorPrescription";
+import DoctorPreviousHistory from "./components/Doctor/pages/DoctorPreviousHistory";
 
 function App() {
     return (
@@ -103,6 +105,14 @@ function App() {
                             <Route
                                 path="view-appointments"
                                 element={<DoctorViewAllAppointment />}
+                            />
+                            <Route
+                                path="prescription"
+                                element={<DoctorPrescription />}
+                            />
+                            <Route
+                                path="previous-history"
+                                element={<DoctorPreviousHistory />}
                             />
                         </Route>
                     </Route>
