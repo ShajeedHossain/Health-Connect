@@ -188,6 +188,30 @@ const getDoctorAllAppointment = async (req, res) => {
   }
 };
 
+const appointmentDone = async (req, res) => {
+  const { appointment_id, prescription } = req.body;
+
+  try {
+    const appointmentUpdate = await AppointmentTaken.findByIdAndUpdate(
+      appointment_id,
+      {
+        $set: {
+          isTaken: true,
+          prescription: prescription,
+        },
+      },
+      { new: true }
+    );
+    console.log(appointmentUpdate);
+
+    res.status(200).json({ appointmentUpdate });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   addAppointment,
   getPreviousAppointments,
@@ -195,4 +219,5 @@ module.exports = {
   doctorUpcomingAppointments,
   doctorPreviousAppointments,
   getDoctorAllAppointment,
+  appointmentDone,
 };

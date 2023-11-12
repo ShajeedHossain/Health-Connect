@@ -51,3 +51,16 @@ export default axios.create({
 //       },
 //     }
 //   );
+
+//API: APPOINTMENT DONE API
+
+// const response = await DoctorApi.put(
+//   "/appointment-done",
+//   { appointment_id, prescription },
+//   {
+//       headers: {
+//           Authorization: `Bearer ${user.token}`,
+//           "Content-Type": "application/json",
+//       },
+//   }
+// );

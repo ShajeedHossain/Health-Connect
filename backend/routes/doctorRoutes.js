@@ -5,6 +5,7 @@ const {
   doctorUpcomingAppointments,
   doctorPreviousAppointments,
   getDoctorAllAppointment,
+  appointmentDone,
 } = require("../controllers/appointmentControllers");
 
 const { updateDoctor, getDoctor } = require("../controllers/doctorControllers");
@@ -22,5 +23,6 @@ router.route("/get-doctor").get(requireAuth, getDoctor);
 router
   .route("/get-doctor-appointments")
   .get(requireAuth, getDoctorAllAppointment);
+router.route("/appointment-done").put(requireAuth, appointmentDone);
 
 module.exports = router;

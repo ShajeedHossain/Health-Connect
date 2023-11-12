@@ -35,6 +35,9 @@ const appointmentTakenSchema = new mongoose.Schema({
   shift: {
     type: String,
   },
+  prescription: {
+    type: mongoose.Schema.Types.Mixed,
+  },
 });
 
 // Define a custom validation function to check for duplicate appointments
