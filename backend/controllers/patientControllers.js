@@ -228,16 +228,17 @@ const updatePatient = async (req, res) => {
 // };
 
 const getPatient = async (req, res) => {
-    const { authorization, email, patientId } = req.headers;
+    const { email, patientId } = req.body;
+    const { authorization } = req.headers;
     const token = authorization.split(" ")[1];
-    console.log("API CALLED", email);
+    console.log("API CALLED", req.body);
     try {
         let patient;
         console.log("WORKING");
         if (patientId) {
             console.log("Patient ID :", email);
-            patient = await Patient.findOne({
-                _id: new ObjectId(patientId),
+            patient = await Patient.find({
+                _id: patientId,
             });
         } else if (email) {
             patient = await Patient.findOne({ email: email });

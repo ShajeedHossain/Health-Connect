@@ -11,14 +11,16 @@ export const usePatientProfileInfo = (patientId, user, patientEmail) => {
             try {
                 setLoading(true);
 
-                console.log("API BEGINING");
-                const response = await PatientApi.post("/get-patient", {
-                    headers: {
-                        Authorization: `Bearer ${user.token}`,
-                        email: patientEmail,
-                        patientId: patientId,
-                    },
-                });
+                console.log("API BEGINING", patientId);
+                const response = await PatientApi.post(
+                    "/get-patient",
+                    { email: patientEmail, patientId },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`,
+                        },
+                    }
+                );
 
                 setLoading(false);
                 setData(response.data.patient); // Uncomment this line
