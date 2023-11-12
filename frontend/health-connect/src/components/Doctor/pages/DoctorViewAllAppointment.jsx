@@ -71,6 +71,7 @@ export default function DoctorViewAllAppointment() {
                                 key={singleAppointment["_id"]}
                                 className="single-upappoint-card"
                                 appointmentDetails={singleAppointment}
+                                allAppointment={doctorAllAppointment}
                             />
                         ))}
                 </div>

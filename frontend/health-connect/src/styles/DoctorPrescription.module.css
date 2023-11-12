@@ -1,0 +1,24 @@
+.prescription {
+    padding: 20px 60px;
+}
+.prescription-table {
+    width: 100%;
+}
+
+.history-table tr td {
+    padding: 10px 10px !important;
+}
+.history-table tr td:last-child {
+    width: 25% !important;
+}
+.history-table tr td:first-child {
+    width: 8% !important;
+}
+
+.prescription-data {
+    margin-top: 20px;
+}
+.prescription-data textarea {
+    width: 100%;
+    padding: 10px;
+}

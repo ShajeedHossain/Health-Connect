@@ -5,7 +5,10 @@ import PatientApi from "../../apis/PatientApi";
 import { Link } from "react-router-dom";
 import { formatDateAndTime } from "../../Utility/formateTime";
 
-export default function DoctorSingleAppointment({ appointmentDetails }) {
+export default function DoctorSingleAppointment({
+    appointmentDetails,
+    allAppointment,
+}) {
     const { user } = useAuthContext();
     console.log("Doctor Single Appointment", appointmentDetails);
 
@@ -77,8 +80,13 @@ export default function DoctorSingleAppointment({ appointmentDetails }) {
                     <td></td>
                     <td style={{ textAlign: "right" }}>
                         <Link
+                            state={{
+                                patientData,
+                                allAppointment,
+                                appointmentDetails,
+                            }}
                             className={"appoint-book-btn"}
-                            to="/dashboard/takeAppointment/confirm-appointment"
+                            to="/doctor-dashboard/prescription"
                         >
                             View Details
                         </Link>
