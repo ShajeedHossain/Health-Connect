@@ -76,6 +76,10 @@ export default function AppointmentConfirmation() {
     console.log("Form Data Example : ", formDataObject);
 
     console.log("Date Picker Output: ", selectedDate);
+    if (!selectedDate) {
+      setError("Date can't be left empty");
+      return;
+    }
 
     const startTime =
       formatDateAndTime(selectedDate).date +

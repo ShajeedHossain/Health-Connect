@@ -5,6 +5,7 @@ const {
   generateSerial,
   sendEmail,
   convertTimeToAMPM,
+  scheduleEmail,
 } = require("../utilities/utilities");
 
 const addAppointment = async (req, res) => {
@@ -62,10 +63,17 @@ const addAppointment = async (req, res) => {
         ", "
       )}\nFees: ${appointment_fees}\nAppoointment Start Time: ${convertTimeToAMPM(
       startTime
-    )}`;
+    )}\nSerial: ${serial}`;
     sendEmail(patient_email, subject, message + otherMessage);
 
     //Scheduling the email to be sent 1hr before
+    const emailSendTime = new Date(newDate.getTime() - 2 * 60 * 60 * 1000); // Two hours before
+    scheduleEmail(
+      patient_email,
+      "Upcomimg appointment in 2hrs",
+      otherMessage,
+      emailSendTime
+    );
   } catch (error) {
     // console.log(error);
     res.status(401).json({
