@@ -20,7 +20,6 @@
 .seat-booking-form input[type="submit"],
 .seat-booking-form select {
     width: 100%;
-    margin-top: 10px;
     padding: 10px;
 }
 
@@ -78,4 +77,21 @@
     width: 100%;
     margin-top: 10px;
     padding: 10px;
+}
+
+.custom-date-picker {
+    width: 100%;
+}
+.custom-date-picker > div {
+    width: 100% !important;
+}
+
+.custom-date-picker > div input {
+    width: 100%;
+    padding: 10px;
+}
+
+.time-slot-picker {
+    width: 100%;
+    margin: 10px 0;
 }

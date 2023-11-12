@@ -18,13 +18,6 @@ export default function AppointmentConfirmation() {
     const location = useLocation();
     const { hospitalId, doctorId, doctorData, shift } = location.state;
     const [selectedDate, setSelectedDate] = useState();
-    console.log("HOSPITAL ID : ", hospitalId);
-    console.log("Doctor Data : ", doctorData);
-
-    const handleDateChange = (e) => {
-        setSelectedDate(e.target.value);
-        if (isWeekday(new Date(e.target.value))) setDateError(false);
-    };
 
     const dayValueMap = {
         0: "Sunday",
@@ -35,13 +28,9 @@ export default function AppointmentConfirmation() {
         5: "Friday",
         6: "Satuday",
     };
-    function isWeekday(date) {
-        const day = date.getDay();
-        return doctorData.available_days.includes(dayValueMap[day]); // Return true for all days except Sunday (0) and Monday (1)
-    }
 
     const [error, setError] = useState(false);
-    const [dateError, setDateError] = useState(true);
+    const [dateError, setDateError] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
         toast.onChange((payload) => {
@@ -57,18 +46,13 @@ export default function AppointmentConfirmation() {
         const formDataObject = Object.fromEntries(formData);
         console.log("Form Data Example : ", formDataObject);
 
-        //         {
-        //     "reservationDate": "2023-10-10",
-        //     "reservationTime": "23:38",
-        //     "hospitalId": "652bd901f0f1c2211c8d2885",
-        //     "doctorId": "652bda4af0f1c2211c8d28b2"
-        // }
+        console.log("Date Picker Output: ", selectedDate);
 
         const startTime =
-            formDataObject["reservationDate"] +
+            formatDateAndTime(selectedDate).date +
             "T" +
             convertDateToTime(formDataObject["timeSlot"]);
-        console.log(startTime);
+        console.log("start time : ", startTime);
         try {
             const response = await PatientApi.post(
                 "/add-appointment",
@@ -161,7 +145,7 @@ export default function AppointmentConfirmation() {
                     className={classes["seat-booking-form"]}
                     onSubmit={handleAppointment}
                 >
-                    <input
+                    {/* <input
                         type="date"
                         value={selectedDate}
                         onChange={handleDateChange}
@@ -169,31 +153,43 @@ export default function AppointmentConfirmation() {
                         min={new Date().toISOString().split("T")[0]} // Specify the minimum date if needed
                         // max="YYYY-MM-DD" // Specify the maximum date if needed
                         required
-                    />
-                    <CustomDatePicker
-                        allowedWeekdays={doctorData.available_days}
-                    />
-                    <p style={{ color: "red" }}>
+                    /> */}
+                    <div className={`${classes["custom-date-picker"]}`}>
+                        <label htmlFor="">Pick a Date</label>
+                        <CustomDatePicker
+                            allowedWeekdays={doctorData.available_days}
+                            selectedDate={selectedDate}
+                            setSelectedDate={setSelectedDate}
+                        />
+                    </div>
+
+                    {/* <p style={{ color: "red" }}>
                         {selectedDate && !isWeekday(new Date(selectedDate))
                             ? "Doctor not available on that day"
                             : ""}
-                    </p>
+                    </p> */}
                     {/* TIME MUST BE AUTOMATED  */}
-                    <select name="timeSlot" id="">
-                        <option value={doctorData.morning_shift_time}>
-                            {
-                                formatDateAndTime(doctorData.morning_shift_time)
-                                    .time
-                            }
-                        </option>
-                        <option value={doctorData.evening_shift_time}>
-                            {" "}
-                            {
-                                formatDateAndTime(doctorData.evening_shift_time)
-                                    .time
-                            }
-                        </option>
-                    </select>
+                    <div className={`${classes["time-slot-picker"]}`}>
+                        <label htmlFor="">Pick a Timeslot</label>
+                        <select name="timeSlot" id="">
+                            <option value={doctorData.morning_shift_time}>
+                                {
+                                    formatDateAndTime(
+                                        doctorData.morning_shift_time
+                                    ).time
+                                }
+                            </option>
+                            <option value={doctorData.evening_shift_time}>
+                                {" "}
+                                {
+                                    formatDateAndTime(
+                                        doctorData.evening_shift_time
+                                    ).time
+                                }
+                            </option>
+                        </select>
+                    </div>
+
                     <input
                         disabled={dateError}
                         type="submit"

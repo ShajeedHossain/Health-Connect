@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const CustomDatePicker = ({ allowedWeekdays }) => {
-    const [selectedDate, setSelectedDate] = useState(null);
-
+const CustomDatePicker = ({
+    allowedWeekdays,
+    selectedDate,
+    setSelectedDate,
+}) => {
     const isDayAllowed = (date) => {
         const allowedDayOfWeek = date.toLocaleString("en-US", {
             weekday: "long",
