@@ -1,7 +1,10 @@
 const AppointmentTaken = require("../model/appointmentTakenModel");
+const nodemailer = require("nodemailer");
+const schedule = require("node-schedule");
 
 //Utility function to formate date in (DD-MM-YYYY)
 function formatDate(date) {
+  console.log("DATE: ", date);
   const day = String(date.getDate()).padStart(2, "0"); // Get the day with leading zeros
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Get the month with leading zeros (Months are 0-indexed, so we add 1)
   const year = date.getFullYear(); // Get the year
@@ -146,6 +149,95 @@ function convertTimeToHHMM(timeString) {
   return result;
 }
 
+function convertTimeToAMPM(dateString) {
+  const date = new Date(dateString);
+
+  // Extract hours and minutes from the date
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  // Convert to AM/PM format
+  let ampm = hours >= 12 ? "PM" : "AM";
+  const hourIn12HourFormat = hours % 12 === 0 ? 12 : hours % 12;
+  const minutesFormatted = minutes < 10 ? "0" + minutes : minutes;
+
+  return `${hourIn12HourFormat}:${minutesFormatted} ${ampm}`;
+}
+
+function sendEmail(receiver_email, subject, message) {
+  //sending the token
+  try {
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.APP_MAIL,
+        pass: process.env.APP_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
+
+    let mailOptions = {
+      from: process.env.APP_MAIL,
+      to: receiver_email,
+      subject: subject,
+      text: message,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error.message);
+        return res.status(500).json({ error: "Email sending failed" });
+      } else {
+        return res.status(200).json({ status: "Success" });
+      }
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+function scheduleEmail(receiver_email, subject, message, specifiedTime) {
+  const job = schedule.scheduleJob(specifiedTime, function () {
+    try {
+      let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.APP_MAIL,
+          pass: process.env.APP_PASS,
+        },
+        tls: {
+          rejectUnauthorized: false,
+        },
+      });
+
+      let mailOptions = {
+        from: process.env.APP_MAIL,
+        to: receiver_email,
+        subject: subject,
+        text: message,
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error.message);
+          // Handle error appropriately
+        } else {
+          console.log("Email sent");
+          // Handle success if needed
+        }
+      });
+    } catch (error) {
+      console.log(error.message);
+      // Handle error appropriately
+    }
+
+    job.cancel(); // Cancel job after executing once
+  });
+}
+
 module.exports = {
   formatDate,
   generateSerial,
@@ -158,4 +250,7 @@ module.exports = {
   isCommaSeparatedWithoutSpaces,
   containsValidNumber,
   convertTimeToHHMM,
+  sendEmail,
+  convertTimeToAMPM,
+  scheduleEmail,
 };

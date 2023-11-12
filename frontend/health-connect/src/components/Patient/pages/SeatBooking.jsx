@@ -35,7 +35,18 @@ export default function SeatBooking() {
     const formData = new FormData(e.target);
     const formDataObject = Object.fromEntries(formData);
 
+    if (formDataObject["reservationType"] === undefined) {
+      setError("Reservation type must be selected");
+      return;
+    }
+
+    if (formDataObject["reservationCategory"] === undefined) {
+      setError("Reservation category must be selected");
+      return;
+    }
+
     formDataObject["hospitalId"] = hospitalId;
+    formDataObject["patient_email"] = user.email;
     formDataObject["additional_requirements"] = `${
       formDataObject["ambulance"] ? formDataObject["ambulance"] + "," : ""
     }${formDataObject["stretcher"] ? formDataObject["stretcher"] + "," : ""}${
@@ -185,6 +196,7 @@ export default function SeatBooking() {
             name="reservationDate"
             id=""
             min={new Date().toISOString().split("T")[0]}
+            required
           />
 
           <div className={classes.additional_req}>
