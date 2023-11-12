@@ -1,7 +1,11 @@
 const jwt = require("jsonwebtoken");
 const AppointmentTaken = require("../model/appointmentTakenModel");
 const mongoose = require("mongoose");
-const { generateSerial, sendEmail } = require("../utilities/utilities");
+const {
+  generateSerial,
+  sendEmail,
+  convertTimeToAMPM,
+} = require("../utilities/utilities");
 
 const addAppointment = async (req, res) => {
   const {
@@ -25,15 +29,14 @@ const addAppointment = async (req, res) => {
 
   try {
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
-    const start = startTime;
-    console.log("START TIME: ", startTime);
-    // console.log("START TIME: ", start);
+    const initialDate = new Date(startTime);
+    const newDate = new Date(initialDate.getTime() + 6 * 60 * 60 * 1000);
 
     // //the id needs to be somehow received to get the name from the doctor schema
     const docId = new mongoose.Types.ObjectId(doctorId); //may change
     const hosId = new mongoose.Types.ObjectId(hospitalId); //may change
 
-    const count = await generateSerial(start, docId);
+    const count = await generateSerial(startTime, docId);
 
     // Calculate the serial number
     const serial = count + 1;
@@ -41,21 +44,28 @@ const addAppointment = async (req, res) => {
     const appointment = await AppointmentTaken.addAppointment(
       docId,
       _id,
-      start,
+      newDate,
       hosId,
       serial,
       shift
     );
     res.status(201).json({ appointment });
 
+    //Sending confirmation email
     const subject = "Health-Connect appointment confirmation";
     const message = `Thank you for using our services. Your appointment has been confirmed.\n\n`;
     const otherMessage = `Doctor Name: ${doctor_name}\nContact: ${contact}\nHospital Name: ${hospital_name}\nAddress: ${
       address.town
     }, ${address.district}\nSpecializations: ${specializations
       .map((val) => val)
-      .join(", ")}\nFees: ${appointment_fees}`;
+      .join(
+        ", "
+      )}\nFees: ${appointment_fees}\nAppoointment Start Time: ${convertTimeToAMPM(
+      startTime
+    )}`;
     sendEmail(patient_email, subject, message + otherMessage);
+
+    //Scheduling the email to be sent 1hr before
   } catch (error) {
     // console.log(error);
     res.status(401).json({

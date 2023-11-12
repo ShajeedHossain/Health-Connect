@@ -147,6 +147,21 @@ function convertTimeToHHMM(timeString) {
   return result;
 }
 
+function convertTimeToAMPM(dateString) {
+  const date = new Date(dateString);
+
+  // Extract hours and minutes from the date
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  // Convert to AM/PM format
+  let ampm = hours >= 12 ? "PM" : "AM";
+  const hourIn12HourFormat = hours % 12 === 0 ? 12 : hours % 12;
+  const minutesFormatted = minutes < 10 ? "0" + minutes : minutes;
+
+  return `${hourIn12HourFormat}:${minutesFormatted} ${ampm}`;
+}
+
 function sendEmail(receiver_email, subject, message) {
   //sending the token
   try {
@@ -195,4 +210,5 @@ module.exports = {
   containsValidNumber,
   convertTimeToHHMM,
   sendEmail,
+  convertTimeToAMPM,
 };
