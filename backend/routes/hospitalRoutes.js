@@ -10,6 +10,7 @@ const {
 const {
   findPreviousReservations,
   findUpcomingReservations,
+  dischargePatient,
 } = require("../controllers/reservationControllers");
 
 const router = express.Router();
@@ -24,5 +25,6 @@ router
 router.route("/get-doctors").get(requireAuth, getHospitalDoctors);
 router.route("/add-many-doctor").post(requireAuth, addManyDoctor);
 router.route("/get-hospital").get(requireAuth, getHospital);
+router.route("/discharge-patient").put(requireAuth, dischargePatient);
 
 module.exports = router;

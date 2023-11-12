@@ -124,10 +124,83 @@ const patientUpcomingReservations = async (req, res) => {
   }
 };
 
+const dischargePatient = async (req, res) => {
+  const {
+    reservationId,
+    reservationType,
+    reservationCategory,
+    // reservationDate,
+    // additional_requirements,
+    // reservationFee,
+    // ambulance_address,
+    bill,
+    patient_email,
+  } = req.body;
+
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    //Updating the reservation status and saving the bill
+    const reservation = await Reservation.findByIdAndUpdate(
+      reservationId,
+      {
+        $set: {
+          dischargeStatus: true,
+          bill: bill,
+        },
+      },
+      { new: true }
+    );
+    console.log(reservation);
+    res.status(200).json({ reservation });
+
+    //TODO: UPDATE COUNT adn send bill remaining
+    const hospital = await Hospital.findById(_id);
+    if (reservationType.toLowerCase() === "cabin" || "cabins") {
+      const categoryCabins = hospital.cabins.find(
+        (cabin) => cabin.category === reservationCategory
+      );
+      console.log(categoryCabins);
+
+      const remaining = categoryCabins.remaining;
+
+      console.log(categoryCabins.remaining);
+      categoryCabins.remaining += 1;
+    } else {
+      const categoryBeds = hospital.beds.find(
+        (beds) => beds.category === reservationCategory
+      );
+
+      const remaining = categoryBeds.remaining;
+
+      categoryBeds.remaining += 1;
+    }
+
+    await hospital.save();
+
+    //Sending confirmation email
+    // const hospital = await Hospital.findById(hospitalId);
+    // const subject = "Health-Connect reservation confirmation";
+    // const message = `Thank you for using our services. Your reservation has been confirmed.\n\n`;
+
+    // const otherMessage = `Hospital Name: ${hospital.hospitalName}\nAddress: ${hospital.address.town}, ${hospital.address.district}\nReserved for: ${reservationDate}\nReservation Type: ${reservationType}\nReservation Category: ${reservationCategory}\nAdditional Requirements: ${additional_requirements}`;
+
+    // sendEmail(patient_email, subject, message + otherMessage);
+  } catch (error) {
+    // console.log(error);
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   addReservation,
   findPreviousReservations,
   findUpcomingReservations,
   patientPreviousReservations,
   patientUpcomingReservations,
+  dischargePatient,
 };
