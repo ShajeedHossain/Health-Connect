@@ -1,6 +1,16 @@
+import { useEffect } from "react";
+import { useDoctorAllAppointment } from "../../../hooks/Doctor/useDoctorAllAppointment";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import classes from "../../../styles/DoctorViewAllAppointment.module.css";
 import DoctorSingleAppointment from "../DoctorSingleApppointment";
 export default function DoctorViewAllAppointment() {
+    const { user } = useAuthContext();
+    const {
+        doctorAllAppointment,
+        doctorAllAppointmentLoading,
+        doctorAllAppointmentError,
+    } = useDoctorAllAppointment(user);
+
     return (
         <>
             <section className={classes["view-allAppointments"]}>
@@ -12,20 +22,16 @@ export default function DoctorViewAllAppointment() {
 
                 {/* Upcoming Appointment Part  */}
                 <div className={classes["appointment-cards"]}>
-                    <DoctorSingleAppointment className="single-upappoint-card" />
-                </div>
-                {/* <div className={classes["appointment-cards"]}>
-                    {!upcomingLoading &&
-                        !upcomingError &&
-                        upcomingAppointment.map((singleAppointment) => (
-                            <SingleAppointment
+                    {!doctorAllAppointmentLoading &&
+                        !doctorAllAppointmentError &&
+                        doctorAllAppointment.map((singleAppointment) => (
+                            <DoctorSingleAppointment
                                 key={singleAppointment["_id"]}
                                 className="single-upappoint-card"
-                                doctorDetails={singleAppointment}
-                                loading={upcomingLoading}
+                                appointmentDetails={singleAppointment}
                             />
                         ))}
-                </div> */}
+                </div>
             </section>
         </>
     );

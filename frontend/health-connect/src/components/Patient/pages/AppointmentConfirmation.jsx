@@ -44,12 +44,14 @@ export default function AppointmentConfirmation() {
     const navigate = useNavigate();
 
     const serialRef = useRef();
+    const [appointmentCount, setAppointmentCount] = useState(0);
 
     useEffect(() => {
         const startTime =
             formatDateAndTime(selectedDate).date +
             "T" +
             convertDateToTime(selectedTime);
+        let count = 0;
         if (selectedDate && selectedTime) {
             doctorAllAppointment.forEach((appointment) => {
                 console.log(
@@ -58,8 +60,18 @@ export default function AppointmentConfirmation() {
                     startTime,
                     appointment.startTime === startTime
                 );
+                if (appointment.startTime === startTime) count++;
             });
+
+            setAppointmentCount(count);
         }
+
+        // console.log(serialRef.current);
+        serialRef.current.innerHTML = `Doctor Have ${count} appointments on that day. Your serial will be ${
+            count + 1
+        }`;
+        if (count > 0) serialRef.current.style.display = `block`;
+        else serialRef.current.style.display = `none`;
     }, [selectedTime, selectedDate]);
     useEffect(() => {
         toast.onChange((payload) => {
@@ -225,7 +237,10 @@ export default function AppointmentConfirmation() {
                         </select>
                     </div>
 
-                    <div ref={serialRef} style={{ color: "red" }}></div>
+                    <div
+                        ref={serialRef}
+                        style={{ color: "red", display: "none" }}
+                    ></div>
                     <input
                         disabled={dateError}
                         type="submit"
