@@ -6,11 +6,14 @@ import SingleDoctorHospital from "../SingleDoctorHospital";
 import HospitalApi from "../../../apis/HospitalApi";
 import { useAllDoctorList } from "../../../hooks/Hospital/useAllDoctorList";
 import HospitalSingleReservation from "../HospitalSingleReservation";
+import { useAllReservation } from "../../../hooks/Hospital/useAllReservation";
 
 export default function HospitalViewAllReservation() {
     const { user } = useAuthContext();
     console.log("user : ", user);
 
+    const { reservationData, reservationLoading, reservationError } =
+        useAllReservation(user);
     return (
         <section className={classes["take-appointment-part"]}>
             <section className={classes["doc-upcoming-apoint-chk-part"]}>
@@ -19,9 +22,15 @@ export default function HospitalViewAllReservation() {
                 </div>
 
                 <div className={classes["doctorList-cards"]}>
-                    <HospitalSingleReservation />
-                    <HospitalSingleReservation />
-                    <HospitalSingleReservation />
+                    {!reservationError &&
+                        !reservationLoading &&
+                        reservationData?.map((reservation, index) => (
+                            <HospitalSingleReservation
+                                key={index}
+                                reservation={reservation}
+                            />
+                        ))}
+
                     {/* {!doctorLoading &&
                         !doctorError &&
                         doctor.map((singleDoctor) => (

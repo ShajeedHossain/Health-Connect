@@ -30,6 +30,7 @@ import DoctorViewAllAppointment from "./components/Doctor/pages/DoctorViewAllApp
 import HospitalViewAllReservation from "./components/Hospital/pages/HospitalViewAllReservation";
 import DoctorPrescription from "./components/Doctor/pages/DoctorPrescription";
 import DoctorPreviousHistory from "./components/Doctor/pages/DoctorPreviousHistory";
+import HospitalBill from "./components/Hospital/pages/HospitalBill";
 
 function App() {
     return (
@@ -87,6 +88,10 @@ function App() {
                             <Route
                                 path="settings"
                                 element={<SettingsHospital />}
+                            />
+                            <Route
+                                path="prepare-bill"
+                                element={<HospitalBill />}
                             />
                             <Route
                                 path="add-doctor/add-csv"

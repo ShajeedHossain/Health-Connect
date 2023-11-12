@@ -1,0 +1,18 @@
+.bill-page {
+    padding: 20px 60px;
+}
+
+table {
+    margin: 30px 0;
+    width: 100%;
+    border: 1px solid #666;
+    border-collapse: collapse;
+}
+table tr td {
+    border: 1px solid #666;
+    padding: 10px;
+}
+
+table tr td:first-child {
+    width: 20%;
+}
