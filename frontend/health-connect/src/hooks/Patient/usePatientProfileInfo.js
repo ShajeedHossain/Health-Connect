@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PatientApi from "../../apis/PatientApi";
 
-export const usePatientProfileInfo = (user) => {
+export const usePatientProfileInfo = (patientId, user, patientEmail) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
@@ -11,11 +11,16 @@ export const usePatientProfileInfo = (user) => {
             try {
                 setLoading(true);
 
-                const response = await PatientApi.get("/get-patient", {
-                    headers: {
-                        Authorization: `Bearer ${user.token}`,
-                    },
-                });
+                console.log("API BEGINING", patientId);
+                const response = await PatientApi.post(
+                    "/get-patient",
+                    { email: patientEmail, patientId },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`,
+                        },
+                    }
+                );
 
                 setLoading(false);
                 setData(response.data.patient); // Uncomment this line

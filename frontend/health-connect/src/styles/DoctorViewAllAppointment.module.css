@@ -5,3 +5,9 @@
 .all-appointment-heading {
     margin: 10px 0;
 }
+
+.appointment-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

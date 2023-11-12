@@ -274,3 +274,23 @@ small {
     width: 20px;
     height: 20px;
 }
+
+.appoint-book-btn {
+    background-color: #00296b;
+    padding: 5px;
+    text-align: left;
+    border: 2px solid #00296b;
+    border-radius: 4px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.appoint-book-btn h3 {
+    font-family: poppins;
+    font-weight: 400;
+}
+
+.appoint-book-btn a {
+    color: white;
+    text-decoration: none;
+}
