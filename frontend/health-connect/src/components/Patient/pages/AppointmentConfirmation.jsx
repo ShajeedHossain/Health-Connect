@@ -10,6 +10,7 @@ import PatientApi from "../../../apis/PatientApi";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import classes from "../../../styles/SeatBooking.module.css";
 import CustomDatePicker from "../../../Utility/CustomDatePicker";
+import { useDoctorAllAppointment } from "../../../hooks/Doctor/useDoctorAllAppointment";
 
 export default function AppointmentConfirmation() {
     const { user } = useAuthContext();
@@ -31,6 +32,14 @@ export default function AppointmentConfirmation() {
 
     const [error, setError] = useState(false);
     const [dateError, setDateError] = useState(false);
+
+    const {
+        doctorAllAppointment,
+        doctorAllAppointmentLoading,
+        doctorAllAppointmentError,
+    } = useDoctorAllAppointment();
+
+    console.log("Doctor's all appointment : ", doctorAllAppointment);
     const navigate = useNavigate();
     useEffect(() => {
         toast.onChange((payload) => {
