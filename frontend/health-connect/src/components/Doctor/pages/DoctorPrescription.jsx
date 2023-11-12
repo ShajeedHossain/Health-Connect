@@ -9,6 +9,7 @@ export default function DoctorPrescription() {
     console.log("PATIENT DATA ", allAppointment);
     const { fullName, weight, height, bmi, age, _id } = patientData[0];
 
+    const [specificProblem, setSpecificProblem] = useState([]);
     const [patientHistory, setPatientHistory] = useState();
     useEffect(() => {
         // const tempData = allAppointment?.filter(
@@ -146,6 +147,9 @@ export default function DoctorPrescription() {
                             cols="30"
                             rows="10"
                         ></textarea>
+                        <label htmlFor="">Next Appointment Date: </label>
+                        <input type="date" name="next_appointment" id="" />
+
                         <button type="submit" className="btn">
                             Complete Appointment
                         </button>
