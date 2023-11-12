@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const AppointmentTaken = require("../model/appointmentTakenModel");
 const mongoose = require("mongoose");
-const { generateSerial } = require("../utilities/utilities");
+const { generateSerial, sendEmail } = require("../utilities/utilities");
 
 const addAppointment = async (req, res) => {
   const {
@@ -9,6 +9,13 @@ const addAppointment = async (req, res) => {
     startTime,
     hospitalId,
     shift,
+    doctor_name,
+    contact,
+    appointment_fees,
+    address,
+    hospital_name,
+    specializations,
+    patient_email,
     // district,
     // town,
   } = req.body;
@@ -28,7 +35,7 @@ const addAppointment = async (req, res) => {
 
     // Calculate the serial number
     const serial = count + 1;
-
+    console.log(req.body);
     const appointment = await AppointmentTaken.addAppointment(
       docId,
       _id,
@@ -38,6 +45,15 @@ const addAppointment = async (req, res) => {
       shift
     );
     res.status(201).json({ appointment });
+
+    const subject = "Health-Connect appointment confirmation";
+    const message = `Thank you for using our services. Your appointment has been confirmed.\n\n`;
+    const otherMessage = `Doctor Name: ${doctor_name}\nContact: ${contact}\nHospital Name: ${hospital_name}\nAddress: ${
+      address.town
+    }, ${address.district}\nSpecializations: ${specializations
+      .map((val) => val)
+      .join(", ")}\nFees: ${appointment_fees}`;
+    sendEmail(patient_email, subject, message + otherMessage);
   } catch (error) {
     // console.log(error);
     res.status(401).json({
