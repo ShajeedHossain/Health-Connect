@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,7 +18,8 @@ export default function AppointmentConfirmation() {
 
   const location = useLocation();
   const { hospitalId, doctorId, doctorData, shift } = location.state;
-  const [selectedDate, setSelectedDate] = useState();
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
 
   const dayValueMap = {
     0: "Sunday",
@@ -37,10 +38,29 @@ export default function AppointmentConfirmation() {
     doctorAllAppointment,
     doctorAllAppointmentLoading,
     doctorAllAppointmentError,
-  } = useDoctorAllAppointment();
+  } = useDoctorAllAppointment(user, doctorId);
 
   console.log("Doctor's all appointment : ", doctorAllAppointment);
   const navigate = useNavigate();
+
+  const serialRef = useRef();
+
+  useEffect(() => {
+    const startTime =
+      formatDateAndTime(selectedDate).date +
+      "T" +
+      convertDateToTime(selectedTime);
+    if (selectedDate && selectedTime) {
+      doctorAllAppointment.forEach((appointment) => {
+        console.log(
+          "USEEFFECT TIME DATE: ",
+          appointment.startTime,
+          startTime,
+          appointment.startTime === startTime
+        );
+      });
+    }
+  }, [selectedTime, selectedDate]);
   useEffect(() => {
     toast.onChange((payload) => {
       if (payload.status === "removed") {
@@ -180,17 +200,24 @@ export default function AppointmentConfirmation() {
           {/* TIME MUST BE AUTOMATED  */}
           <div className={`${classes["time-slot-picker"]}`}>
             <label htmlFor="">Pick a Timeslot</label>
-            <select name="timeSlot" id="">
+            <select
+              name="timeSlot"
+              id=""
+              value={selectedTime}
+              onChange={(e) => {
+                setSelectedTime(e.target.value);
+              }}
+            >
               <option value={doctorData.morning_shift_time}>
                 {formatDateAndTime(doctorData.morning_shift_time).time}
               </option>
               <option value={doctorData.evening_shift_time}>
-                {" "}
                 {formatDateAndTime(doctorData.evening_shift_time).time}
               </option>
             </select>
           </div>
 
+          <div ref={serialRef} style={{ color: "red" }}></div>
           <input
             disabled={dateError}
             type="submit"

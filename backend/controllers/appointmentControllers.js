@@ -25,7 +25,9 @@ const addAppointment = async (req, res) => {
 
   try {
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
-    const start = new Date(startTime);
+    const start = startTime;
+    console.log("START TIME: ", startTime);
+    // console.log("START TIME: ", start);
 
     // //the id needs to be somehow received to get the name from the doctor schema
     const docId = new mongoose.Types.ObjectId(doctorId); //may change
