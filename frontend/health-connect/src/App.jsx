@@ -27,6 +27,7 @@ import IndividualDoctorSignup from "./components/IndividualDoctorSignup";
 import DoctorSettings from "./components/Doctor/pages/DoctorSettings";
 import AddDoctorCSV from "./components/Hospital/pages/AddDoctorCSV";
 import DoctorViewAllAppointment from "./components/Doctor/pages/DoctorViewAllAppointment";
+import HospitalViewAllReservation from "./components/Hospital/pages/HospitalViewAllReservation";
 
 function App() {
     return (
@@ -76,6 +77,10 @@ function App() {
                             <Route
                                 path="view-doctors"
                                 element={<ViewDoctorList />}
+                            />
+                            <Route
+                                path="view-reservations"
+                                element={<HospitalViewAllReservation />}
                             />
                             <Route
                                 path="settings"
