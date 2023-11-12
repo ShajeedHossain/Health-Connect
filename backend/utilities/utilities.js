@@ -238,6 +238,56 @@ function scheduleEmail(receiver_email, subject, message, specifiedTime) {
   });
 }
 
+function generateStrongPassword(length) {
+  const lowercase = "abcdefghijklmnopqrstuvwxyz";
+  const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const numbers = "0123456789";
+  const specialChars = "!@#$%^&*()_+-=";
+
+  let password = "";
+  let hasNumber = false;
+  let hasSpecialChar = false;
+
+  // Ensure length is at least 8
+  if (length < 8) {
+    throw new Error("Password length should be at least 8");
+  }
+
+  while (password.length < length) {
+    const randomSet = Math.floor(Math.random() * 4);
+    let char;
+
+    switch (randomSet) {
+      case 0:
+        char = lowercase[Math.floor(Math.random() * lowercase.length)];
+        break;
+      case 1:
+        char = uppercase[Math.floor(Math.random() * uppercase.length)];
+        break;
+      case 2:
+        if (!hasNumber) {
+          char = numbers[Math.floor(Math.random() * numbers.length)];
+          hasNumber = true;
+        }
+        break;
+      case 3:
+        if (!hasSpecialChar) {
+          char = specialChars[Math.floor(Math.random() * specialChars.length)];
+          hasSpecialChar = true;
+        }
+        break;
+      default:
+        break;
+    }
+
+    if (char) {
+      password += char;
+    }
+  }
+
+  return password;
+}
+
 module.exports = {
   formatDate,
   generateSerial,
@@ -253,4 +303,5 @@ module.exports = {
   sendEmail,
   convertTimeToAMPM,
   scheduleEmail,
+  generateStrongPassword,
 };
