@@ -21,8 +21,8 @@ export const useAllReservation = (user) => {
 
         setLoading(false);
         // setData(response.data);
-        console.log("All Reservation: ", response);
-        setData(response);
+        console.log("All Reservation: ", response.data);
+        setData(response.data);
         // console.log("Doctor List Response Data : ", response.data);
       } catch (err) {
         console.log(err);
