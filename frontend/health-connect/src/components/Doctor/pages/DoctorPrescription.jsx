@@ -1,11 +1,14 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useAsyncValue, useLocation } from "react-router-dom";
 import classes from "../../../styles/DoctorPrescription.module.css";
 import { useEffect, useState } from "react";
 import { formatDateAndTime } from "../../../Utility/formateTime";
+import DoctorApi from "../../../apis/DoctorApi";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 export default function DoctorPrescription() {
+    const { user } = useAuthContext();
     const location = useLocation();
-    const { patientData, allAppointment } = location.state;
+    const { patientData, allAppointment, appointmentDetails } = location.state;
     console.log("PATIENT DATA ", allAppointment);
     const { fullName, weight, height, bmi, age, _id } = patientData[0];
 
@@ -59,7 +62,7 @@ export default function DoctorPrescription() {
     //     "__v": 0
     // }
 
-    function handleComplete(e) {
+    async function handleComplete(e) {
         e.preventDefault();
 
         // Form Data Object
@@ -71,6 +74,26 @@ export default function DoctorPrescription() {
             .join(",");
 
         console.log("Form Data Example : ", formDataObject);
+        console.log("appointmentID", appointmentDetails._id);
+        try {
+            const response = await DoctorApi.put(
+                "/appointment-done",
+                {
+                    appointment_id: appointmentDetails._id,
+                    prescription: formDataObject,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            console.log("PRESCRIPTION UPDATE RESPONSE, ", response);
+        } catch (err) {
+            console.log("PRESCRIPTION UPDATE ERROR", err);
+        }
     }
 
     function handleSpecificProblem(e) {
