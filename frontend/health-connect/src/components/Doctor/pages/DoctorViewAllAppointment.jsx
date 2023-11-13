@@ -17,6 +17,10 @@ export default function DoctorViewAllAppointment() {
         formatDateAndTime(new Date()).date
     );
 
+    const [upcomingData, setUpcomingData] = useState();
+    const [previousData, setPreviousData] = useState();
+
+    // Filter Based on date
     useEffect(() => {
         console.log("Filter Date,", filterDate);
         if (filterDate) {
@@ -41,6 +45,56 @@ export default function DoctorViewAllAppointment() {
         // console.log("Filtered Appointment", tempAppointment);
     }, [doctorAllAppointment, filterDate]);
 
+    // Filter Upcoming
+    useEffect(() => {
+        console.log("UPCOMING FILTER WORKING...");
+        const tempAppointment = filteredAppointment?.filter(
+            (singleAppointment) => {
+                console.log(
+                    formatDateAndTime(singleAppointment?.startTime).date,
+                    " === ",
+                    formatDateAndTime(new Date()).date,
+                    "---",
+                    formatDateAndTime(singleAppointment?.startTime).date >=
+                        formatDateAndTime(new Date()).date
+                );
+                return (
+                    formatDateAndTime(singleAppointment?.startTime).date >=
+                        formatDateAndTime(new Date()).date &&
+                    singleAppointment?.isTaken === false
+                );
+            }
+        );
+        setUpcomingData(tempAppointment);
+
+        // console.log("Filtered Appointment", tempAppointment);
+    }, [filteredAppointment]);
+
+    // Previous Data
+    useEffect(() => {
+        console.log("PREVIOUS FILTER WORKING...");
+        const tempAppointment = filteredAppointment?.filter(
+            (singleAppointment) => {
+                console.log(
+                    formatDateAndTime(singleAppointment?.startTime).date,
+                    " === ",
+                    formatDateAndTime(new Date()).date,
+                    "---",
+                    formatDateAndTime(singleAppointment?.startTime).date >=
+                        formatDateAndTime(new Date()).date
+                );
+                return (
+                    formatDateAndTime(singleAppointment?.startTime).date <
+                        formatDateAndTime(new Date()).date ||
+                    singleAppointment?.isTaken === true
+                );
+            }
+        );
+        setPreviousData(tempAppointment);
+
+        // console.log("Filtered Appointment", tempAppointment);
+    }, [filteredAppointment]);
+
     console.log("TODAY : ", formatDateAndTime(new Date()).date);
     return (
         <>
@@ -58,7 +112,7 @@ export default function DoctorViewAllAppointment() {
                 </div>
                 <div className={classes["doc-upcoming-apoint-check-header"]}>
                     <div className={classes["all-appointment-heading"]}>
-                        <h2>All Appointments</h2>
+                        <h2>Upcoming Appointments</h2>
                     </div>
                 </div>
 
@@ -66,7 +120,28 @@ export default function DoctorViewAllAppointment() {
                 <div className={classes["appointment-cards"]}>
                     {!doctorAllAppointmentLoading &&
                         !doctorAllAppointmentError &&
-                        filteredAppointment?.map((singleAppointment) => (
+                        upcomingData?.map((singleAppointment) => (
+                            <DoctorSingleAppointment
+                                key={singleAppointment["_id"]}
+                                className="single-upappoint-card"
+                                appointmentDetails={singleAppointment}
+                                allAppointment={doctorAllAppointment}
+                            />
+                        ))}
+                </div>
+            </section>
+            <section className={classes["view-allAppointments"]}>
+                <div className={classes["doc-upcoming-apoint-check-header"]}>
+                    <div className={classes["all-appointment-heading"]}>
+                        <h2>Previous Appointments</h2>
+                    </div>
+                </div>
+
+                {/* Upcoming Appointment Part  */}
+                <div className={classes["appointment-cards"]}>
+                    {!doctorAllAppointmentLoading &&
+                        !doctorAllAppointmentError &&
+                        previousData?.map((singleAppointment) => (
                             <DoctorSingleAppointment
                                 key={singleAppointment["_id"]}
                                 className="single-upappoint-card"
