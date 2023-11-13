@@ -6,6 +6,7 @@ const {
   getHospitalDoctors,
   addManyDoctor,
   getHospital,
+  createPatientAccount,
 } = require("../controllers/hospitalControllers");
 const {
   findPreviousReservations,
@@ -30,5 +31,6 @@ router.route("/discharge-patient").put(requireAuth, dischargePatient);
 router
   .route("/get-hospital-reservations")
   .get(requireAuth, getHospitalReservations);
+router.route("/create-patient-account").post(requireAuth, createPatientAccount);
 
 module.exports = router;
