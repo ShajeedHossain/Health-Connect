@@ -79,17 +79,31 @@ export default function DoctorSingleAppointment({
                 <tr>
                     <td></td>
                     <td style={{ textAlign: "right" }}>
-                        <Link
-                            state={{
-                                patientData,
-                                allAppointment,
-                                appointmentDetails,
-                            }}
-                            className={"appoint-book-btn"}
-                            to="/doctor-dashboard/prescription"
-                        >
-                            View Details
-                        </Link>
+                        {appointmentDetails.isTaken === false ? (
+                            <Link
+                                state={{
+                                    patientData,
+                                    allAppointment,
+                                    appointmentDetails,
+                                }}
+                                className={"appoint-book-btn"}
+                                to="/doctor-dashboard/prescription"
+                            >
+                                View Details
+                            </Link>
+                        ) : (
+                            <Link
+                                state={{
+                                    patientData,
+                                    allAppointment,
+                                    appointmentDetails,
+                                }}
+                                className={"appoint-book-btn"}
+                                to="/doctor-dashboard/previous-history"
+                            >
+                                View Details
+                            </Link>
+                        )}
                     </td>
                 </tr>
                 <tr>

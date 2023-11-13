@@ -12,6 +12,7 @@ export default function DoctorViewAllAppointment() {
         doctorAllAppointmentError,
     } = useDoctorAllAppointment(user);
 
+    console.log("All Appointments : ", doctorAllAppointment);
     const [filteredAppointment, setFilteredAppointment] = useState();
     const [filterDate, setFilterDate] = useState(
         formatDateAndTime(new Date()).date
