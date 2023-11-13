@@ -14,6 +14,7 @@ export default function HospitalViewAllReservation() {
 
     const { reservationData, reservationLoading, reservationError } =
         useAllReservation(user);
+    console.log("Reservation List", reservationData);
     return (
         <section className={classes["take-appointment-part"]}>
             <section className={classes["doc-upcoming-apoint-chk-part"]}>

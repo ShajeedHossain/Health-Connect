@@ -12,12 +12,7 @@ export const useAllReservation = (user) => {
             try {
                 /** Patient gets available appointments*/
                 setLoading(true);
-                // const response = await HospitalApi.get("/get-doctors", {
-                //     headers: {
-                //         "Content-Type": "application/json",
-                //         Authorization: `Bearer ${user.token}`,
-                //     },
-                // });
+
                 const response = demoReservation;
                 setLoading(false);
                 // setData(response.data);
