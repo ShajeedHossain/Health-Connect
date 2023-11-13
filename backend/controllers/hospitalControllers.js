@@ -266,7 +266,8 @@ const getHospital = async (req, res) => {
   }
 };
 
-async function createPatientAccount(email, fullname, contact) {
+const createPatientAccount = async (req, res) => {
+  const { email, fullname, contact } = req.body;
   if (!validator.isEmail(email)) {
     throw Error("Email is not valid");
   }
@@ -274,39 +275,31 @@ async function createPatientAccount(email, fullname, contact) {
     throw Error("Invalid phone number");
   }
 
-  const exists = await Patient.findOne({ email: email });
-  if (exists) {
-    throw Error("Email is already in use");
-  }
-
-  const password = generateStrongPassword(8);
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
-
-  const newUser = await User.create({ email, fullname, hashedPassword });
-  console.log("USER ACCOUNT CREATED: ", newUser);
-
-  const newPatient = await Patient.create({
-    _id: newUser._id,
-    email,
-    fullName: fullname,
-    contact,
-  });
-  console.log(newPatient);
-  const message = `Thank you for using our service. Your credentials for logging in: \n\nEmail: ${email}\nPassword:${password}`;
-  sendEmail(email, "Signed up in Health-Connect", message);
-  return newPatient;
-}
-
-const physicalReservation = async (req, res) => {
-  const { email, fullname, contact } = req.body;
-  const { authorization } = req.headers;
-  const token = authorization.split(" ")[1];
-
   try {
-    // const { _id } = jwt.verify(token, process.env.JWT_SECRET);
-    // const hospital = await Hospital.findById({ _id });
-    const patient = await createPatientAccount(email, fullname, contact);
+    const exists = await Patient.findOne({ email: email });
+    if (exists) {
+      throw Error("Email is already in use");
+    }
+
+    const password = generateStrongPassword(8);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = await User.create({ email, fullname, hashedPassword });
+    console.log("USER ACCOUNT CREATED: ", newUser);
+
+    const newPatient = await Patient.create({
+      _id: newUser._id,
+      email,
+      fullName: fullname,
+      contact,
+    });
+    console.log("PATIENT ACCOUNT CREATED: ", newPatient);
+
+    res.status(200).json({ patient: newPatient });
+    //SENDING THE EMAIL AND PASSWORD
+    const message = `Thank you for using our service. Your credentials for logging in: \n\nEmail: ${email}\nPassword:${password}`;
+    sendEmail(email, "Signed up in Health-Connect", message);
   } catch (error) {
     console.log(error);
     res.status(400).json({
@@ -322,5 +315,5 @@ module.exports = {
   getHospitalDoctors,
   addManyDoctor,
   getHospital,
-  physicalReservation,
+  createPatientAccount,
 };

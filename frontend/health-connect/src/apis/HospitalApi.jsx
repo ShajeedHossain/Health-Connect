@@ -126,3 +126,16 @@ export default axios.create({
 //       },
 //     }
 //   );
+
+/** CREATING PATIENT ACCOUNT FOR PHYSICAL RESERVATION API */
+
+// const response = await HospitalApi.post(
+//     "/create-patient-account",
+// { email, fullname, contact },
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+// Authorization: `Bearer ${user.token}`,
+//       },
+//     }
+//   );

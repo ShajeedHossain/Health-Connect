@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const Reservation = require("../model/reservationModel");
 const Hospital = require("../model/hospitalModel");
 const Admin = require("../model/adminModel");
+const Patient = require("../model/patientModel");
 const mongoose = require("mongoose");
 const { formatDate, sendEmail } = require("../utilities/utilities");
 
@@ -17,16 +18,20 @@ const addReservation = async (req, res) => {
     patient_email,
   } = req.body;
 
-  const { authorization } = req.headers;
-  const token = authorization.split(" ")[1];
+  // const { authorization } = req.headers;
+  // const token = authorization.split(" ")[1];
 
   try {
-    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    // const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    const patient = await Patient.findOne({ email: patient_email });
+    if (!patient) {
+      throw Error("Patient account does not exist");
+    }
     console.log(req.body);
     const reservation = await Reservation.addReservation(
       reservationType,
       hospitalId,
-      _id,
+      patient._id,
       reservationDate,
       additional_requirements,
       reservationCategory,
