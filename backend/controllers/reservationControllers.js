@@ -196,6 +196,22 @@ const dischargePatient = async (req, res) => {
   }
 };
 
+const getHospitalReservations = async (req, res) => {
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    const reservations = await Reservation.findById(_id);
+
+    res.status(200).json({ reservations });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   addReservation,
   findPreviousReservations,
@@ -203,4 +219,5 @@ module.exports = {
   patientPreviousReservations,
   patientUpcomingReservations,
   dischargePatient,
+  getHospitalReservations,
 };
