@@ -15,6 +15,10 @@ export default function HospitalBill() {
     const [bill, setBill] = useState({});
     const [editingMode, setEditingMode] = useState(false);
 
+    const [reservationDone, setReservationDone] = useState(
+        reservation.dischargeStatus
+    );
+
     useEffect(() => {
         const tempdata = { ...bill };
         tempdata["Patient Name"] = fullName;
@@ -64,6 +68,7 @@ export default function HospitalBill() {
                 }
             );
             console.log("Response from Bill update api", response);
+            setReservationDone(true);
         } catch (err) {
             //
             console.log("Response from Bill Error ", err);
@@ -112,7 +117,7 @@ export default function HospitalBill() {
                     )}
                 </table>
 
-                {!editingMode && (
+                {!editingMode && !reservationDone && (
                     <>
                         <button
                             className={`btn`}
@@ -127,7 +132,7 @@ export default function HospitalBill() {
                         </button>
                     </>
                 )}
-                {editingMode && (
+                {editingMode && !reservationDone && (
                     <button
                         className={`btn`}
                         onClick={() => {

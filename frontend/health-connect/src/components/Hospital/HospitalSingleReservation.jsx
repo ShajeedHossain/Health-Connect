@@ -66,7 +66,7 @@ export default function HospitalSingleReservation({
 
                         <tr>
                             <td></td>
-                            {!previousData && (
+                            {!previousData ? (
                                 <td
                                     style={{
                                         textAlign: "right",
@@ -85,6 +85,24 @@ export default function HospitalSingleReservation({
                                         className={`btn`}
                                     >
                                         Discharge
+                                    </Link>
+                                </td>
+                            ) : (
+                                <td
+                                    style={{
+                                        textAlign: "right",
+                                        padding: "15px 0",
+                                    }}
+                                >
+                                    <Link
+                                        state={{
+                                            reservation,
+                                            patientData: patientData[0],
+                                        }}
+                                        to={`/hospital-dashboard/prepare-bill`}
+                                        className={`btn`}
+                                    >
+                                        View Bill
                                     </Link>
                                 </td>
                             )}
