@@ -3,7 +3,10 @@ import classes from "../../../styles/HospitalBill.module.css";
 import { formatDateAndTime } from "../../../Utility/formateTime";
 import { useEffect, useState } from "react";
 
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import HospitalApi from "../../../apis/HospitalApi";
 export default function HospitalBill() {
+    const { user } = useAuthContext();
     const location = useLocation();
     const { reservation, patientData } = location.state;
     const { fullName } = patientData;
@@ -12,21 +15,25 @@ export default function HospitalBill() {
     const [bill, setBill] = useState({});
     const [editingMode, setEditingMode] = useState(false);
 
+    const [reservationDone, setReservationDone] = useState(
+        reservation.dischargeStatus
+    );
+
     useEffect(() => {
         const tempdata = { ...bill };
         tempdata["Patient Name"] = fullName;
         tempdata["Reservation Date"] = formatDateAndTime(reservationDate).date;
         tempdata["Discharge Date"] = formatDateAndTime(new Date()).date;
         tempdata["Reservation Bill"] =
-            (new Date(reservationDate) - new Date()) * reservationFee;
+            (new Date(reservationDate) - new Date()) * reservationFee || 0;
 
         setBill(tempdata);
     }, [patientData]);
+
     const [newFieldKey, setNewFieldKey] = useState();
     const [newFieldValue, setNewFieldValue] = useState();
 
     useEffect(() => {
-        const tempdata = { ...bill };
         console.log("USE EFFECT RUN EDITING MODE", editingMode);
         if (!editingMode && newFieldKey && newFieldValue) {
             console.log("Condition Also filled");
@@ -36,9 +43,36 @@ export default function HospitalBill() {
         }
     }, [editingMode]);
 
-    function confirmBill(e) {
-        console.log("BILL ", bill);
+    async function confirmBill(e) {
+        console.log("BILL :", bill);
+        console.log("Reservation: ", reservation);
+        console.log("Patient Details: ", patientData);
         // API MUST BE HERE
+
+        try {
+            //
+            const response = await HospitalApi.put(
+                "/discharge-patient",
+                {
+                    reservationId: reservation._id,
+                    reservationType: reservation.reservationType,
+                    reservationCategory: reservation.reservationCategory,
+                    bill,
+                    patient_email: patientData.email,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                }
+            );
+            console.log("Response from Bill update api", response);
+            setReservationDone(true);
+        } catch (err) {
+            //
+            console.log("Response from Bill Error ", err);
+        }
     }
     return (
         <div className={`${classes["bill-page"]}`}>
@@ -83,7 +117,7 @@ export default function HospitalBill() {
                     )}
                 </table>
 
-                {!editingMode && (
+                {!editingMode && !reservationDone && (
                     <>
                         <button
                             className={`btn`}
@@ -98,7 +132,7 @@ export default function HospitalBill() {
                         </button>
                     </>
                 )}
-                {editingMode && (
+                {editingMode && !reservationDone && (
                     <button
                         className={`btn`}
                         onClick={() => {
