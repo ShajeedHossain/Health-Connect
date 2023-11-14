@@ -7,7 +7,10 @@ import { usePatientProfileInfo } from "../../hooks/Patient/usePatientProfileInfo
 import { useAuthContext } from "../../hooks/useAuthContext";
 import _ from "lodash";
 
-export default function HospitalSingleReservation({ reservation }) {
+export default function HospitalSingleReservation({
+    reservation,
+    previousData,
+}) {
     const { user } = useAuthContext();
     const timeConverter = formatDateAndTime;
     const {
@@ -63,26 +66,28 @@ export default function HospitalSingleReservation({ reservation }) {
 
                         <tr>
                             <td></td>
-                            <td
-                                style={{
-                                    textAlign: "right",
-                                    padding: "15px 0",
-                                }}
-                            >
-                                <Link to={""} className={`btn`}>
-                                    Edit Reservation
-                                </Link>
-                                <Link
-                                    state={{
-                                        reservation,
-                                        patientData: patientData[0],
+                            {!previousData && (
+                                <td
+                                    style={{
+                                        textAlign: "right",
+                                        padding: "15px 0",
                                     }}
-                                    to={`/hospital-dashboard/prepare-bill`}
-                                    className={`btn`}
                                 >
-                                    Discharge
-                                </Link>
-                            </td>
+                                    <Link to={""} className={`btn`}>
+                                        Edit Reservation
+                                    </Link>
+                                    <Link
+                                        state={{
+                                            reservation,
+                                            patientData: patientData[0],
+                                        }}
+                                        to={`/hospital-dashboard/prepare-bill`}
+                                        className={`btn`}
+                                    >
+                                        Discharge
+                                    </Link>
+                                </td>
+                            )}
                         </tr>
                         <tr></tr>
                     </table>
