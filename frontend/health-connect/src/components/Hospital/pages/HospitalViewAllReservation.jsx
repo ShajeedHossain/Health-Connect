@@ -22,32 +22,7 @@ export default function HospitalViewAllReservation() {
                     <h2>All Reservation</h2>
                 </div>
 
-                <div className={classes["doctorList-cards"]}>
-                    {!reservationError &&
-                        !reservationLoading &&
-                        reservationData?.map((reservation, index) => (
-                            <HospitalSingleReservation
-                                key={index}
-                                reservation={reservation}
-                            />
-                        ))}
-
-                    {/* {!doctorLoading &&
-                        !doctorError &&
-                        doctor.map((singleDoctor) => (
-                            <SingleDoctorHospital
-                                key={singleDoctor["_id"]}
-                                user={user}
-                                doctorData={singleDoctor}
-                            />
-                            // <SingleAppointment
-                            //     key={singleAppointment["_id"]}
-                            //     className="single-upappoint-card"
-                            //     doctorDetails={singleAppointment}
-                            //     loading={upcomingLoading}
-                            // />
-                        ))} */}
-                </div>
+                <div className={classes["doctorList-cards"]}></div>
             </section>
         </section>
     );
