@@ -73,8 +73,15 @@ export default function HospitalSingleReservation({
                                         padding: "15px 0",
                                     }}
                                 >
-                                    <Link to={""} className={`btn`}>
-                                        Edit Reservation
+                                    <Link
+                                        to={`/hospital-dashboard/reservation-details`}
+                                        className={`btn`}
+                                        state={{
+                                            reservation,
+                                            patientData: patientData[0],
+                                        }}
+                                    >
+                                        View Details
                                     </Link>
                                     <Link
                                         state={{

@@ -118,7 +118,7 @@ export default function SettingsHospital() {
             tempObj["address"]["longitude"] = currentLongitude;
             tempObj["address"]["latitude"] = currentLatitude;
             console.log("SET ADDRESS, ", tempObj["district"]);
-        } else if (tableName == "cabins") {
+        } else if (tableName == "cabins" || tableName == "beds") {
             tempObj[tableName][index][e.target.name] = e.target.value;
         }
         console.log("Targeted input name", name);
@@ -471,7 +471,7 @@ export default function SettingsHospital() {
                             setEnableEdit((prev) => !prev);
                         }}
                     >
-                        Update Information
+                        Edit Information
                     </button>
                 ) : (
                     <input
