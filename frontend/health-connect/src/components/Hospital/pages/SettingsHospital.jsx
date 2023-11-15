@@ -8,7 +8,7 @@ export default function SettingsHospital() {
     // Get Previous Data
 
     const { user } = useAuthContext();
-    // const { data, loading, error } = useHospitalProfileInfo(user);
+    const { data, loading, error } = useHospitalProfileInfo(user);
     const { currentLatitude, currentLongitude, town, district } =
         useGetCurrentLatLng();
     const [addressField, setAddressField] = useState("");
@@ -16,58 +16,58 @@ export default function SettingsHospital() {
 
     const [editableData, setEditableData] = useState({});
 
-    // const hospital = data.hospital;
-    // console.log("Hospital Information", data.hospital);
+    const hospital = data.hospital;
+    console.log("Hospital Information", hospital);
 
-    const hospital = {
-        _id: "653abe4770cbee356712c3a9",
-        hospitalName: "Dhaka Medical College",
-        address: {
-            district: "Dhaka",
-            town: "Shahbagh",
-            latitude: "23.71653",
-            longitude: "90.39578",
-        },
-        cabins: [
-            {
-                category: "Single Cabin",
-                price: 1500,
-                count: 5,
-                _id: "653abe4770cbee356712c3aa",
-                remaining: 2,
-                features: "Food for 2 Person, Air Conditions, Bathroom",
-            },
-            {
-                category: "Shared Cabin",
-                price: 800,
-                count: 10,
-                _id: "653abe4770cbee356712c3ab",
-                remaining: 10,
-                features:
-                    "Food for 1 Person, Air Conditions, Bathroom (Shared)",
-            },
-        ],
-        beds: [
-            {
-                category: "General Bed",
-                price: 1500,
-                count: 5,
-                _id: "653abe4770cbee356712c3ac",
-                remaining: 3,
-                features: "Food for 1 Person, Bathroom (Shared)",
-            },
-            {
-                category: "Standard Bed",
-                price: 1000,
-                count: 10,
-                _id: "653abe4770cbee356712c3ad",
-                remaining: 10,
-                features:
-                    "Food for 1 Person, Air Conditions, Bathroom (Shared)",
-            },
-        ],
-        email: "dmc@gmail.com",
-    };
+    // const hospital = {
+    //     _id: "653abe4770cbee356712c3a9",
+    //     hospitalName: "Dhaka Medical College",
+    //     address: {
+    //         district: "Dhaka",
+    //         town: "Shahbagh",
+    //         latitude: "23.71653",
+    //         longitude: "90.39578",
+    //     },
+    //     cabins: [
+    //         {
+    //             category: "Single Cabin",
+    //             price: 1500,
+    //             count: 5,
+    //             _id: "653abe4770cbee356712c3aa",
+    //             remaining: 2,
+    //             features: "Food for 2 Person, Air Conditions, Bathroom",
+    //         },
+    //         {
+    //             category: "Shared Cabin",
+    //             price: 800,
+    //             count: 10,
+    //             _id: "653abe4770cbee356712c3ab",
+    //             remaining: 10,
+    //             features:
+    //                 "Food for 1 Person, Air Conditions, Bathroom (Shared)",
+    //         },
+    //     ],
+    //     beds: [
+    //         {
+    //             category: "General Bed",
+    //             price: 1500,
+    //             count: 5,
+    //             _id: "653abe4770cbee356712c3ac",
+    //             remaining: 3,
+    //             features: "Food for 1 Person, Bathroom (Shared)",
+    //         },
+    //         {
+    //             category: "Standard Bed",
+    //             price: 1000,
+    //             count: 10,
+    //             _id: "653abe4770cbee356712c3ad",
+    //             remaining: 10,
+    //             features:
+    //                 "Food for 1 Person, Air Conditions, Bathroom (Shared)",
+    //         },
+    //     ],
+    //     email: "dmc@gmail.com",
+    // };
 
     const getAddress = (e) => {
         e.preventDefault();
@@ -78,33 +78,28 @@ export default function SettingsHospital() {
     function handleSubmit(e) {
         e.preventDefault();
 
-        // Form Data Object
-        const formData = new FormData(e.target);
-        const formDataObject = Object.fromEntries(formData);
-        console.log("Form Data Example : ", formDataObject);
-
         // [TODO] : API CALL , Send editableData to api
         console.log("DATA NEED TO UPDATE : ", editableData);
+        setEnableEdit(false);
     }
 
     useEffect(() => {
-        const { _id, hospitalName, address, cabins, beds, email } = hospital;
+        // const { hospitalName, address, cabins, beds, email } = data?.hospital;
         const tempObj = {
-            _id: _id,
-            hospitalName: hospitalName,
+            hospitalName: hospital?.hospitalName,
             address: {
-                district: address.district,
-                town: address.town,
-                latitude: address.latitude,
-                longitude: address.longitude,
+                district: hospital?.address.district,
+                town: hospital?.address.town,
+                latitude: hospital?.address.latitude,
+                longitude: hospital?.address.longitude,
             },
-            cabins: cabins,
-            beds: beds,
-            email: email,
+            cabins: hospital?.cabins,
+            beds: hospital?.beds,
+            email: hospital?.email,
         };
 
         setEditableData(tempObj);
-    }, []);
+    }, [hospital]);
 
     function handleChange(e, index, tableName) {
         const name = e.target.name;
@@ -470,22 +465,18 @@ export default function SettingsHospital() {
                 </table>
 
                 {!enableEdit ? (
-                    <input
-                        type="button"
+                    <button
                         className={`btn`}
                         onClick={() => {
                             setEnableEdit((prev) => !prev);
                         }}
-                        value="Update Information"
-                    />
+                    >
+                        Update Information
+                    </button>
                 ) : (
                     <input
-                        type="button"
+                        type="submit"
                         className={`btn`}
-                        onClick={() => {
-                            console.log("EDITABLE DATA", editableData);
-                            setEnableEdit((prev) => !prev);
-                        }}
                         value="Confirm Update"
                     />
                 )}

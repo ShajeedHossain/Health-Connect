@@ -17,6 +17,8 @@ export const useHospitalProfileInfo = (user) => {
                         Authorization: `Bearer ${user.token}`,
                     },
                 });
+
+                console.log("GET HOSPITAL HOOK", response.data);
                 setLoading(false);
                 setData(response.data); // Uncomment this line
             } catch (err) {
