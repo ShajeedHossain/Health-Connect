@@ -40,3 +40,30 @@
 .date-gender div select {
     width: 100%;
 }
+
+.setting-info-table {
+    border-collapse: collapse;
+    border: 1px solid #000;
+}
+.setting-info-table input {
+    width: 100%;
+}
+.setting-info-table tr td:first-child {
+    width: 30%;
+}
+.setting-info-table tr td,
+.setting-info-table tr th {
+    padding: 10px;
+}
+.setting-info-table tr:first-child {
+    background-color: #00296b;
+    color: #fff;
+}
+
+.setting-info-table .table-category-name td {
+    background-color: #c2daff;
+}
+
+.facility-row td {
+    border-bottom: 2px double #000;
+}
