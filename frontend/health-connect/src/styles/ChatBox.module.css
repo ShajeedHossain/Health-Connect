@@ -1,0 +1,113 @@
+.chat-box {
+    border: 3px solid black;
+    width: 100%;
+    height: 100%;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #00296b;
+    color: white;
+}
+
+.chat-header .header-icon {
+    width: 10%;
+}
+
+.chat-header .header-icon span {
+    vertical-align: middle;
+}
+.chat-header h2 {
+    width: 90%;
+    text-align: center;
+    margin-right: 10%;
+}
+.chat-body {
+    height: calc(100% - 54px);
+    display: flex;
+}
+.chat-sidebar {
+    min-height: 100%;
+    width: 30%;
+    border-right: 1px solid #ddd;
+}
+.singleDoctor {
+    display: flex;
+    padding: 15px;
+    align-items: center;
+    border: 1px solid #ddd;
+}
+.singleDoctor:hover {
+    background-color: #ddd;
+}
+.singleDoctor span {
+    font-size: 40px;
+    margin-right: 15px;
+}
+.singleDoctor h3 {
+    font-size: 20px;
+}
+
+.message-body {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.message-box {
+    height: calc(100% - 50px);
+    padding: 10px;
+}
+.message-text-box {
+    flex-wrap: wrap;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.message-text-box input {
+    padding: 10px;
+    flex: 90%;
+}
+.message-text-box span {
+    font-size: 50px;
+}
+
+.single-message {
+    display: flex;
+    margin-bottom: 20px;
+}
+.single-message p {
+    padding: 15px;
+    width: 50%;
+    border-radius: 10px;
+}
+.own-message {
+    justify-content: flex-end;
+}
+.own-message p {
+    background: #00296b;
+    color: #fff;
+}
+.other-message {
+    justify-content: flex-start;
+}
+.other-message p {
+    background-color: #ddd;
+}
+@media (max-width: 992px) {
+    .chat-sidebar {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        left: -110%;
+        z-index: 1111;
+        visibility: hidden;
+    }
+
+    .active {
+        left: 0;
+        visibility: visible;
+    }
+}

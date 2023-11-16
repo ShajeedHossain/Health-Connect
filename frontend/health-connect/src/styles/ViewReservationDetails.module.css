@@ -1,3 +1,32 @@
 .reservation-details {
     padding: 20px 60px;
 }
+
+.details-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #000;
+    margin-bottom: 20px;
+}
+.details-info-table input {
+    width: 100%;
+}
+.details-info-table tr td:first-child {
+    width: 30%;
+}
+.details-info-table tr td,
+.details-info-table tr th {
+    padding: 10px;
+}
+.details-info-table tr:first-child {
+    background-color: #00296b;
+    color: #fff;
+}
+
+.details-info-table .table-category-name td {
+    background-color: #c2daff;
+}
+
+.facility-row td {
+    border-bottom: 2px double #000;
+}

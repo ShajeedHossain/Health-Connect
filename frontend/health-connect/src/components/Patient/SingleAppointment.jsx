@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { formatDateAndTime } from "../../Utility/formateTime";
 import useGetCurrentLatLng from "../../hooks/useGetCurrentLatLng";
 
-export default function SingleAppointment({ className, doctorDetails }) {
+export default function SingleAppointment({
+    className,
+    doctorDetails,
+    previousFlag,
+}) {
     const { currentLatitude, currentLongitude } = useGetCurrentLatLng();
 
     const {
@@ -14,6 +18,7 @@ export default function SingleAppointment({ className, doctorDetails }) {
         specializations,
         address,
         hospitalName,
+        isTaken,
     } = doctorDetails;
 
     const { latitude, longitude, district, town } = address;
@@ -85,6 +90,23 @@ export default function SingleAppointment({ className, doctorDetails }) {
                     </td>
                     <td> {time}</td>
                 </tr>
+
+                {isTaken && (
+                    <tr>
+                        <td></td>
+                        <td>
+                            <Link
+                                state={{
+                                    appointmentDetails: doctorDetails,
+                                }}
+                                className={"appoint-book-btn"}
+                                to="/doctor-dashboard/previous-history"
+                            >
+                                View Details
+                            </Link>
+                        </td>
+                    </tr>
+                )}
             </table>
         </div>
     );

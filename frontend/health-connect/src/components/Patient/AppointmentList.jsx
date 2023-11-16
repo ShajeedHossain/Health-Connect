@@ -11,11 +11,14 @@ export default function AppointmentList() {
     const { upcomingData, upcomingLoading, upcomingError } =
         useUpcomingAppointmentList(user);
     const { upcomingAppointment } = upcomingData;
+    console.log("UPCOMING APPOINTMENT: ", upcomingAppointment);
 
     // Previous Appointment Information
     const { previousData, previousLoading, previousError } =
         usePreviousAppointment(user);
     const { previousAppointment } = previousData;
+
+    console.log("PREVIOUS DATA: ", previousAppointment);
 
     return (
         <>
@@ -65,6 +68,7 @@ export default function AppointmentList() {
                                 className="single-upappoint-card"
                                 doctorDetails={singleAppointment}
                                 loading={previousLoading}
+                                previousFlag={true}
                             />
                         ))}
                 </div>

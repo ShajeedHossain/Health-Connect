@@ -32,6 +32,7 @@ import DoctorPrescription from "./components/Doctor/pages/DoctorPrescription";
 import DoctorPreviousHistory from "./components/Doctor/pages/DoctorPreviousHistory";
 import HospitalBill from "./components/Hospital/pages/HospitalBill";
 import ViewReservationDetails from "./components/Hospital/pages/ViewReservationDetails";
+import ChatBox from "./components/pages/ChatBox";
 
 function App() {
     return (
@@ -44,6 +45,7 @@ function App() {
                             path="dashboard/*"
                             element={<Dashboard userType="patient" />}
                         >
+                            <Route path="chat-box" element={<ChatBox />} />
                             <Route
                                 path="appointment"
                                 element={<Appointment />}
