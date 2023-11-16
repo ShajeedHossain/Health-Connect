@@ -47,7 +47,7 @@ userSchema.statics.signup = async function (
 
   // const { valid } = await validate(email);
 
-  if (validator.isEmail(email)) {
+  if (!validator.isEmail(email)) {
     throw Error("Email is not valid");
   }
 

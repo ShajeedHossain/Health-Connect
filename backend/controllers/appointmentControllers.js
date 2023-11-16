@@ -212,6 +212,32 @@ const appointmentDone = async (req, res) => {
   }
 };
 
+const getPatientAllAppointment = async (req, res) => {
+  const { authorization, id } = req.headers;
+  const token = authorization.split(" ")[1];
+
+  try {
+    let appointments;
+    if (id) {
+      appointments = await AppointmentTaken.find({ patientId: id });
+    } else {
+      const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+
+      appointments = await AppointmentTaken.find({ patientId: _id });
+    }
+
+    if (!appointments) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    res.status(200).json({ appointments });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   addAppointment,
   getPreviousAppointments,
@@ -220,4 +246,5 @@ module.exports = {
   doctorPreviousAppointments,
   getDoctorAllAppointment,
   appointmentDone,
+  getPatientAllAppointment,
 };

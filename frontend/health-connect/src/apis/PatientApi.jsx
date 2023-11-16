@@ -187,3 +187,16 @@ export default axios.create({
 //       },
 //     }
 //   );
+
+//PATIENT ALL APPOINTMENTS
+
+// const response = await PatientApi.get(
+//     "/get-patient-appointments",
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+// Authorization: `Bearer ${user.token}`,
+// 'id': patient.id,
+//       },
+//     }
+//   );
