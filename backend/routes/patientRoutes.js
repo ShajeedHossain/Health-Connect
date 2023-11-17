@@ -32,7 +32,7 @@ router.route("/previous-appointment").get(requireAuth, getPreviousAppointments);
 router.route("/upcoming-appointment").get(requireAuth, getUpcomingAppointments);
 router
   .route("/get-patient-appointments")
-  .get(requireAuth, getPatientAllAppointment);
+  .post(requireAuth, getPatientAllAppointment);
 router.route("/get-all-hospital").get(requireAuth, getAllHospital);
 // router.route("/get-all-doctor").get(requireAuth, getAllDoctor);
 // router.route("/get-sorted-doctor").get(requireAuth, getSortedDoctorList);

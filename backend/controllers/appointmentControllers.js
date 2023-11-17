@@ -213,17 +213,22 @@ const appointmentDone = async (req, res) => {
 };
 
 const getPatientAllAppointment = async (req, res) => {
-  const { authorization, id } = req.headers;
+  const { authorization } = req.headers;
+  const { id } = req.body;
   const token = authorization.split(" ")[1];
 
   try {
     let appointments;
     if (id) {
-      appointments = await AppointmentTaken.find({ patientId: id });
+      appointments = await AppointmentTaken.find({ patientId: id })
+        .populate("hospitalId", "address")
+        .exec();
     } else {
       const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
-      appointments = await AppointmentTaken.find({ patientId: _id });
+      appointments = await AppointmentTaken.find({ patientId: _id })
+        .populate("hospitalId", "address")
+        .exec();
     }
 
     if (!appointments) {
