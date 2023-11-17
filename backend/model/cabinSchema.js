@@ -20,6 +20,14 @@ const cabinSchema = new mongoose.Schema({
       return this.count;
     },
   },
+  // features: [
+  //   {
+  //     type: String,
+  //   },
+  // ],
+  features: {
+    type: String,
+  },
 });
 
 module.exports = cabinSchema;

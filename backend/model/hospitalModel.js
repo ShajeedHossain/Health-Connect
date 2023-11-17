@@ -40,6 +40,9 @@ const hospitalSchema = new Schema({
     required: true,
   },
   facilities: [{ type: String }],
+  contact: {
+    type: String,
+  },
 });
 
 // Define a static method to add a hospital
