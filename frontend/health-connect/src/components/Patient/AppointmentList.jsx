@@ -4,21 +4,48 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import classes from "../../styles/AppointmentList.module.css";
 import SingleAppointment from "./SingleAppointment";
 import { usePreviousAppointment } from "../../hooks/usePreviousAppointment";
+import HospitalApi from "../../apis/HospitalApi";
+import { useEffect } from "react";
 export default function AppointmentList() {
     const { user } = useAuthContext();
 
     // Upcoming Appointment Information
     const { upcomingData, upcomingLoading, upcomingError } =
         useUpcomingAppointmentList(user);
-    const { upcomingAppointment } = upcomingData;
-    console.log("UPCOMING APPOINTMENT: ", upcomingAppointment);
+    const { appointments } = upcomingData;
+    console.log("UPCOMING APPOINTMENT: ", appointments);
 
     // Previous Appointment Information
-    const { previousData, previousLoading, previousError } =
-        usePreviousAppointment(user);
-    const { previousAppointment } = previousData;
+    // const { previousData, previousLoading, previousError } =
+    //     usePreviousAppointment(user);
+    // const { previousAppointment } = previousData;
 
-    console.log("PREVIOUS DATA: ", previousAppointment);
+    // console.log("PREVIOUS DATA: ", previousAppointment);
+
+    // useEffect(() => {
+    //     console.log("INSIDE USE EFFECT");
+    //     const fetchHospitalDetails = async () => {
+    //         try {
+    //             const response = await HospitalApi.get("/get-hospital", {
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     Authorization: `Bearer ${user.token}`,
+    //                     hospitalId: "",
+    //                 },
+    //             });
+
+    //             console.log("GET HOSPITAL HOOK", response.data);
+    //             // setLoading(false);
+    //             // setData(response.data); // Uncomment this line
+    //         } catch (err) {
+    //             console.log(err);
+    //             // setLoading(false);
+    //             // setError(true);
+    //         }
+    //     };
+
+    //     fetchHospitalDetails();
+    // }, []);
 
     return (
         <>
@@ -42,8 +69,9 @@ export default function AppointmentList() {
                 <div className={classes["appointment-cards"]}>
                     {!upcomingLoading &&
                         !upcomingError &&
-                        upcomingAppointment.map((singleAppointment) => (
+                        appointments.map((singleAppointment) => (
                             <SingleAppointment
+                                user={user}
                                 key={singleAppointment["_id"]}
                                 className="single-upappoint-card"
                                 doctorDetails={singleAppointment}
@@ -59,10 +87,10 @@ export default function AppointmentList() {
                     <h2>Previous Appointments</h2>
                 </div>
 
-                <div className={classes["appointment-cards"]}>
+                {/* <div className={classes["appointment-cards"]}>
                     {!previousLoading &&
                         !previousError &&
-                        previousAppointment.map((singleAppointment) => (
+                        appointments.map((singleAppointment) => (
                             <SingleAppointment
                                 key={singleAppointment["_id"]}
                                 className="single-upappoint-card"
@@ -71,7 +99,7 @@ export default function AppointmentList() {
                                 previousFlag={true}
                             />
                         ))}
-                </div>
+                </div> */}
             </section>
         </>
     );

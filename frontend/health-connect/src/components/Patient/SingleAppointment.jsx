@@ -3,14 +3,17 @@ import classes from "../../styles/SingleAppointment.module.css";
 import { useEffect, useState } from "react";
 import { formatDateAndTime } from "../../Utility/formateTime";
 import useGetCurrentLatLng from "../../hooks/useGetCurrentLatLng";
+import { useHospitalProfileInfo } from "../../hooks/Hospital/useHospitalProfileInfo";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import HospitalApi from "../../apis/HospitalApi";
 
 export default function SingleAppointment({
     className,
     doctorDetails,
     previousFlag,
+    user,
 }) {
     const { currentLatitude, currentLongitude } = useGetCurrentLatLng();
-
     const {
         serial,
         startTime,
@@ -19,11 +22,44 @@ export default function SingleAppointment({
         address,
         hospitalName,
         isTaken,
+        hospitalId,
     } = doctorDetails;
 
-    const { latitude, longitude, district, town } = address;
+    console.log("FROM SINGLE APPOINTMENT PAGE: ", hospitalId);
+
+    // console.log("HOSPITAL DATA SINGLE APPOINTMENT PAGE: ", data);
+
+    const { latitude, longitude, district, town } = hospitalId.address;
 
     const { date, time } = formatDateAndTime(startTime);
+
+    const { data, loading, error } = useHospitalProfileInfo(hospitalId);
+    console.log("HOSPITAL DATA SINGLE APPOINTMENT PAGE: ", data);
+    // useEffect(() => {
+    //     const fetchHospitalDetails = async () => {
+    //         console.log("SINGLE APPOINTMENT COMPONENT FUNCTION ENTER...");
+    //         try {
+    //             // setLoading(true);
+
+    //             const response = await HospitalApi.get("/get-hospital", {
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     Authorization: `Bearer ${user.token}`,
+    //                 },
+    //             });
+
+    //             console.log("GET HOSPITAL HOOK", response.data);
+    //             // setLoading(false);
+    //             // setData(response.data); // Uncomment this line
+    //         } catch (err) {
+    //             console.log(err);
+    //             // setLoading(false);
+    //             // setError(true);
+    //         }
+    //     };
+
+    //     fetchHospitalDetails();
+    // });
 
     return (
         <div className={`dashboard-card ${classes.className}`}>

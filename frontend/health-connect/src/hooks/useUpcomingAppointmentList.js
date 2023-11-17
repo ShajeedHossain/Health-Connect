@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PatientApi from "../apis/PatientApi";
 
-export const useUpcomingAppointmentList = (user) => {
+export const useUpcomingAppointmentList = (user, patientId = null) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -11,11 +11,16 @@ export const useUpcomingAppointmentList = (user) => {
             try {
                 /** Patient gets available appointments*/
                 setLoading(true);
-                const response = await PatientApi.get("/upcoming-appointment", {
-                    headers: {
-                        Authorization: `Bearer ${user.token}`,
-                    },
-                });
+                const response = await PatientApi.post(
+                    "/get-patient-appointments",
+                    { id: patientId },
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${user.token}`,
+                        },
+                    }
+                );
 
                 setLoading(false);
                 setData(response.data);
