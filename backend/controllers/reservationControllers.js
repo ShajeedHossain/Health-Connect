@@ -1,10 +1,8 @@
 const jwt = require("jsonwebtoken");
 const Reservation = require("../model/reservationModel");
 const Hospital = require("../model/hospitalModel");
-const Admin = require("../model/adminModel");
 const Patient = require("../model/patientModel");
-const mongoose = require("mongoose");
-const { formatDate, sendEmail } = require("../utilities/utilities");
+const { sendEmail } = require("../utilities/utilities");
 
 const addReservation = async (req, res) => {
   const {
@@ -159,11 +157,12 @@ const dischargePatient = async (req, res) => {
       { new: true }
     );
     console.log(reservation);
-    res.status(200).json({ reservation });
 
-    //TODO: UPDATE COUNT adn send bill remaining
     const hospital = await Hospital.findById(_id);
-    if (reservationType.toLowerCase() === "cabin" || "cabins") {
+    if (
+      reservationType.toLowerCase() === "cabin" ||
+      reservationType.toLowerCase() === "cabins"
+    ) {
       const categoryCabins = hospital.cabins.find(
         (cabin) => cabin.category === reservationCategory
       );
@@ -187,13 +186,15 @@ const dischargePatient = async (req, res) => {
     await hospital.save();
 
     //Sending confirmation email
-    // const hospital = await Hospital.findById(hospitalId);
-    // const subject = "Health-Connect reservation confirmation";
-    // const message = `Thank you for using our services. Your reservation has been confirmed.\n\n`;
+    const subject = "Health-Connect hospital discharge";
+    const message = `Thank you for using our services. Your have been dischaged.\n\nHospital Name: ${hospital.hospitalName}\nBill Information:\n`;
 
-    // const otherMessage = `Hospital Name: ${hospital.hospitalName}\nAddress: ${hospital.address.town}, ${hospital.address.district}\nReserved for: ${reservationDate}\nReservation Type: ${reservationType}\nReservation Category: ${reservationCategory}\nAdditional Requirements: ${additional_requirements}`;
+    const otherMessage = Object.keys(bill)
+      .map((key) => `${key}: ${bill[key]}`)
+      .join(",\n");
 
-    // sendEmail(patient_email, subject, message + otherMessage);
+    sendEmail(patient_email, subject, message + otherMessage);
+    res.status(200).json({ reservation });
   } catch (error) {
     // console.log(error);
     res.status(400).json({
@@ -218,6 +219,92 @@ const getHospitalReservations = async (req, res) => {
   }
 };
 
+const reservationUpdate = async (req, res) => {
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+  const { reservationCategory, reservationType, reservationDate } = req.body;
+  const reservationId = req.body._id;
+  console.log("DATE: ", req.body);
+
+  try {
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    const prevReservation = await Reservation.findById(reservationId);
+    const reservation = await Reservation.findByIdAndUpdate(
+      reservationId,
+      {
+        $set: {
+          reservationCategory: reservationCategory,
+          reservationType: reservationType,
+          reservationDate: reservationDate,
+        },
+      },
+      { new: true }
+    );
+
+    if (
+      reservationCategory !== prevReservation.reservationCategory ||
+      reservationType !== prevReservation.reservationType
+    ) {
+      const hospital = await Hospital.findById(_id);
+      //UPDATING PREVIOUS DATA
+      if (
+        prevReservation.reservationType.toLowerCase() === "cabin" ||
+        prevReservation.reservationType.toLowerCase() === "cabins"
+      ) {
+        const categoryCabins = hospital.cabins.find(
+          (cabin) => cabin.category === prevReservation.reservationCategory
+        );
+
+        const remaining = categoryCabins.remaining;
+
+        const newCount = categoryCabins.remaining + 1;
+        categoryCabins.remaining = Math.min(categoryCabins.count, newCount);
+      } else {
+        const categoryBeds = hospital.beds.find(
+          (beds) => beds.category === prevReservation.reservationCategory
+        );
+
+        const remaining = categoryBeds.remaining;
+        const newCount = categoryBeds.remaining + 1;
+        categoryBeds.remaining = Math.min(categoryBeds.count, newCount);
+      }
+      await hospital.save();
+
+      //UPDATING NEW DATA
+      if (
+        reservationType.toLowerCase() === "cabin" ||
+        reservationType.toLowerCase() === "cabins"
+      ) {
+        const categoryCabins = hospital.cabins.find(
+          (cabin) =>
+            cabin.category.toLowerCase() === reservationCategory.toLowerCase()
+        );
+
+        const remaining = categoryCabins.remaining;
+
+        const newCount = categoryCabins.remaining - 1;
+        categoryCabins.remaining = Math.max(0, newCount);
+      } else {
+        const categoryBeds = hospital.beds.find(
+          (beds) =>
+            beds.category.toLowerCase() === reservationCategory.toLowerCase()
+        );
+
+        const remaining = categoryBeds.remaining;
+        const newCount = categoryBeds.remaining - 1;
+        categoryBeds.remaining = Math.max(0, newCount);
+      }
+      await hospital.save();
+    }
+
+    res.status(200).json({ reservation });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   addReservation,
   findPreviousReservations,
@@ -226,4 +313,5 @@ module.exports = {
   patientUpcomingReservations,
   dischargePatient,
   getHospitalReservations,
+  reservationUpdate,
 };
