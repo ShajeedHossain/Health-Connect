@@ -14,6 +14,7 @@ const {
   findUpcomingReservations,
   dischargePatient,
   getHospitalReservations,
+  reservationUpdate,
 } = require("../controllers/reservationControllers");
 
 const router = express.Router();
@@ -30,6 +31,7 @@ router.route("/add-many-doctor").post(requireAuth, addManyDoctor);
 router.route("/get-hospital").post(requireAuth, getHospital);
 router.route("/discharge-patient").put(requireAuth, dischargePatient);
 router.route("/update-hospital").put(requireAuth, updateHospital);
+router.route("/update-reservation").put(requireAuth, reservationUpdate);
 router
   .route("/get-hospital-reservations")
   .get(requireAuth, getHospitalReservations);

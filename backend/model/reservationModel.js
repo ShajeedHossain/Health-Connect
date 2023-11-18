@@ -75,23 +75,33 @@ const reservationSchema = new mongoose.Schema({
 // // Define the post-save middleware for the Reservation schema
 reservationSchema.pre("save", async function (next) {
   try {
+    console.log("INNN SAVE TYPE: ", this.reservationType.toLowerCase());
+    console.log("INNN SAVE CAT: ", this.reservationCategory.toLowerCase());
     const hospital = await Hospital.findById(this.hospitalId);
-    if (this.reservationType.toLowerCase() === "cabin" || "cabins") {
+    if (
+      this.reservationType.toLowerCase() === "cabin" ||
+      this.reservationType.toLowerCase() === "cabins"
+    ) {
       const categoryCabins = hospital.cabins.find(
-        (cabin) => cabin.category === this.reservationCategory
+        (cabin) =>
+          cabin.category.toLowerCase() ===
+          this.reservationCategory.toLowerCase()
       );
-      console.log(categoryCabins);
+      console.log("CABINS: ", categoryCabins);
 
       const remaining = categoryCabins.remaining;
       if (remaining - 1 < 0) {
         return next(new Error("No such cabins available at the moment."));
       } else {
         console.log(categoryCabins.remaining);
-        categoryCabins.remaining -= 1;
+        const newVal = categoryCabins.remaining - 1;
+        categoryCabins.remaining = Math.max(newVal, 0);
       }
     } else {
+      console.log("INNNNNNNNNNNBESDFASFLKADFD");
       const categoryBeds = hospital.beds.find(
-        (beds) => beds.category === this.reservationCategory
+        (beds) =>
+          beds.category.toLowerCase() === this.reservationCategory.toLowerCase()
       );
       // console.log(this.reservationCategory.toLowerCase());
 
@@ -99,7 +109,8 @@ reservationSchema.pre("save", async function (next) {
       if (remaining - 1 < 0) {
         return next(new Error("No such beds available at the moment."));
       } else {
-        categoryBeds.remaining -= 1;
+        const newVal = categoryBeds.remaining - 1;
+        categoryBeds.remaining = Math.max(newVal, 0);
       }
     }
 
