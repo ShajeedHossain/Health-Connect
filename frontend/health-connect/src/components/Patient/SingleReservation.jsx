@@ -2,6 +2,7 @@ import useGetCurrentLatLng from "../../hooks/useGetCurrentLatLng";
 import classes from "../../styles/HospitalBooking.module.css";
 import { Link } from "react-router-dom";
 import { formatDateAndTime } from "../../Utility/formateTime";
+import _ from "lodash";
 export default function SingleReservation({ singleReservation }) {
     const { hospitalId } = singleReservation;
     const { currentLatitude, currentLongitude } = useGetCurrentLatLng();
@@ -50,13 +51,20 @@ export default function SingleReservation({ singleReservation }) {
                     <td>
                         <b>Reservation Type:</b>
                     </td>
-                    <td>{singleReservation.reservationType}</td>
+                    <td>
+                        {_.capitalize(singleReservation?.reservationType)} (
+                        {singleReservation?.reservationCategory})
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <b>Status:</b>
                     </td>
-                    <td>Not Done Yet</td>
+                    <td>
+                        {singleReservation?.dischargeStatus
+                            ? "Discharged"
+                            : "Admitted"}
+                    </td>
                 </tr>
                 <tr>
                     <td>

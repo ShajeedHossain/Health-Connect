@@ -10,10 +10,11 @@ export default function DoctorPrescription() {
     const location = useLocation();
     const { patientData, allAppointment, appointmentDetails } = location.state;
     console.log("PATIENT DATA ", allAppointment);
+    console.log("PATIENT INFO: ", patientData[0]);
     const { fullName, weight, height, bmi, age, _id } = patientData[0];
 
     const [specificProblem, setSpecificProblem] = useState([]);
-    const [patientHistory, setPatientHistory] = useState();
+    const [patientHistory, setPatientHistory] = useState([]);
     useEffect(() => {
         // const tempData = allAppointment?.filter(
         //     (appointment) =>
@@ -28,7 +29,7 @@ export default function DoctorPrescription() {
                 _id === appointment.patientId
             );
             return (
-                new Date(formatDateAndTime(appointment.startTime).date) -
+                new Date(formatDateAndTime(appointment.startTime).date) <
                     new Date() && _id === appointment.patientId
             );
         });
@@ -131,38 +132,40 @@ export default function DoctorPrescription() {
                     </tr>
                     <tr>
                         <td>BMI: </td>
-                        <td>{bmi}</td>
+                        <td>{bmi.toFixed(2)}</td>
                     </tr>
                 </table>
 
-                <table className={`${classes["history-table"]}`}>
-                    <tr>
-                        <td colSpan={3} style={{ textAlign: "center" }}>
-                            Previous History
-                        </td>
-                    </tr>
-                    {patientHistory?.map((history, index) => (
-                        <tr key={index}>
-                            <td>Date :</td>
-                            <td>
-                                {formatDateAndTime(history.startTime).date}{" "}
-                            </td>
-                            <td>
-                                <Link
-                                    state={{
-                                        patientData,
-                                        allAppointment,
-                                        appointmentDetails: history,
-                                    }}
-                                    className={"appoint-book-btn"}
-                                    to="/doctor-dashboard/previous-history"
-                                >
-                                    View Details
-                                </Link>
+                {patientHistory.length > 0 && (
+                    <table className={`${classes["history-table"]}`}>
+                        <tr>
+                            <td colSpan={3} style={{ textAlign: "center" }}>
+                                Previous History
                             </td>
                         </tr>
-                    ))}
-                </table>
+                        {patientHistory?.map((history, index) => (
+                            <tr key={index}>
+                                <td>Date :</td>
+                                <td>
+                                    {formatDateAndTime(history.startTime).date}{" "}
+                                </td>
+                                <td>
+                                    <Link
+                                        state={{
+                                            patientData,
+                                            allAppointment,
+                                            appointmentDetails: history,
+                                        }}
+                                        className={"appoint-book-btn"}
+                                        to="/doctor-dashboard/previous-history"
+                                    >
+                                        View Details
+                                    </Link>
+                                </td>
+                            </tr>
+                        ))}
+                    </table>
+                )}
 
                 <div className={`${classes["prescription-data"]}`}>
                     <form onSubmit={handleComplete}>

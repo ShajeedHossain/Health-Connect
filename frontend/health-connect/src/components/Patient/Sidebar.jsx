@@ -49,12 +49,12 @@ export default function Sidebar({ activeState }) {
                         <h3>Medical admission</h3>
                     </div>
                 </Link>
-                <Link to="/">
+                <Link to="/dashboard/view-prescriptions">
                     <div className={classes["sidebar-option"]}>
                         <span className="material-symbols-outlined">
                             prescriptions
                         </span>
-                        <h3>Report</h3>
+                        <h3>Prescriptions</h3>
                     </div>
                 </Link>
                 <Link to="/dashboard/chat-box">

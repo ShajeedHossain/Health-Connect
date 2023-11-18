@@ -1,0 +1,20 @@
+.viewPrescriptionsPage {
+    padding: 20px 60px;
+}
+
+.prescription-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.prescription-list table tr td,
+.prescription-list table tr th {
+    text-align: center;
+    padding: 10px 20px;
+    border: 1px solid #666;
+}
+
+.prescription-list table tr th {
+    background-color: #00296b;
+    color: #fff;
+}

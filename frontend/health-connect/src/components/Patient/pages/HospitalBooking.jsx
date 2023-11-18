@@ -12,13 +12,14 @@ export default function HospitalBooking() {
     console.log("user : ", user);
     const { upcomingData, upcomingLoading, upcomingError } =
         useUpcomingReservation(user);
-    console.log("UPCOMING RESERVATION DATA, ", upcomingData);
 
     const { upcomingReservations } = upcomingData;
 
     const { previousData, previousLoading, previousError } =
         usePreviousReservation(user);
     const { previousReservations } = previousData;
+    console.log("UPCOMING RESERVATION DATA, ", upcomingData);
+    console.log("PREVIOUS RESERVATION DATA, ", previousData);
     return (
         <>
             <section
@@ -32,7 +33,8 @@ export default function HospitalBooking() {
                     </div>
                     <div className={classes["book-hospital-seat-btn"]}>
                         <Link
-                            className={classes["book-seat-btn"]}
+                            // className={classes["book-seat-btn"]}
+                            className={`btn`}
                             to="/dashboard/hospitalBooking/bookseat"
                         >
                             Book New Seat

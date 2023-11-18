@@ -34,6 +34,7 @@ import ViewReservationDetails from "./components/Hospital/pages/ViewReservationD
 import IndividualDoctorSignup from "./components/IndividualDoctorSignup";
 import ChatBox from "./components/pages/ChatBox";
 import DoctorChatBox from "./components/Doctor/pages/DoctorChatBox";
+import ViewAllPrescriptions from "./components/Patient/pages/ViewAllPrescriptions";
 
 function App() {
     return (
@@ -63,6 +64,10 @@ function App() {
                             <Route
                                 path="hospitalBooking"
                                 element={<HospitalBooking />}
+                            />
+                            <Route
+                                path="view-prescriptions"
+                                element={<ViewAllPrescriptions />}
                             />
                             <Route
                                 path="hospitalBooking/bookseat"

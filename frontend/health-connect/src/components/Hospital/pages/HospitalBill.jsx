@@ -5,13 +5,15 @@ import { useEffect, useState } from "react";
 
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import HospitalApi from "../../../apis/HospitalApi";
+import { useHospitalProfileInfo } from "../../../hooks/Hospital/useHospitalProfileInfo";
 export default function HospitalBill() {
     const { user } = useAuthContext();
     const location = useLocation();
     const { reservation, patientData } = location.state;
     const { fullName } = patientData;
-    const { reservationDate, reservationFee } = reservation;
-    console.log("RESERVATION FEE", reservation);
+    const { reservationDate, reservationType, reservationCategory } =
+        reservation;
+    // console.log("RESERVATION FEE", reservation);
 
     const [bill, setBill] = useState({});
     const [editingMode, setEditingMode] = useState(false);
@@ -20,13 +22,30 @@ export default function HospitalBill() {
         reservation.dischargeStatus
     );
 
+    const { data, loading, error } = useHospitalProfileInfo(
+        user,
+        reservation.hospitalId
+    );
+
+    console.log("HOSPITAL DATA,", data);
+    const reservationFee = data?.hospital?.[reservationType]?.filter(
+        (reservation) => reservation.category === reservationCategory
+    )[0].price;
+    console.log(
+        "RESERVATION FEE",
+        reservationFee,
+        new Date(reservationDate) - new Date()
+    );
     useEffect(() => {
-        const tempdata = { ...bill };
+        const tempdata = { ...reservation.bill };
         tempdata["Patient Name"] = fullName;
         tempdata["Reservation Date"] = formatDateAndTime(reservationDate).date;
         tempdata["Discharge Date"] = formatDateAndTime(new Date()).date;
         tempdata["Reservation Bill"] =
-            (new Date(reservationDate) - new Date()) * reservationFee || 0;
+            Math.floor(
+                (new Date(reservationDate).getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+            ) * reservationFee || 0;
 
         setBill(tempdata);
     }, [patientData]);
