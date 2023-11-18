@@ -5,9 +5,10 @@ import classes from "../../styles/AppointmentList.module.css";
 import SingleAppointment from "./SingleAppointment";
 import { usePreviousAppointment } from "../../hooks/usePreviousAppointment";
 import HospitalApi from "../../apis/HospitalApi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { formatDateAndTime } from "../../Utility/formateTime";
 export default function AppointmentList() {
-    const { user } = useAuthContext();
+    const { user, newUser } = useAuthContext();
 
     // Upcoming Appointment Information
     const { upcomingData, upcomingLoading, upcomingError } =
@@ -15,37 +16,30 @@ export default function AppointmentList() {
     const { appointments } = upcomingData;
     console.log("UPCOMING APPOINTMENT: ", appointments);
 
-    // Previous Appointment Information
-    // const { previousData, previousLoading, previousError } =
-    //     usePreviousAppointment(user);
-    // const { previousAppointment } = previousData;
+    const [upcoming, setUpcoming] = useState([]);
+    const [previous, setPrevious] = useState([]);
+    useEffect(() => {
+        const tempData = appointments?.filter((data) => {
+            return (
+                !data.isTaken &&
+                new Date(formatDateAndTime(data.startTime).date) >= new Date()
+            );
+        });
+        console.log("UPCOMING DATA :", tempData);
+        setUpcoming(tempData);
+    }, [appointments]);
 
-    // console.log("PREVIOUS DATA: ", previousAppointment);
+    useEffect(() => {
+        const tempData = appointments?.filter((data) => {
+            return (
+                data.isTaken ||
+                new Date(formatDateAndTime(data.startTime).date) < new Date()
+            );
+        });
 
-    // useEffect(() => {
-    //     console.log("INSIDE USE EFFECT");
-    //     const fetchHospitalDetails = async () => {
-    //         try {
-    //             const response = await HospitalApi.get("/get-hospital", {
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                     Authorization: `Bearer ${user.token}`,
-    //                     hospitalId: "",
-    //                 },
-    //             });
-
-    //             console.log("GET HOSPITAL HOOK", response.data);
-    //             // setLoading(false);
-    //             // setData(response.data); // Uncomment this line
-    //         } catch (err) {
-    //             console.log(err);
-    //             // setLoading(false);
-    //             // setError(true);
-    //         }
-    //     };
-
-    //     fetchHospitalDetails();
-    // }, []);
+        console.log("PREVIOUS DATA :", tempData);
+        setPrevious(tempData);
+    }, [appointments]);
 
     return (
         <>
@@ -69,12 +63,13 @@ export default function AppointmentList() {
                 <div className={classes["appointment-cards"]}>
                     {!upcomingLoading &&
                         !upcomingError &&
-                        appointments.map((singleAppointment) => (
+                        upcoming?.map((singleAppointment) => (
                             <SingleAppointment
                                 user={user}
+                                userDetails={newUser}
                                 key={singleAppointment["_id"]}
                                 className="single-upappoint-card"
-                                doctorDetails={singleAppointment}
+                                appointmentDetails={singleAppointment}
                                 loading={upcomingLoading}
                             />
                         ))}
@@ -87,19 +82,19 @@ export default function AppointmentList() {
                     <h2>Previous Appointments</h2>
                 </div>
 
-                {/* <div className={classes["appointment-cards"]}>
-                    {!previousLoading &&
-                        !previousError &&
-                        appointments.map((singleAppointment) => (
+                <div className={classes["appointment-cards"]}>
+                    {!upcomingLoading &&
+                        !upcomingError &&
+                        previous?.map((singleAppointment) => (
                             <SingleAppointment
                                 key={singleAppointment["_id"]}
                                 className="single-upappoint-card"
-                                doctorDetails={singleAppointment}
-                                loading={previousLoading}
+                                appointmentDetails={singleAppointment}
+                                loading={upcomingLoading}
                                 previousFlag={true}
                             />
                         ))}
-                </div> */}
+                </div>
             </section>
         </>
     );

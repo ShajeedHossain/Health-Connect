@@ -8,8 +8,10 @@ import { formatDateAndTime } from "../../Utility/formateTime";
 export default function DoctorSingleAppointment({
     appointmentDetails,
     allAppointment,
+    newUser,
 }) {
     const { user } = useAuthContext();
+    console.log("SINGLE NEW USER", newUser);
     console.log("Doctor Single Appointment", appointmentDetails);
 
     const { patientId, serial, startTime } = appointmentDetails;
@@ -79,6 +81,17 @@ export default function DoctorSingleAppointment({
                 <tr>
                     <td></td>
                     <td style={{ textAlign: "right" }}>
+                        <Link
+                            state={{
+                                patientData,
+                                appointmentDetails,
+                                userDetails: newUser,
+                            }}
+                            className={"appoint-book-btn"}
+                            to="/doctor-dashboard/chat-box"
+                        >
+                            Message
+                        </Link>
                         {appointmentDetails.isTaken === false ? (
                             <Link
                                 state={{

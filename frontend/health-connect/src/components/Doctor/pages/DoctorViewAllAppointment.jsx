@@ -5,7 +5,9 @@ import classes from "../../../styles/DoctorViewAllAppointment.module.css";
 import DoctorSingleAppointment from "../DoctorSingleApppointment";
 import { formatDateAndTime } from "../../../Utility/formateTime";
 export default function DoctorViewAllAppointment() {
-    const { user } = useAuthContext();
+    const { user, newUser } = useAuthContext();
+
+    console.log("NEW USERSSS", newUser);
     const {
         doctorAllAppointment,
         doctorAllAppointmentLoading,
@@ -123,6 +125,7 @@ export default function DoctorViewAllAppointment() {
                         !doctorAllAppointmentError &&
                         upcomingData?.map((singleAppointment) => (
                             <DoctorSingleAppointment
+                                newUser={newUser}
                                 key={singleAppointment["_id"]}
                                 className="single-upappoint-card"
                                 appointmentDetails={singleAppointment}
@@ -144,6 +147,7 @@ export default function DoctorViewAllAppointment() {
                         !doctorAllAppointmentError &&
                         previousData?.map((singleAppointment) => (
                             <DoctorSingleAppointment
+                                newUser={newUser}
                                 key={singleAppointment["_id"]}
                                 className="single-upappoint-card"
                                 appointmentDetails={singleAppointment}

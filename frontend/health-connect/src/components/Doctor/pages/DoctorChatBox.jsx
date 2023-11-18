@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import classes from "../../styles/ChatBox.module.css";
+import classes from "../../../styles/ChatBox.module.css";
 import { useLocation } from "react-router-dom";
-import { useAuthContext } from "../../hooks/useAuthContext";
 const socket = io.connect(
     `http://localhost:${import.meta.env.VITE_SOCKET_PORT}`
 );
-export default function ChatBox() {
+export default function DoctorChatBox() {
     const location = useLocation();
-    const { doctor, appointmentDetails, userDetails } = location.state;
-
+    const { patientData, appointmentDetails, userDetails } = location.state;
+    const patientDetails = patientData[0];
     const [appointmentId, setAppointmentId] = useState();
     const [senderId, setSenderId] = useState();
     const [senderName, setSenderName] = useState();
@@ -17,7 +16,8 @@ export default function ChatBox() {
     const [receiverId, setReceiverId] = useState();
 
     // console.log(appointment_id);
-    console.log("DOCTOR INFO: ", doctor);
+    console.log("Patient INFO: ", patientDetails);
+    console.log("PATIENT NAME: ", patientDetails.fullName);
     console.log("APPOINTMENT INFO: ", appointmentDetails);
     console.log("USER INFO: ", userDetails);
     const [active, setActive] = useState(false);
@@ -41,10 +41,10 @@ export default function ChatBox() {
             console.log(currentMessage);
             const messageData = {
                 appointment_id: appointmentId,
-                senderId: senderId,
-                senderName: senderName,
-                receiverName: receiverName,
-                receiverId: receiverId,
+                senderId: receiverId,
+                senderName: receiverName,
+                receiverName: senderName,
+                receiverId: senderId,
                 message: currentMessage,
                 time:
                     new Date(Date.now()).getHours() +
@@ -58,9 +58,9 @@ export default function ChatBox() {
     useEffect(() => {
         setAppointmentId(appointmentDetails._id);
         setSenderId(userDetails._id);
-        setReceiverId(doctor._id);
+        setReceiverId(patientDetails._id);
         setSenderName(userDetails.fullname);
-        setReceiverName(doctor.fullName);
+        setReceiverName(patientDetails.fullName);
     }, []);
     //for testing
     useEffect(() => {
@@ -69,7 +69,8 @@ export default function ChatBox() {
     }, [appointmentId]);
 
     useEffect(() => {
-        const data = { senderId: senderId, receiverId: receiverId };
+        const data = { senderId: receiverId, receiverId: senderId };
+        console.log("DATA", data);
         socket.emit("prev_messages", data);
         socket.on("receive_prev_message", (data) => {
             console.log("PREV: ", data);
@@ -81,7 +82,6 @@ export default function ChatBox() {
     useEffect(() => {
         socket.on("receive_message", (data) => {
             console.log("RECEIVED MESSAGE: ", data);
-
             setPrevMessage((prev) => [...prev, data]);
         });
     }, [socket]);
@@ -110,7 +110,7 @@ export default function ChatBox() {
                         active && classes["active"]
                     }`}
                 >
-                    {doctor && (
+                    {patientData && (
                         <div
                             onClick={activeSidebar}
                             className={`${classes["singleDoctor"]}`}
@@ -118,7 +118,7 @@ export default function ChatBox() {
                             <span className="material-symbols-outlined">
                                 account_circle
                             </span>
-                            <h3>{doctor.fullName}</h3>
+                            <h3>{patientDetails?.fullName}</h3>
                         </div>
                     )}
 

@@ -33,92 +33,127 @@ import ViewDoctorList from "./components/Hospital/pages/ViewDoctorsList";
 import ViewReservationDetails from "./components/Hospital/pages/ViewReservationDetails";
 import IndividualDoctorSignup from "./components/IndividualDoctorSignup";
 import ChatBox from "./components/pages/ChatBox";
+import DoctorChatBox from "./components/Doctor/pages/DoctorChatBox";
 
 function App() {
-  return (
-    <AuthContextProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/*" element={<PrivateRoute />}>
-            <Route
-              path="dashboard/*"
-              element={<Dashboard userType="patient" />}
-            >
-              <Route path="chat-box" element={<ChatBox />} />
-              <Route path="appointment" element={<Appointment />} />
-              <Route path="takeAppointment" element={<TakeAppointment />} />
+    return (
+        <AuthContextProvider>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/*" element={<PrivateRoute />}>
+                        <Route
+                            path="dashboard/*"
+                            element={<Dashboard userType="patient" />}
+                        >
+                            <Route path="chat-box" element={<ChatBox />} />
+                            <Route
+                                path="appointment"
+                                element={<Appointment />}
+                            />
+                            <Route
+                                path="takeAppointment"
+                                element={<TakeAppointment />}
+                            />
 
-              <Route
-                path="takeAppointment/confirm-appointment"
-                element={<AppointmentConfirmation />}
-              />
-              <Route path="hospitalBooking" element={<HospitalBooking />} />
-              <Route
-                path="hospitalBooking/bookseat"
-                element={<BookAHospitalSeat />}
-              />
-              <Route
-                path="hospitalBooking/bookseat/complete-reservation"
-                element={<SeatBooking />}
-              />
+                            <Route
+                                path="takeAppointment/confirm-appointment"
+                                element={<AppointmentConfirmation />}
+                            />
+                            <Route
+                                path="hospitalBooking"
+                                element={<HospitalBooking />}
+                            />
+                            <Route
+                                path="hospitalBooking/bookseat"
+                                element={<BookAHospitalSeat />}
+                            />
+                            <Route
+                                path="hospitalBooking/bookseat/complete-reservation"
+                                element={<SeatBooking />}
+                            />
 
-              <Route path="settings" element={<Settings />} />
-            </Route>
+                            <Route path="settings" element={<Settings />} />
+                        </Route>
 
-            <Route
-              path="hospital-dashboard/*"
-              element={<Dashboard userType="hospital" />}
-            >
-              <Route path="add-doctor" element={<AddDoctor />} />
-              <Route path="view-doctors" element={<ViewDoctorList />} />
-              <Route
-                path="view-reservations"
-                element={<HospitalViewAllReservation />}
-              />
-              <Route path="settings" element={<SettingsHospital />} />
-              <Route path="prepare-bill" element={<HospitalBill />} />
-              <Route
-                path="reservation-details"
-                element={<ViewReservationDetails />}
-              />
-              <Route path="add-doctor/add-csv" element={<AddDoctorCSV />} />
-            </Route>
+                        <Route
+                            path="hospital-dashboard/*"
+                            element={<Dashboard userType="hospital" />}
+                        >
+                            <Route path="add-doctor" element={<AddDoctor />} />
+                            <Route
+                                path="view-doctors"
+                                element={<ViewDoctorList />}
+                            />
+                            <Route
+                                path="view-reservations"
+                                element={<HospitalViewAllReservation />}
+                            />
+                            <Route
+                                path="settings"
+                                element={<SettingsHospital />}
+                            />
+                            <Route
+                                path="prepare-bill"
+                                element={<HospitalBill />}
+                            />
+                            <Route
+                                path="reservation-details"
+                                element={<ViewReservationDetails />}
+                            />
+                            <Route
+                                path="add-doctor/add-csv"
+                                element={<AddDoctorCSV />}
+                            />
+                        </Route>
 
-            <Route
-              path="doctor-dashboard/*"
-              element={<Dashboard userType="doctor" />}
-            >
-              <Route path="settings" element={<DoctorSettings />} />
-              <Route
-                path="view-appointments"
-                element={<DoctorViewAllAppointment />}
-              />
-              <Route path="prescription" element={<DoctorPrescription />} />
-              <Route
-                path="previous-history"
-                element={<DoctorPreviousHistory />}
-              />
-            </Route>
-          </Route>
+                        <Route
+                            path="doctor-dashboard/*"
+                            element={<Dashboard userType="doctor" />}
+                        >
+                            <Route
+                                path="settings"
+                                element={<DoctorSettings />}
+                            />
+                            <Route
+                                path="chat-box"
+                                element={<DoctorChatBox />}
+                            />
+                            <Route
+                                path="view-appointments"
+                                element={<DoctorViewAllAppointment />}
+                            />
+                            <Route
+                                path="prescription"
+                                element={<DoctorPrescription />}
+                            />
+                            <Route
+                                path="previous-history"
+                                element={<DoctorPreviousHistory />}
+                            />
+                        </Route>
+                    </Route>
 
-          <Route path="/*" element={<PublicRoute />}>
-            <Route path="signup" element={<Signup />} />
-            <Route
-              path="individual-signup"
-              element={<IndividualDoctorSignup />}
-            />
-            <Route path="login" element={<Login />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route
-              path="reset-password/:id/:token"
-              element={<ResetPassword />}
-            />
-          </Route>
-        </Routes>
-      </Router>
-    </AuthContextProvider>
-  );
+                    <Route path="/*" element={<PublicRoute />}>
+                        <Route path="signup" element={<Signup />} />
+                        <Route
+                            path="individual-signup"
+                            element={<IndividualDoctorSignup />}
+                        />
+                        <Route path="login" element={<Login />} />
+                        <Route
+                            path="forgot-password"
+                            element={<ForgotPassword />}
+                        />
+                        <Route
+                            path="reset-password/:id/:token"
+                            element={<ResetPassword />}
+                        />
+                    </Route>
+                </Routes>
+            </Router>
+        </AuthContextProvider>
+    );
 }
 
 export default App;
