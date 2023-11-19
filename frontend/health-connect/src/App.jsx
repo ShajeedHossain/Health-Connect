@@ -36,6 +36,7 @@ import ChatBox from "./components/pages/ChatBox";
 import DoctorChatBox from "./components/Doctor/pages/DoctorChatBox";
 import ViewAllPrescriptions from "./components/Patient/pages/ViewAllPrescriptions";
 import HospitalCreateReservation from "./components/Hospital/pages/HospitalCreateReservation";
+import HospitalCreateAccount from "./components/Hospital/pages/HospitalCreateAccount";
 
 function App() {
     return (
@@ -114,6 +115,10 @@ function App() {
                             <Route
                                 path="create-reservation"
                                 element={<HospitalCreateReservation />}
+                            />
+                            <Route
+                                path="create-account"
+                                element={<HospitalCreateAccount />}
                             />
                         </Route>
 

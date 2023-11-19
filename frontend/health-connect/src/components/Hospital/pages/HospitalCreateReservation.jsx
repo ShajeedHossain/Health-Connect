@@ -89,6 +89,14 @@ export default function HospitalCreateReservation() {
 
     return (
         <div className={`${classes["create-reservation"]}`}>
+            <div className={`${classes["create-account-btn"]}`}>
+                <Link
+                    to={`/hospital-dashboard/create-account`}
+                    className={`btn`}
+                >
+                    Not a previous patient
+                </Link>
+            </div>
             <div>
                 {hospital && (
                     <div className={classes.doctorInfo}>

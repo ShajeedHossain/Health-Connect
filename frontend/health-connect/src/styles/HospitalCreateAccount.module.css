@@ -1,0 +1,19 @@
+.hospital-create-account-page {
+    padding: 20px 60px;
+}
+
+.hospital-create-account-page h2 {
+    text-align: center;
+}
+.hospital-create-account-page form div {
+    min-width: 50%;
+    width: 50%;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.hospital-create-account-page form div input {
+    width: 100%;
+    padding: 10px;
+}
