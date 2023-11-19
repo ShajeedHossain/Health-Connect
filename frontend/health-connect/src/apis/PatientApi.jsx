@@ -200,3 +200,15 @@ export default axios.create({
 //       },
 //     }
 //   );
+
+//ALL PATIENT RESERVATIONS API
+// const response = await PatientApi.get(
+//     "/get-all-reservations",
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+// Authorization: `Bearer ${user.token}`,
+// 'id': patient.id,
+//       },
+//     }
+//   );
