@@ -35,14 +35,14 @@ const doctorSchema = new Schema({
   dob: {
     type: Date,
     // required: true,
-    validate: {
-      validator: function (dob) {
-        const sixYearsAgo = new Date();
-        sixYearsAgo.setFullYear(sixYearsAgo.getFullYear() - 6);
-        return dob <= sixYearsAgo;
-      },
-      message: "Invalid DOB",
-    },
+    // validate: {
+    //   validator: function (dob) {
+    //     const sixYearsAgo = new Date();
+    //     sixYearsAgo.setFullYear(sixYearsAgo.getFullYear() - 6);
+    //     return dob <= sixYearsAgo;
+    //   },
+    //   message: "Invalid DOB",
+    // },
   },
 
   gender: {
@@ -88,7 +88,6 @@ const doctorSchema = new Schema({
 
   appointment_fees: {
     type: String,
-    required: true,
   },
 
   available_days: [
