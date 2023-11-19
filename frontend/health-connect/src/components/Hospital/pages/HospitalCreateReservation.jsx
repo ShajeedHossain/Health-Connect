@@ -26,7 +26,7 @@ export default function HospitalCreateReservation() {
     useEffect(() => {
         toast.onChange((payload) => {
             if (payload.status === "removed") {
-                navigate("/dashboard/hospitalBooking/");
+                navigate("/hospital-dashboard/view-reservations");
             }
         });
     }, [navigate]);
