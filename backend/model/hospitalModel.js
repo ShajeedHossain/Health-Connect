@@ -50,10 +50,6 @@ hospitalSchema.statics.addHospital = async function (
   hospitalName,
   district,
   town,
-  // totalBeds,
-  // totalCabins,
-  // availableBeds,
-  // availableCabins,
   cabins,
   beds,
   facilities,
@@ -69,12 +65,9 @@ hospitalSchema.statics.addHospital = async function (
     longitude,
   };
   try {
-    // console.log(hospitalName, district, email, password, latitude, longitude);
     if (
       !hospitalName ||
       !district ||
-      // !totalBeds ||
-      // !totalCabins ||
       !email ||
       !password ||
       !latitude ||
@@ -104,7 +97,6 @@ hospitalSchema.statics.addHospital = async function (
 
     const exists = await this.findOne({ email });
     const userExists = await User.findOne({ email: email });
-    console.log("SUUUUUU");
 
     if (exists || userExists) {
       throw Error("Email already in use");

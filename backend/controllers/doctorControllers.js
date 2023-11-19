@@ -272,7 +272,8 @@ const singleDoctorSignup = async (req, res) => {
     hashedPassword = await bcrypt.hash(password, salt);
 
     const doctorExist = await Doctor.findOne({ email: email });
-    if (doctorExist) {
+    const userExist = await User.findOne({ email: email });
+    if (doctorExist || userExist) {
       throw Error("Email already exists");
     }
 
@@ -295,6 +296,7 @@ const singleDoctorSignup = async (req, res) => {
       password: hashedPassword,
       fullname,
       address: address,
+      type: "doctor",
     });
 
     res.status(200).json({ newUser });

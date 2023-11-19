@@ -286,7 +286,8 @@ const createPatientAccount = async (req, res) => {
 
   try {
     const exists = await Patient.findOne({ email: email });
-    if (exists) {
+    const userExists = await User.findOne({ email: email });
+    if (exists || userExists) {
       throw Error("Email is already in use");
     }
 
@@ -306,6 +307,7 @@ const createPatientAccount = async (req, res) => {
       email,
       fullName: fullname,
       contact,
+      type: "patient",
     });
     console.log("PATIENT ACCOUNT CREATED: ", newPatient);
 
