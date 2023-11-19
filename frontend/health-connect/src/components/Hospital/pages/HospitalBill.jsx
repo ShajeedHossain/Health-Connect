@@ -22,6 +22,8 @@ export default function HospitalBill() {
         reservation.dischargeStatus
     );
 
+    const [totalBill, setTotalBill] = useState(0);
+
     const { data, loading, error } = useHospitalProfileInfo(
         user,
         reservation.hospitalId
@@ -41,14 +43,19 @@ export default function HospitalBill() {
         tempdata["Patient Name"] = fullName;
         tempdata["Reservation Date"] = formatDateAndTime(reservationDate).date;
         tempdata["Discharge Date"] = formatDateAndTime(new Date()).date;
-        tempdata["Reservation Bill"] =
-            Math.floor(
-                (new Date(reservationDate).getTime() - new Date().getTime()) /
-                    (1000 * 60 * 60 * 24)
-            ) * reservationFee || 0;
+        const tempReservation = {
+            ["Hospital Bill"]:
+                Math.floor(
+                    (new Date().getTime() -
+                        new Date(reservationDate).getTime()) /
+                        (1000 * 60 * 60 * 24)
+                ) * reservationFee || 0,
+        };
+        tempdata["Reservation Bill"] = tempReservation;
+        console.log("TEMP BILL", tempdata);
 
         setBill(tempdata);
-    }, [patientData]);
+    }, [patientData, reservationFee]);
 
     const [newFieldKey, setNewFieldKey] = useState();
     const [newFieldValue, setNewFieldValue] = useState();
@@ -57,11 +64,30 @@ export default function HospitalBill() {
         console.log("USE EFFECT RUN EDITING MODE", editingMode);
         if (!editingMode && newFieldKey && newFieldValue) {
             console.log("Condition Also filled");
-            setBill({ ...bill, [newFieldKey]: newFieldValue });
+            const tempReservation = {
+                ...bill["Reservation Bill"],
+                [newFieldKey]: parseFloat(newFieldValue),
+            };
+            setBill({ ...bill, ["Reservation Bill"]: tempReservation });
             setNewFieldKey("");
             setNewFieldValue("");
         }
     }, [editingMode]);
+
+    // Calculate Total Bill
+    useEffect(() => {
+        const tempBill = { ...bill };
+        let calculateTotal = tempBill["Reservation Bill"]
+            ? Object.keys(bill["Reservation Bill"])
+                  ?.map((key) => {
+                      return bill["Reservation Bill"][key];
+                  })
+                  .reduce((acc, curr) => acc + curr, 0)
+            : [];
+
+        console.log("TOTAL CALCULATION :", calculateTotal);
+        setTotalBill(calculateTotal);
+    }, [bill]);
 
     async function confirmBill(e) {
         console.log("BILL :", bill);
@@ -101,14 +127,29 @@ export default function HospitalBill() {
 
                 <table>
                     {bill &&
-                        Object.keys(bill)?.map((key, index) => (
-                            <tr key={index}>
-                                <td>
-                                    <b>{key}</b>
-                                </td>
-                                <td>{`${bill[key]}`}</td>
-                            </tr>
-                        ))}
+                        Object.keys(bill)?.map(
+                            (key, index) =>
+                                key !== "Reservation Bill" && (
+                                    <tr key={index}>
+                                        <td>
+                                            <b>{key}</b>
+                                        </td>
+                                        <td>{`${bill[key]}`}</td>
+                                    </tr>
+                                )
+                        )}
+                    {bill["Reservation Bill"] &&
+                        Object.keys(bill["Reservation Bill"])?.map(
+                            (key, index) => (
+                                <tr key={index}>
+                                    <td>
+                                        <b>{key}</b>
+                                    </td>
+                                    <td>{`${bill["Reservation Bill"][key]}`}</td>
+                                </tr>
+                            )
+                        )}
+
                     {editingMode && (
                         <tr>
                             <td>
@@ -132,6 +173,17 @@ export default function HospitalBill() {
                                         setNewFieldValue(e.target.value);
                                     }}
                                 />
+                            </td>
+                        </tr>
+                    )}
+
+                    {totalBill && (
+                        <tr className={`${classes["total-bill"]}`}>
+                            <td>
+                                <b>Total</b>
+                            </td>
+                            <td>
+                                <b>{totalBill}</b>
                             </td>
                         </tr>
                     )}

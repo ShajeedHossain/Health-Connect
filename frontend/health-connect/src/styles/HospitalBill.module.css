@@ -16,3 +16,7 @@
 .bill-page table tr td:first-child {
     width: 20%;
 }
+
+.total-bill td {
+    background-color: #c2daff;
+}
