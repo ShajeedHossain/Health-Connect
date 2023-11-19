@@ -16,8 +16,13 @@
     margin-right: 10px;
 }
 
+.seat-booking-form div {
+    width: 100%;
+    margin-bottom: 10px;
+}
 .seat-booking-form input[type="date"],
 .seat-booking-form input[type="submit"],
+.seat-booking-form input[type="text"],
 .seat-booking-form select {
     width: 100%;
     padding: 10px;

@@ -112,7 +112,8 @@ export default function DoctorSingleAppointment({
                                     appointmentDetails,
                                 }}
                                 className={"appoint-book-btn"}
-                                to="/doctor-dashboard/previous-history"
+                                // to="/doctor-dashboard/previous-history"
+                                to="/doctor-dashboard/prescription"
                             >
                                 View Details
                             </Link>

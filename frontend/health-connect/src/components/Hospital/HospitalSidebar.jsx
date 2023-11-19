@@ -49,12 +49,12 @@ export default function HospitalSidebar({ activeState }) {
                         <h3>Reservation List</h3>
                     </div>
                 </Link>
-                <Link to="/">
+                <Link to="/hospital-dashboard/create-reservation">
                     <div className={classes["sidebar-option"]}>
                         <span className="material-symbols-outlined">
                             prescriptions
                         </span>
-                        <h3>Report</h3>
+                        <h3>Reservation</h3>
                     </div>
                 </Link>
                 <Link to="/">

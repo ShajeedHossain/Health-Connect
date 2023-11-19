@@ -41,7 +41,7 @@ export default function SingleAppointment({
         doctorId
     );
 
-    console.log("DOCTOR INFO", doctorInfo);
+    console.log("DOCTOR INFO", doctorInfo.doctor);
     // useEffect(() => {
     //     const fetchHospitalDetails = async () => {
     //         console.log("SINGLE APPOINTMENT COMPONENT FUNCTION ENTER...");
@@ -75,7 +75,7 @@ export default function SingleAppointment({
                     <td>
                         <b>Doctor name: </b>
                     </td>
-                    <td>{doctorName}</td>
+                    <td>{doctorInfo?.doctor?.fullName}</td>
                 </tr>
 
                 <tr>
@@ -84,7 +84,7 @@ export default function SingleAppointment({
                     </td>
                     <td>
                         {" "}
-                        {hospitalName}, {town}, {district}
+                        {doctorInfo?.doctor?.hospitalName}, {town}, {district}
                     </td>
                 </tr>
                 <tr>

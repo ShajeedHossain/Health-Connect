@@ -1,6 +1,17 @@
 export function formatDateAndTime(dateString) {
     // Parse the input date string
-    const date = new Date(dateString);
+    // console.log("TYPE OF DATE STRING: ", typeof dateString, dateString);
+    let newDateString;
+    if (typeof dateString === "string")
+        newDateString = dateString.replace(/\.\d+Z$/, ".000+06:00");
+    else
+        newDateString = dateString
+            .toISOString()
+            .replace(/\.\d+Z$/, ".000+06:00");
+    // console.log("NEWDATESTRING", newDateString);
+    const date = new Date(newDateString);
+
+    // console.log("DATE & DATESTRING", date, newDateString);
 
     // Get the day, month, and year
     let day = date.getDate();
@@ -8,7 +19,7 @@ export function formatDateAndTime(dateString) {
     let year = date.getFullYear();
 
     // Get the hours and minutes
-    let hours = date.getHours() - 6;
+    let hours = date.getHours();
     if (hours < 0) {
         hours += 24;
     }

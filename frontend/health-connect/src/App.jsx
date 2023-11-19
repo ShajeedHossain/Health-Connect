@@ -35,6 +35,7 @@ import IndividualDoctorSignup from "./components/IndividualDoctorSignup";
 import ChatBox from "./components/pages/ChatBox";
 import DoctorChatBox from "./components/Doctor/pages/DoctorChatBox";
 import ViewAllPrescriptions from "./components/Patient/pages/ViewAllPrescriptions";
+import HospitalCreateReservation from "./components/Hospital/pages/HospitalCreateReservation";
 
 function App() {
     return (
@@ -109,6 +110,10 @@ function App() {
                             <Route
                                 path="add-doctor/add-csv"
                                 element={<AddDoctorCSV />}
+                            />
+                            <Route
+                                path="create-reservation"
+                                element={<HospitalCreateReservation />}
                             />
                         </Route>
 
