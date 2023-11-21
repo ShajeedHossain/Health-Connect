@@ -25,7 +25,7 @@ export default function SingleAppointment({
         doctorId,
     } = appointmentDetails;
 
-    console.log("FROM SINGLE APPOINTMENT PAGE: ", appointmentDetails);
+    console.log("FROM SINGLE APPOINTMENT PAGE: ", appointmentDetails, doctorId);
 
     // console.log("HOSPITAL DATA SINGLE APPOINTMENT PAGE: ", data);
 
