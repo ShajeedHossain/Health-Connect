@@ -11,7 +11,7 @@ const appointmentTakenSchema = new mongoose.Schema({
     },
     patientId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User", // This should match the name of User model
+        ref: "Patient", // This should match the name of User model
         required: true,
     },
     serial: {

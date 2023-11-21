@@ -127,14 +127,12 @@ function App() {
                             path="doctor-dashboard/*"
                             element={<Dashboard userType="doctor" />}
                         >
+                            <Route path="chat-box" element={<ChatBot />} />
                             <Route
                                 path="settings"
                                 element={<DoctorSettings />}
                             />
-                            <Route
-                                path="chat-box"
-                                element={<DoctorChatBox />}
-                            />
+
                             <Route
                                 path="view-appointments"
                                 element={<DoctorViewAllAppointment />}

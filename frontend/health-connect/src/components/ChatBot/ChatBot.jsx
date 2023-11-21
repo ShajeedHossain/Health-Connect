@@ -5,6 +5,7 @@ import Input from ".";
 import { io } from "socket.io-client";
 import { useUpcomingAppointmentList } from "../../hooks/useUpcomingAppointmentList";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useDoctorAllAppointment } from "../../hooks/Doctor/useDoctorAllAppointment";
 
 const ChatBot = () => {
     const [conversations, setConversations] = useState([]);
@@ -56,26 +57,52 @@ const ChatBot = () => {
         fetchConversations();
     }, []);
 
-    const { user } = useAuthContext();
+    const { user, newUser } = useAuthContext();
     const { upcomingData, upcomingLoading, upcomingError } =
         useUpcomingAppointmentList(user);
-    console.log(upcomingData);
+
+    const {
+        doctorAllAppointment,
+        doctorAllAppointmentLoading,
+        doctorAllAppointmentError,
+    } = useDoctorAllAppointment(user);
+
+    console.log("NewUser: ", newUser);
+    console.log("DOCTOR ALL APPOINTMENT: ", doctorAllAppointment);
+    const swapUserType = { doctor: "patientId", patient: "doctorId" };
     useEffect(() => {
-        // const fetchUsers = async () => {
-        //     const res = await fetch(
-        //         `http://localhost:8000/api/users/${user?.id}`,
-        //         {
-        //             method: "GET",
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //             },
-        //         }
-        //     );
-        //     const resData = await res.json();
-        //     setUsers(resData);
-        // };
-        // fetchUsers();
-        setUsers(upcomingData?.appointments);
+        const haveSameId = (obj1, obj2) => {
+            if (newUser?.type === "patient")
+                return obj1.doctorId._id === obj2.doctorId._id;
+            return obj1.patientId._id === obj2.patientId._id;
+        };
+
+        // Function to filter the array based on the doctorId
+        const filterArrayById = (array) => {
+            const filteredArray = [];
+
+            array.forEach((currentObj, currentIndex) => {
+                // Check if this object's doctorId is the same as any previous objects
+                const hasSameDoctorId = filteredArray.some((filteredObj) =>
+                    haveSameId(currentObj, filteredObj)
+                );
+
+                // If not, add it to the filtered array
+                if (!hasSameDoctorId) {
+                    filteredArray.push(currentObj);
+                }
+            });
+
+            return filteredArray;
+        };
+        if (newUser?.type === "patient") {
+            const appointments = upcomingData?.appointments || [];
+            const temp = filterArrayById(appointments);
+            setUsers(temp);
+        } else {
+            const temp = filterArrayById(doctorAllAppointment);
+            setUsers(temp);
+        }
     }, [upcomingData]);
 
     const fetchMessages = async (conversationId, receiver) => {
@@ -341,10 +368,26 @@ const ChatBot = () => {
                                         </div>
                                         <div className="ml-6">
                                             <h3 className="text-lg font-semibold">
-                                                {singleUser?.doctorId?.fullName}
+                                                {
+                                                    singleUser?.[
+                                                        `${
+                                                            swapUserType[
+                                                                newUser?.type
+                                                            ]
+                                                        }`
+                                                    ]?.fullName
+                                                }
                                             </h3>
                                             <p className="text-sm font-light text-gray-600">
-                                                {singleUser?.doctorId?.email}
+                                                {
+                                                    singleUser?.[
+                                                        `${
+                                                            swapUserType[
+                                                                newUser?.type
+                                                            ]
+                                                        }`
+                                                    ]?.email
+                                                }
                                             </p>
                                         </div>
                                     </div>
