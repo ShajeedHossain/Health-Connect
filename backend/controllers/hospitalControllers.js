@@ -286,7 +286,8 @@ const createPatientAccount = async (req, res) => {
 
   try {
     const exists = await Patient.findOne({ email: email });
-    if (exists) {
+    const userExists = await User.findOne({ email: email });
+    if (exists || userExists) {
       throw Error("Email is already in use");
     }
 
@@ -294,7 +295,11 @@ const createPatientAccount = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const newUser = await User.create({ email, fullname, hashedPassword });
+    const newUser = await User.create({
+      email,
+      fullname,
+      password: hashedPassword,
+    });
     console.log("USER ACCOUNT CREATED: ", newUser);
 
     const newPatient = await Patient.create({
@@ -302,6 +307,7 @@ const createPatientAccount = async (req, res) => {
       email,
       fullName: fullname,
       contact,
+      type: "patient",
     });
     console.log("PATIENT ACCOUNT CREATED: ", newPatient);
 
