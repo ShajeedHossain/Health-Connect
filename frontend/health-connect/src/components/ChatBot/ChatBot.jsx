@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import Input from "./Input";
-import Img1 from "../../assets/images/img1.jpg";
+import Img1 from "../../assets/images/chatuser.png";
 import tutorialsdev from "../../assets/images/tutorialsdev.png";
 import { useDoctorAllAppointment } from "../../hooks/Doctor/useDoctorAllAppointment";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useUpcomingAppointmentList } from "../../hooks/useUpcomingAppointmentList";
 import classes from "./ChatBot.module.css";
 import Navbar from "../Navbar";
+import { Link, useNavigate } from "react-router-dom";
 
 const ChatBot = () => {
     const [conversations, setConversations] = useState([]);
@@ -16,6 +17,7 @@ const ChatBot = () => {
     const [users, setUsers] = useState([]);
     const [socket, setSocket] = useState(null);
     const messageRef = useRef(null);
+    const navigate = useNavigate();
 
     const { user, newUser } = useAuthContext();
     const [isLeftPanal, setIsLeftPanal] = useState(false);
@@ -189,9 +191,43 @@ const ChatBot = () => {
         console.log("RESPONSE FROM SEND MESSAGE API", res);
     };
 
+    function handleBackButton() {
+        if (newUser?.type === "doctor")
+            navigate("/doctor-dashboard/view-appointments");
+        else navigate("/dashboard/appointment");
+    }
     return (
         <>
             <nav className={`${classes["navbar"]}`}>
+                <Link
+                    to={`/doctor-dashboard/view-appointments`}
+                    className={`${classes["back-button"]}`}
+                >
+                    <span className="material-symbols-outlined">
+                        keyboard_backspace
+                    </span>
+                    Back
+                </Link>
+
+                <div className={`${classes["nav-buttons"]}`}>
+                    <span
+                        onClick={handleLeft}
+                        className="material-symbols-outlined"
+                    >
+                        menu
+                    </span>
+                    {messages?.receiver?.fullName && (
+                        <div>{messages?.receiver?.fullName}</div>
+                    )}
+                    <span
+                        onClick={handleRight}
+                        className="material-symbols-outlined"
+                    >
+                        menu_open
+                    </span>
+                </div>
+            </nav>
+            <nav>
                 <span
                     onClick={handleLeft}
                     className="material-symbols-outlined"
@@ -207,7 +243,179 @@ const ChatBot = () => {
                 </span>
             </nav>
 
-            <div className={`${classes["chat-bot"]}`}>
+            <div className={`${classes["chatbox-body"]}`}>
+                <div
+                    className={`${classes["left-sidebar"]} ${
+                        isLeftPanal ? classes["activeLeft"] : ""
+                    }`}
+                >
+                    <div className={`${classes["account"]}`}>
+                        <h2>Tanvir Hossain Dihan</h2>
+                        <p>tanvirh.dihan@gmail.com</p>
+                    </div>
+                    <div className={`${classes["chat-friends"]}`}>
+                        {conversations?.length > 0
+                            ? conversations.map(
+                                  ({ conversationId, singleUser }, index) => (
+                                      <div
+                                          key={index}
+                                          className={`${classes["single-chat-head"]}`}
+                                          onClick={() => {
+                                              fetchMessages(
+                                                  conversationId,
+                                                  singleUser
+                                              );
+                                              setIsLeftPanal(
+                                                  (current) => !current
+                                              );
+                                          }}
+                                      >
+                                          <div
+                                              className={`${classes["user-image"]}`}
+                                          >
+                                              <img src={Img1} alt="" />
+                                          </div>
+                                          <div
+                                              className={`${classes["user-info"]}`}
+                                          >
+                                              <p
+                                                  className={`${classes["username"]}`}
+                                              >
+                                                  {singleUser?.fullName}
+                                              </p>
+                                              <p
+                                                  className={`${classes["email"]}`}
+                                              >
+                                                  {singleUser?.email}
+                                              </p>
+                                          </div>
+                                      </div>
+                                  )
+                              )
+                            : "No Conversation Found"}
+                    </div>
+                </div>
+                <div className={`${classes["chatbox"]}`}>
+                    <div className={`${classes["all-message"]}`}>
+                        {messages?.messages?.length > 0 ? (
+                            messages.messages.map(
+                                ({ message, user: { id } = {} }) => {
+                                    return (
+                                        <>
+                                            <div
+                                                className={`${
+                                                    classes["message"]
+                                                } ${
+                                                    id === newUser?._id
+                                                        ? classes["own-message"]
+                                                        : classes[
+                                                              "other-message"
+                                                          ]
+                                                } `}
+                                            >
+                                                <p>{message}</p>
+                                            </div>
+                                            <div ref={messageRef}></div>
+                                        </>
+                                    );
+                                }
+                            )
+                        ) : (
+                            <div className="text-center text-lg font-semibold mt-24">
+                                No Messages or No Conversation Selected
+                            </div>
+                        )}
+                    </div>
+
+                    {messages?.receiver?.fullName && (
+                        <div className={`${classes["message-input"]}`}>
+                            <input
+                                type="text"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                            />
+                            <span
+                                onClick={() => sendMessage()}
+                                className="material-symbols-outlined"
+                            >
+                                send
+                            </span>
+                        </div>
+                    )}
+                </div>
+
+                <div
+                    className={`${classes["right-sidebar"]} ${
+                        isRightPanal ? classes["activeRight"] : ""
+                    }`}
+                >
+                    <div className={`${classes["chat-friends"]}`}>
+                        {users?.length > 0
+                            ? users.map((singleUser, index) => {
+                                  console.log("SINGLE USER: ", singleUser);
+                                  return (
+                                      <div
+                                          key={index}
+                                          className={`${classes["single-chat-head"]}`}
+                                          onClick={() => {
+                                              fetchMessages(
+                                                  "new",
+                                                  singleUser?.[
+                                                      `${
+                                                          swapUserType[
+                                                              newUser?.type
+                                                          ]
+                                                      }`
+                                                  ]
+                                              );
+                                              setIsRightPanal(
+                                                  (current) => !current
+                                              );
+                                          }}
+                                      >
+                                          <div
+                                              className={`${classes["user-image"]}`}
+                                          >
+                                              <img src={Img1} alt="" />
+                                          </div>
+                                          <div
+                                              className={`${classes["user-info"]}`}
+                                          >
+                                              <p
+                                                  className={`${classes["username"]}`}
+                                              >
+                                                  {
+                                                      singleUser?.[
+                                                          `${
+                                                              swapUserType[
+                                                                  newUser?.type
+                                                              ]
+                                                          }`
+                                                      ]?.fullName
+                                                  }
+                                              </p>
+                                              <p
+                                                  className={`${classes["email"]}`}
+                                              >
+                                                  {
+                                                      singleUser?.[
+                                                          `${
+                                                              swapUserType[
+                                                                  newUser?.type
+                                                              ]
+                                                          }`
+                                                      ]?.email
+                                                  }
+                                              </p>
+                                          </div>
+                                      </div>
+                                  );
+                              })
+                            : ""}
+                    </div>
+                </div>
+            </div>
+            {/* <div className={`${classes["chat-bot"]}`}>
                 <div
                     className={`${classes["left-sidebar"]} ${
                         isLeftPanal ? classes["activeLeft"] : ""
@@ -459,7 +667,7 @@ const ChatBot = () => {
                         )}
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };
