@@ -46,6 +46,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/*" element={<PrivateRoute />}>
+                        <Route path="chat-box" element={<ChatBot />} />
                         <Route
                             path="dashboard/*"
                             element={<Dashboard userType="patient" />}

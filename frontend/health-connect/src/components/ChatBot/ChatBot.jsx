@@ -6,6 +6,7 @@ import tutorialsdev from "../../assets/images/tutorialsdev.png";
 import { useDoctorAllAppointment } from "../../hooks/Doctor/useDoctorAllAppointment";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useUpcomingAppointmentList } from "../../hooks/useUpcomingAppointmentList";
+import classes from "./ChatBot.module.css";
 
 const ChatBot = () => {
     const [conversations, setConversations] = useState([]);
@@ -180,25 +181,19 @@ const ChatBot = () => {
     };
 
     return (
-        <div className="w-screen flex">
-            <div className=" h-screen bg-secondary overflow-scroll">
-                <div className="flex items-center my-8 mx-14">
-                    <div>
-                        <img
-                            src={tutorialsdev}
-                            width={75}
-                            height={75}
-                            className="border border-primary p-[2px] rounded-full"
-                        />
-                    </div>
+        <div className={`${classes["chat-bot"]}`}>
+            <div className={`${classes["left-sidebar"]}`}>
+                <div className={`${classes["account-area"]}`}>
                     <div className="ml-8">
-                        <h3 className="text-2xl">{newUser?.fullname}</h3>
+                        <h2>{newUser?.fullname}</h2>
                         <p className="text-lg font-light">My Account</p>
                     </div>
                 </div>
                 <hr />
                 <div className="mx-14 mt-10">
-                    <div className="text-primary text-lg">Messages</div>
+                    <div className={`${classes["chat-sidebar-header"]}`}>
+                        Messages
+                    </div>
                     <div>
                         {conversations?.length > 0 ? (
                             conversations.map(
@@ -214,7 +209,7 @@ const ChatBot = () => {
                                             className="flex items-center py-8 border-b border-b-gray-300"
                                         >
                                             <div
-                                                className="cursor-pointer flex items-center"
+                                                className={`${classes["single-user"]}`}
                                                 onClick={() =>
                                                     fetchMessages(
                                                         conversationId,
@@ -223,10 +218,7 @@ const ChatBot = () => {
                                                 }
                                             >
                                                 <div>
-                                                    <img
-                                                        src={Img1}
-                                                        className="w-[60px] h-[60px] rounded-full p-[2px] border border-primary"
-                                                    />
+                                                    <img src={Img1} />
                                                 </div>
                                                 <div className="ml-6">
                                                     <h3 className="text-lg font-semibold">
@@ -249,47 +241,16 @@ const ChatBot = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-[50%] h-screen bg-white flex flex-col items-center">
+            <div className={`${classes["chatbox"]}`}>
                 {messages?.receiver?.fullName && (
                     <div className="w-[75%] bg-secondary h-[80px] my-14 rounded-full flex items-center px-14 py-2">
-                        <div className="cursor-pointer">
-                            <img
-                                src={Img1}
-                                width={60}
-                                height={60}
-                                className="rounded-full"
-                            />
-                        </div>
-                        <div className="ml-6 mr-auto">
+                        <div className={`${classes["profile-area"]}`}>
                             <h3 className="text-lg">
                                 {messages?.receiver?.fullName}
                             </h3>
                             <p className="text-sm font-light text-gray-600">
                                 {messages?.receiver?.email}
                             </p>
-                        </div>
-                        <div className="cursor-pointer">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="icon icon-tabler icon-tabler-phone-outgoing"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="black"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <path
-                                    stroke="none"
-                                    d="M0 0h24v24H0z"
-                                    fill="none"
-                                />
-                                <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
-                                <line x1="15" y1="9" x2="20" y2="4" />
-                                <polyline points="16 4 20 4 20 8" />
-                            </svg>
                         </div>
                     </div>
                 )}
@@ -301,13 +262,17 @@ const ChatBot = () => {
                                     return (
                                         <>
                                             <div
-                                                className={`max-w-[40%] rounded-b-xl p-4 mb-6 ${
+                                                className={`${
+                                                    classes["message"]
+                                                } ${
                                                     id === newUser?._id
-                                                        ? "bg-primary text-white rounded-tl-xl ml-auto"
-                                                        : "bg-secondary rounded-tr-xl"
+                                                        ? classes["own-message"]
+                                                        : classes[
+                                                              "other-message"
+                                                          ]
                                                 } `}
                                             >
-                                                {message}
+                                                <p>{message}</p>
                                             </div>
                                             <div ref={messageRef}></div>
                                         </>
@@ -322,13 +287,11 @@ const ChatBot = () => {
                     </div>
                 </div>
                 {messages?.receiver?.fullName && (
-                    <div className="p-14 w-full flex items-center">
+                    <div className={`${classes["message-input"]}`}>
                         <Input
                             placeholder="Type a message..."
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
-                            className="w-[75%]"
-                            inputClassName="p-4 border-0 shadow-md rounded-full bg-light focus:ring-0 focus:border-0 outline-none"
                         />
                         <div
                             className={`ml-4 p-2 cursor-pointer bg-light rounded-full ${
@@ -387,8 +350,10 @@ const ChatBot = () => {
                     </div>
                 )}
             </div>
-            <div className="w-[25%] h-screen bg-light px-8 py-16 overflow-scroll">
-                <div className="text-primary text-lg">People</div>
+            <div className={`${classes["right-sidebar"]}`}>
+                <div className={`${classes["chat-sidebar-header"]}`}>
+                    People
+                </div>
                 <div>
                     {users?.length > 0 ? (
                         users.map((singleUser, index) => {
@@ -399,7 +364,7 @@ const ChatBot = () => {
                                     className="flex items-center py-8 border-b border-b-gray-300"
                                 >
                                     <div
-                                        className="cursor-pointer flex items-center"
+                                        className={`${classes["single-user"]}`}
                                         onClick={() =>
                                             fetchMessages(
                                                 "new",

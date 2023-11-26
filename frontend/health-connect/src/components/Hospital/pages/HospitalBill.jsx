@@ -13,7 +13,7 @@ export default function HospitalBill() {
     const { fullName } = patientData;
     const { reservationDate, reservationType, reservationCategory } =
         reservation;
-    // console.log("RESERVATION FEE", reservation);
+    console.log("RESERVATION", reservation);
 
     const [bill, setBill] = useState({});
     const [editingMode, setEditingMode] = useState(false);
