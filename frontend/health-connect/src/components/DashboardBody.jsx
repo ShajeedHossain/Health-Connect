@@ -20,7 +20,7 @@ export default function DashboardBody({ activeState, children, userType }) {
             link: "/dashboard/view-prescriptions",
             icon: "prescriptions",
         },
-        { text: "Chat Box", link: "/dashboard/chat-box", icon: "help" },
+        { text: "Chat Box", link: "/chat-box", icon: "help" },
         { text: "Settings", link: "/dashboard/settings", icon: "settings" },
     ];
 
@@ -32,7 +32,7 @@ export default function DashboardBody({ activeState, children, userType }) {
         },
         {
             text: "Message",
-            link: "/doctor-dashboard/chat-box",
+            link: "/chat-box",
             icon: "help",
         },
         {
