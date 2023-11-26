@@ -16,8 +16,11 @@ export default function Settings() {
     const { user } = useAuthContext();
     const navigate = useNavigate();
 
-    const { patientData, patientLoading, patientError } =
-        usePatientProfileInfo(user);
+    const { patientData, patientLoading, patientError } = usePatientProfileInfo(
+        "",
+        user,
+        ""
+    );
     const [fullNameField, setFullNameField] = useState("");
     const [emailField, setEmailField] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
@@ -31,6 +34,7 @@ export default function Settings() {
     const [prevPatientData, SetPrevPatientData] = useState();
 
     console.log("Patient Previous Data ", patientData);
+    const [enableEdit, setEnableEdit] = useState(false);
 
     useEffect(() => {
         const tempData = {
@@ -117,163 +121,246 @@ export default function Settings() {
                     className={classes["patient-profile-update-form"]}
                     onSubmit={handleSubmit}
                 >
-                    <label htmlFor="full-name">Full Name</label>
-                    <input
-                        type="text"
-                        name="fullName"
-                        id="full-name"
-                        placeholder={`Full Name:`}
-                        value={prevPatientData?.fullName}
-                        onChange={(e) => {
-                            handleChange(e);
-                        }}
-                    />
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder={`Email:`}
-                        value={prevPatientData?.email}
-                        onChange={(e) => {
-                            handleChange(e);
-                        }}
-                    />
-                    <label htmlFor="contact">Contact</label>
-                    <input
-                        type="text"
-                        name="contact"
-                        id="contact"
-                        placeholder="Contact Number"
-                        value={prevPatientData?.contact}
-                        onChange={(e) => {
-                            handleChange(e);
-                        }}
-                    />
+                    <table
+                        className={`${classes["setting-info-table"]}`}
+                        border={1}
+                        style={{ marginBottom: "10px" }}
+                    >
+                        <tr>
+                            <td>Full Name</td>
+                            <td>
+                                {enableEdit ? (
+                                    <input
+                                        type="text"
+                                        name="fullName"
+                                        id="full-name"
+                                        placeholder={`Full Name:`}
+                                        value={prevPatientData?.fullName}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
+                                    />
+                                ) : (
+                                    prevPatientData?.fullName
+                                )}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>
+                                {enableEdit ? (
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        placeholder={`Email:`}
+                                        value={prevPatientData?.email}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
+                                    />
+                                ) : (
+                                    prevPatientData?.email
+                                )}
+                            </td>
+                        </tr>
 
-                    <div className={classes["date-gender"]}>
-                        <div>
-                            <label htmlFor="dob">Date of Birth</label>
-                            <input
-                                type="date"
-                                name="dob"
-                                id="dob"
-                                value={prevPatientData?.dob}
-                                onChange={(e) => {
-                                    handleChange(e);
-                                }}
-                            />
-                        </div>
+                        <tr>
+                            <td>Contact</td>
+                            <td>
+                                {enableEdit ? (
+                                    <input
+                                        type="text"
+                                        name="contact"
+                                        id="contact"
+                                        placeholder="Contact Number"
+                                        value={prevPatientData?.contact}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
+                                    />
+                                ) : (
+                                    prevPatientData?.contact
+                                )}
+                            </td>
+                        </tr>
 
-                        <div>
-                            <label htmlFor="gender">Gender</label>
-                            <select
-                                name="gender"
-                                id="gender"
-                                value={prevPatientData?.gender}
-                                onChange={(e) => {
-                                    handleChange(e);
-                                }}
-                            >
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </div>
-                    </div>
+                        <tr>
+                            <td>Date of Birth</td>
+                            <td>
+                                {enableEdit ? (
+                                    <input
+                                        type="date"
+                                        name="dob"
+                                        id="dob"
+                                        value={prevPatientData?.dob}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
+                                    />
+                                ) : (
+                                    prevPatientData?.dob
+                                )}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Gender</td>
+                            <td>
+                                <select
+                                    name="gender"
+                                    id="gender"
+                                    value={prevPatientData?.gender}
+                                    onChange={(e) => {
+                                        handleChange(e);
+                                    }}
+                                >
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Height (in meters)</td>
+                            <td>
+                                {enableEdit ? (
+                                    <input
+                                        type="text"
+                                        name="height"
+                                        id="height"
+                                        placeholder="Height (in meters)"
+                                        value={prevPatientData?.height}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
+                                    />
+                                ) : (
+                                    prevPatientData?.height
+                                )}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Weight (in kilograms)</td>
+                            <td>
+                                {enableEdit ? (
+                                    <input
+                                        type="text"
+                                        name="weight"
+                                        id="weight"
+                                        placeholder="Weight (in kilograms)"
+                                        value={prevPatientData?.weight}
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
+                                    />
+                                ) : (
+                                    prevPatientData?.weight
+                                )}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td>
+                                {enableEdit ? (
+                                    <>
+                                        <input
+                                            type="text"
+                                            name="address"
+                                            id="address"
+                                            placeholder="Address"
+                                            value={
+                                                addressField
+                                                    ? addressField
+                                                    : `${prevPatientData?.address?.town}, ${prevPatientData?.address?.district}`
+                                            }
+                                            disabled
+                                        />
+                                        <input
+                                            type="button"
+                                            value="Get Current Location"
+                                            onClick={getAddress}
+                                        />
+                                    </>
+                                ) : (
+                                    `${prevPatientData?.address?.town}, ${prevPatientData?.address?.district}`
+                                )}
+                            </td>
+                        </tr>
 
-                    <div className={classes["date-gender"]}>
-                        <div>
-                            <label htmlFor="height">Height (in meters)</label>
-                            <input
-                                type="text"
-                                name="height"
-                                id="height"
-                                placeholder="Height (in meters)"
-                                value={prevPatientData?.height}
-                                onChange={(e) => {
-                                    handleChange(e);
-                                }}
-                            />
-                        </div>
+                        <tr>
+                            <td>Current Password</td>
+                            <td>
+                                {enableEdit ? (
+                                    <input
+                                        type="password"
+                                        name="currentPassword"
+                                        id="password"
+                                        value={currentPassword}
+                                        onChange={(e) =>
+                                            setCurrentPassword(e.target.value)
+                                        }
+                                        placeholder="Must provide to change password. Else keep empty"
+                                    />
+                                ) : (
+                                    ""
+                                )}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>New Password</td>
+                            <td>
+                                {enableEdit ? (
+                                    <input
+                                        type="password"
+                                        name="newPassword"
+                                        id="password"
+                                        value={newPassword}
+                                        onChange={(e) =>
+                                            setNewPassword(e.target.value)
+                                        }
+                                        placeholder="Must provide to change password. Else keep empty"
+                                    />
+                                ) : (
+                                    ""
+                                )}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Confirm Password</td>
+                            <td>
+                                {enableEdit ? (
+                                    <input
+                                        type="password"
+                                        name="confirmPassword"
+                                        id="confirm-password"
+                                        value={confirmPassword}
+                                        onChange={(e) =>
+                                            setConfirmPassword(e.target.value)
+                                        }
+                                        placeholder="Must provide to change password. Else keep empty"
+                                    />
+                                ) : (
+                                    ""
+                                )}
+                            </td>
+                        </tr>
+                    </table>
 
-                        <div>
-                            <label htmlFor="weight">
-                                Weight (in kilograms)
-                            </label>
-                            <input
-                                type="text"
-                                name="weight"
-                                id="weight"
-                                placeholder="Weight (in kilograms)"
-                                value={prevPatientData?.weight}
-                                onChange={(e) => {
-                                    handleChange(e);
-                                }}
-                            />
-                        </div>
-                    </div>
-
-                    <div className={classes["date-gender"]}>
-                        <div>
-                            <label htmlFor="address">Address</label>
-                            <input
-                                type="text"
-                                name="address"
-                                id="address"
-                                placeholder="Address"
-                                value={
-                                    addressField
-                                        ? addressField
-                                        : `${prevPatientData?.address?.town}, ${prevPatientData?.address?.district}`
-                                }
-                                disabled
-                            />
-                        </div>
-
-                        <div>
-                            <label style={{ visibility: "hidden" }} htmlFor="">
-                                TEMP BUTTON
-                            </label>
-                            <input
-                                type="button"
-                                value="Get Current Location"
-                                onClick={getAddress}
-                            />
-                        </div>
-                    </div>
-                    <label htmlFor="password">Current Password</label>
-                    <input
-                        type="password"
-                        name="currentPassword"
-                        id="password"
-                        value={currentPassword}
-                        onChange={(e) => setCurrentPassword(e.target.value)}
-                        placeholder="Must provide to change password. Else keep empty"
-                    />
-                    <label htmlFor="password">New Password</label>
-                    <input
-                        type="password"
-                        name="newPassword"
-                        id="password"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        placeholder="Must provide to change password. Else keep empty"
-                    />
-                    <label htmlFor="confirm-password">Confirm Password</label>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        id="confirm-password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="Must provide to change password. Else keep empty"
-                    />
                     {error && <p style={{ color: "red" }}>{error}</p>}
-                    <input
-                        disabled={loading}
-                        type="submit"
-                        value="Update Information"
-                    />
+                    {!enableEdit ? (
+                        <button
+                            disabled={loading}
+                            className={`btn`}
+                            onClick={() => setEnableEdit((prev) => !prev)}
+                        >
+                            Edit Information
+                        </button>
+                    ) : (
+                        <input
+                            disabled={loading}
+                            type="submit"
+                            value="Update Information"
+                        />
+                    )}
                 </form>
             </div>
             <ToastContainer position="top-right" />

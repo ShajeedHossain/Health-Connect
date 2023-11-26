@@ -25,48 +25,11 @@ export default function SingleAppointment({
         doctorId,
     } = appointmentDetails;
 
-    console.log("FROM SINGLE APPOINTMENT PAGE: ", appointmentDetails);
-
-    // console.log("HOSPITAL DATA SINGLE APPOINTMENT PAGE: ", data);
+    console.log("FROM SINGLE APPOINTMENT PAGE: ", appointmentDetails, doctorId);
 
     const { latitude, longitude, district, town } = hospitalId.address;
 
     const { date, time } = formatDateAndTime(startTime);
-
-    const { data, loading, error } = useHospitalProfileInfo(user, hospitalId);
-    console.log("HOSPITAL DATA SINGLE APPOINTMENT PAGE: ", data);
-
-    const { doctorInfo, doctorLoading, doctorError } = useDoctorProfileInfo(
-        user,
-        doctorId
-    );
-
-    console.log("DOCTOR INFO", doctorInfo.doctor);
-    // useEffect(() => {
-    //     const fetchHospitalDetails = async () => {
-    //         console.log("SINGLE APPOINTMENT COMPONENT FUNCTION ENTER...");
-    //         try {
-    //             // setLoading(true);
-
-    //             const response = await HospitalApi.get("/get-hospital", {
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                     Authorization: `Bearer ${user.token}`,
-    //                 },
-    //             });
-
-    //             console.log("GET HOSPITAL HOOK", response.data);
-    //             // setLoading(false);
-    //             // setData(response.data); // Uncomment this line
-    //         } catch (err) {
-    //             console.log(err);
-    //             // setLoading(false);
-    //             // setError(true);
-    //         }
-    //     };
-
-    //     fetchHospitalDetails();
-    // });
 
     return (
         <div className={`dashboard-card ${classes.className}`}>
@@ -75,7 +38,7 @@ export default function SingleAppointment({
                     <td>
                         <b>Doctor name: </b>
                     </td>
-                    <td>{doctorInfo?.doctor?.fullName}</td>
+                    <td>{doctorId?.fullName}</td>
                 </tr>
 
                 <tr>
@@ -83,8 +46,7 @@ export default function SingleAppointment({
                         <b>Address:</b>
                     </td>
                     <td>
-                        {" "}
-                        {doctorInfo?.doctor?.hospitalName}, {town}, {district}
+                        {town}, {district}
                     </td>
                 </tr>
                 <tr>
@@ -136,30 +98,19 @@ export default function SingleAppointment({
 
                 <tr>
                     <td></td>
-                    <td>
+                    <td className={`td-link`}>
                         {" "}
                         {previousFlag && (
                             <Link
                                 state={{
                                     appointmentDetails,
                                 }}
-                                className={"appoint-book-btn"}
+                                className={"btn"}
                                 to="/doctor-dashboard/previous-history"
                             >
                                 View Details
                             </Link>
                         )}
-                        <Link
-                            state={{
-                                doctor: doctorInfo.doctor,
-                                appointmentDetails,
-                                userDetails,
-                            }}
-                            className={"appoint-book-btn"}
-                            to="/dashboard/chat-box"
-                        >
-                            Message
-                        </Link>
                     </td>
                 </tr>
             </table>

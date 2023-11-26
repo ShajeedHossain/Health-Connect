@@ -14,7 +14,7 @@ export default function Dashboard({ children, userType }) {
     };
 
     return (
-        <div className="container">
+        <div className="container-custom">
             <Navbar
                 newUser={newUser}
                 activeState={{ isActive, handleActive }}

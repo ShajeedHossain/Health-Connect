@@ -37,6 +37,7 @@ import DoctorChatBox from "./components/Doctor/pages/DoctorChatBox";
 import ViewAllPrescriptions from "./components/Patient/pages/ViewAllPrescriptions";
 import HospitalCreateReservation from "./components/Hospital/pages/HospitalCreateReservation";
 import HospitalCreateAccount from "./components/Hospital/pages/HospitalCreateAccount";
+import ChatBot from "./components/ChatBot/ChatBot";
 
 function App() {
     return (
@@ -45,11 +46,12 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/*" element={<PrivateRoute />}>
+                        <Route path="chat-box" element={<ChatBot />} />
                         <Route
                             path="dashboard/*"
                             element={<Dashboard userType="patient" />}
                         >
-                            <Route path="chat-box" element={<ChatBox />} />
+                            <Route path="chat-box" element={<ChatBot />} />
                             <Route
                                 path="appointment"
                                 element={<Appointment />}
@@ -126,14 +128,12 @@ function App() {
                             path="doctor-dashboard/*"
                             element={<Dashboard userType="doctor" />}
                         >
+                            <Route path="chat-box" element={<ChatBot />} />
                             <Route
                                 path="settings"
                                 element={<DoctorSettings />}
                             />
-                            <Route
-                                path="chat-box"
-                                element={<DoctorChatBox />}
-                            />
+
                             <Route
                                 path="view-appointments"
                                 element={<DoctorViewAllAppointment />}

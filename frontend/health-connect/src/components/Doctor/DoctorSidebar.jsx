@@ -57,7 +57,7 @@ export default function DoctorSidebar({ activeState }) {
                         <h3>Report</h3>
                     </div>
                 </Link>
-                <Link to="/">
+                <Link to="/doctor-dashboard/chat-box">
                     <div className={classes["sidebar-option"]}>
                         <span className="material-symbols-outlined">help</span>
                         <h3>Help & Support</h3>

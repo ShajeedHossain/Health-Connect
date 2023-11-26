@@ -60,14 +60,17 @@ small {
 .btn {
     background-color: #00296b;
     border: none;
-    padding: 10px 25px;
+    padding: 6px 15px;
     border: 1px solid #00296b;
     font-weight: 500;
     border-radius: 5px;
     margin-right: 20px;
     color: white;
 }
-
+.btn:hover {
+    background-color: #c2daff;
+    color: #00296b;
+}
 /*=============================
     Dashboard
 ==============================*/
@@ -208,6 +211,9 @@ small {
 .dashboard-card table tr td {
     padding: 5px 10px;
     border-bottom: 1px solid #ddd;
+}
+.dashboard-card table tr td.td-link {
+    padding: 10px 0;
 }
 .dashboard-card table tr td:first-child {
     width: 30%;

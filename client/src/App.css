@@ -1,0 +1,117 @@
+body {
+    background-color: var(--primary-color);
+    color: var(--link-color);
+}
+
+nav.sidebar-nav {
+    background-color: var(--primary-color);
+    height: 100%;
+    position: fixed;
+    width: 25%;
+    border-right: 1px solid var(--border-color);
+    left: 0;
+}
+.dashboard-body {
+    position: fixed;
+    width: 75%;
+    left: 25%;
+}
+
+.dashboard-logo {
+    display: none;
+}
+.dashboard-header {
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+}
+.dashboard-header span {
+    font-size: 2rem;
+}
+.dashboard-header .user-info {
+    display: flex;
+    align-items: center;
+}
+.dashboard-header .user-info span {
+    margin-left: 10px;
+    font-size: 1.5rem;
+}
+
+.container-header {
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container-body {
+    padding: 10px 20px;
+}
+.dashboard-table {
+    overflow: scroll;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+.dashboard-table caption {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.dashboard-table tr th {
+    text-align: left;
+    background-color: var(--primary-light-color);
+}
+.dashboard-table tr td,
+.dashboard-table tr th {
+    padding: 10px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+.dashboard-table tr:hover td {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.dashboard-details-table {
+    overflow: scroll;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border-color);
+}
+.dashboard-details-table tr td:first-child {
+    width: 20%;
+}
+.dashboard-details-table tr td {
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+}
+.dashboard-details-table tr.table-first-row {
+    background-color: var(--primary-light-color);
+    font-weight: 600;
+}
+@media screen and (max-width: 768px) {
+    nav.sidebar-nav {
+        z-index: 999;
+        width: 100%;
+        left: 0;
+    }
+    nav.sidebar-nav.active {
+        left: -100%;
+    }
+    .dashboard-body {
+        width: 100%;
+        left: 0;
+    }
+    .dashboard-logo {
+        display: flex;
+        justify-content: center;
+        padding: 10px 20px;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .dashboard-logo h2 {
+        font-family: "Kaushan Script", cursive;
+    }
+}

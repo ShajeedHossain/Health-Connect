@@ -1,12 +1,10 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useUpcomingAppointmentList } from "../../hooks/useUpcomingAppointmentList";
+import { formatDateAndTime } from "../../Utility/formateTime";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useUpcomingAppointmentList } from "../../hooks/useUpcomingAppointmentList";
 import classes from "../../styles/AppointmentList.module.css";
 import SingleAppointment from "./SingleAppointment";
-import { usePreviousAppointment } from "../../hooks/usePreviousAppointment";
-import HospitalApi from "../../apis/HospitalApi";
-import { useEffect, useState } from "react";
-import { formatDateAndTime } from "../../Utility/formateTime";
 export default function AppointmentList() {
     const { user, newUser } = useAuthContext();
 
@@ -44,11 +42,9 @@ export default function AppointmentList() {
     return (
         <>
             <div className={classes["take-new-appointment-btn"]}>
-                <button className={classes["appoint-tek-btn"]}>
-                    <Link to="/dashboard/takeAppointment">
-                        <h3>Take New Appointment</h3>
-                    </Link>
-                </button>
+                <Link className="btn" to="/dashboard/takeAppointment">
+                    Take New Appointment
+                </Link>
             </div>
             <section className={classes["doc-upcoming-apoint-chk-part"]}>
                 <div className={classes["doc-upcoming-apoint-check-header"]}>
