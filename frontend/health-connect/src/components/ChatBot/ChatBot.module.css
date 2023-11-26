@@ -1,6 +1,12 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    z-index: 111;
+}
 .chat-bot {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 50px;
 }
 
 .chat-bot .left-sidebar {
@@ -9,6 +15,7 @@
     height: 100%;
     border: 1px solid #ddd;
     background-color: white;
+    z-index: 11;
 }
 
 .chat-bot .chatbox {
@@ -113,4 +120,23 @@
     width: 800px;
     padding: 10px;
     margin-right: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+    .chat-bot .left-sidebar {
+        left: -100%;
+    }
+    .chat-bot .chatbox {
+        width: 100%;
+    }
+    .chat-bot .right-sidebar {
+        width: 100%;
+        left: 100%;
+    }
+    .activeRight {
+        left: 0;
+    }
+    .activeLeft {
+        left: 0;
+    }
 }

@@ -1,0 +1,40 @@
+.navbar {
+    padding: 15px;
+}
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.navbar .sidebar-header h2 {
+    padding: 10px 20px;
+    font-family: "Kaushan Script", cursive;
+    font-size: 2rem;
+}
+.navbar .sidebar-header .close-btn {
+    display: none;
+}
+.navbar ul li {
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.navbar ul li span {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.navbar ul li span a {
+    font-weight: bold;
+}
+.navbar ul li:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+.navbar ul li:hover a {
+    color: var(--primary-color);
+}
+
+@media screen and (max-width: 768px) {
+    .navbar .sidebar-header .close-btn {
+        display: inline-block;
+    }
+}
