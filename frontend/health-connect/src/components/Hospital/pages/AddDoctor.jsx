@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,13 +27,13 @@ export default function AddDoctor() {
     available_days: "",
   });
 
-  //   useEffect(() => {
-  //     toast.onChange((payload) => {
-  //       if (payload.status === "removed") {
-  //         navigate("/hospital-dashboard/view-doctors");
-  //       }
-  //     });
-  //   }, [navigate]);
+  useEffect(() => {
+    toast.onChange((payload) => {
+      if (payload.status === "removed") {
+        navigate("/hospital-dashboard/view-doctors");
+      }
+    });
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
