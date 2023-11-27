@@ -93,10 +93,14 @@ export default function AppointmentConfirmation() {
       return;
     }
 
+    //NEW DATE FORMATTING
+    const year = selectedDate.getFullYear();
+    const month = (selectedDate.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-based, so we add 1
+    const day = selectedDate.getDate().toString().padStart(2, "0");
+    const formattedDateString = `${year}-${month}-${day}`;
+    //NEW DATE FORMATTING END
     const startTime =
-      formatDateAndTime(selectedDate).date +
-      "T" +
-      convertDateToTime(formDataObject["timeSlot"]);
+      formattedDateString + "T" + convertDateToTime(formDataObject["timeSlot"]);
     console.log("start time : ", startTime);
     try {
       const response = await PatientApi.post(
