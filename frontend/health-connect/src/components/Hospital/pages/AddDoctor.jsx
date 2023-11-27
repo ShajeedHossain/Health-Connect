@@ -21,6 +21,10 @@ export default function AddDoctor() {
     education: "",
     bma_id: "",
     specializations: "",
+    morning_shift_time: "",
+    evening_shift_time: "",
+    appointment_fees: "",
+    available_days: "",
   });
 
   //   useEffect(() => {
@@ -38,6 +42,14 @@ export default function AddDoctor() {
       [name]: value,
     });
   };
+
+  function isHHMMFormat(str) {
+    // Define a regular expression pattern for YY-MM format
+    const regex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+
+    // Test the string against the regex pattern
+    return regex.test(str);
+  }
   // Handle Submit Function
   async function handleSubmit(e) {
     setLoading(true);
@@ -51,6 +63,19 @@ export default function AddDoctor() {
     if (formDataObject["dob"] == "") {
       setLoading(false);
       setError("Date of birth can't be empty");
+      return;
+    }
+    if (formDataObject.appointment_fees < 0) {
+      setLoading(false);
+      setError("Invalid fees");
+      return;
+    }
+    if (
+      !isHHMMFormat(formDataObject.morning_shift_time) ||
+      !isHHMMFormat(formDataObject.evening_shift_time)
+    ) {
+      setLoading(false);
+      setError("Invalid time format");
       return;
     }
 
@@ -84,6 +109,10 @@ export default function AddDoctor() {
         education: "",
         bma_id: "",
         specializations: "",
+        morning_shift_time: "",
+        evening_shift_time: "",
+        appointment_fees: "",
+        available_days: "",
       });
     } catch (error) {
       setError(error.response.data.error);
@@ -189,6 +218,42 @@ export default function AddDoctor() {
             onChange={handleChange}
             id="specialization"
             placeholder="Specialization"
+            required
+          />
+          <input
+            type="text"
+            name="available_days"
+            value={formData.available_days}
+            onChange={handleChange}
+            id="available_days"
+            placeholder="Days available seperated by commas (eg. Monday,Tuesday)"
+            required
+          />
+          <input
+            type="text"
+            name="morning_shift_time"
+            value={formData.morning_shift_time}
+            onChange={handleChange}
+            id="morning_shift_time"
+            placeholder="Morning shift time in HH:MM (eg. 21:00)"
+            required
+          />
+          <input
+            type="text"
+            name="evening_shift_time"
+            value={formData.evening_shift_time}
+            onChange={handleChange}
+            id="evening_shift_time"
+            placeholder="Evening shift time in HH:MM (eg. 21:00)"
+            required
+          />
+          <input
+            type="text"
+            name="appointment_fees"
+            value={formData.appointment_fees}
+            onChange={handleChange}
+            id="appointment_fees"
+            placeholder="Appointment fees"
             required
           />
 
