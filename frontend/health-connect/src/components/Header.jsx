@@ -3,6 +3,7 @@ import img1 from "../assets/images/baby-weight.png";
 import img2 from "../assets/images/certificate.png";
 import img3 from "../assets/images/mental-health.png";
 import img4 from "../assets/images/report.png";
+import img5 from "../assets/images/banner-doctor.png";
 import { useAuthContext } from "../hooks/useAuthContext";
 import classes from "../styles/Home.module.css";
 export default function Header() {
@@ -114,11 +115,12 @@ export default function Header() {
                     <h3 className={classes["BookNowBtntext"]}>Book now</h3>
                 </a>
             </div>
-            <div className={classes["headBanner"]}>
+            <div className={`${classes["headBanner"]} ${classes["container"]}`}>
                 <div className={classes["bannerwrite"]}>
                     <span>
                         <h1 className={classes["bannerHeadtitle"]}>
-                            Welcome To <br />
+                            Welcome <br />
+                            To <br />
                             Health-Connect
                         </h1>
                         <h3 className={classes["bannertitle"]}>
@@ -134,10 +136,11 @@ export default function Header() {
                     </a>
                 </div>
                 <div className={classes["bannerimg"]}>
-                    <img src={img2} alt="" className={classes["singleimg"]} />
+                    {/* <img src={img2} alt="" className={classes["singleimg"]} />
                     <img src={img1} alt="" className={classes["singleimg"]} />
                     <img src={img3} alt="" className={classes["singleimg"]} />
-                    <img src={img4} alt="" className={classes["singleimg"]} />
+                    <img src={img4} alt="" className={classes["singleimg"]} /> */}
+                    <img src={img5} alt="" className={classes["singleimg"]} />
                 </div>
             </div>
         </section>

@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Patient/Sidebar";
 import HospitalSidebar from "./Hospital/HospitalSidebar";
 import DoctorSidebar from "./Doctor/DoctorSidebar";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function DashboardBody({ activeState, children, userType }) {
+    const { newUser } = useAuthContext();
+    const [userTypesCheck, setUserTypesCheck] = useState(newUser?.type);
+    useEffect(() => {
+        setUserTypesCheck(newUser?.type);
+    }, [newUser]);
     const patientSidebarItems = [
         {
             text: "Appointment",
@@ -65,21 +71,21 @@ export default function DashboardBody({ activeState, children, userType }) {
     ];
     return (
         <div className="dashboardBody">
-            {userType === "patient" && (
+            {userTypesCheck === "patient" && (
                 <Sidebar
                     items={patientSidebarItems}
                     activeState={activeState}
                 />
             )}
 
-            {userType === "hospital" && (
+            {userTypesCheck === "hospital" && (
                 <Sidebar
                     items={hospitalSidebarItems}
                     activeState={activeState}
                 />
             )}
 
-            {userType === "doctor" && (
+            {userTypesCheck === "doctor" && (
                 <Sidebar items={doctorSidebarItems} activeState={activeState} />
             )}
 

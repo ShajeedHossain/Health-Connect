@@ -39,7 +39,7 @@
 
 /*------media query for the current hospital admission header,button---*/
 
-@media screen and (min-width: 576px) and (max-width: 768px) {
+@media screen and (max-width: 768px) {
     /*----for medium devices-----*/
     .current-hospital-admission-check-part {
         display: flex;
@@ -51,9 +51,21 @@
 
     .hospital-admission-check-header {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        justify-content: center;
         margin-top: 30px;
         margin-bottom: 5px;
+    }
+
+    .book-hospital-seat-btn {
+        order: 1;
+        margin-bottom: 20px;
+    }
+    .hospital-admission-check-heading {
+        order: 2;
+    }
+    .hospital-prev-book-chk-heading {
+        text-align: center;
     }
 
     .book-seat-btn {
