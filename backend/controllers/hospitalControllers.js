@@ -243,8 +243,9 @@ const addManyDoctor = async (req, res) => {
         createdDocument.address
       );
       const message = `Thank you for using our service. Your credentials for logging in: \n\nEmail: ${createdDocument.email}\nPassword:${password}`;
-      sendEmail(email, "Signed up in Health-Connect", message);
+      sendEmail(createdDocument.email, "Signed up in Health-Connect", message);
     } catch (error) {
+      console.log("ADD MANNY DOCTOR ERR: ", error.message);
       failedEmails.push(doctor.email);
       console.error(error.message);
     }
