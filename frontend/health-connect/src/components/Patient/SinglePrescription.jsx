@@ -20,7 +20,6 @@ export default function SinglePrescription({ user, prescription }) {
                 >
                     View Prescription
                 </Link>
-                <button className={`btn`}>Download</button>
             </td>
         </tr>
     );
