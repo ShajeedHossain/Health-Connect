@@ -112,37 +112,6 @@
 
 /* //----------Media Query of hospital seat book------// */
 
-@media screen and (min-width: 576px) and (max-width: 768px) {
-    /*----for medium devices------*/
-    .BookHospitalCard {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-column-gap: 10px;
-    }
-
-    .BookHospitalCard2ndrow,
-    .BookHospitalCard1strow {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-    }
-
-    .BookHospitalCard2ndrow,
-    .BookHospitalCard1strow h3 {
-        text-align: start;
-    }
-
-    .BookHospitalBtn {
-        background-color: #00296b;
-        padding: 5px;
-        width: 110px;
-        text-align: center;
-        border: 2px solid #00296b;
-        border-radius: 4px;
-        transition-duration: 0.4s;
-        cursor: pointer;
-    }
-}
 .appoint-book-btn {
     background-color: #00296b;
     padding: 5px;

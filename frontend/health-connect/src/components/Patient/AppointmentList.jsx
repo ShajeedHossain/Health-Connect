@@ -41,17 +41,17 @@ export default function AppointmentList() {
 
     return (
         <>
-            <div className={classes["take-new-appointment-btn"]}>
-                <Link className="btn" to="/dashboard/takeAppointment">
-                    Take New Appointment
-                </Link>
-            </div>
             <section className={classes["doc-upcoming-apoint-chk-part"]}>
                 <div className={classes["doc-upcoming-apoint-check-header"]}>
                     <div
                         className={classes["doc-upcoming-apoint-check-heading"]}
                     >
                         <h2>Upcoming Appointments</h2>
+                    </div>
+                    <div className={classes["take-new-appointment-btn"]}>
+                        <Link className="btn" to="/dashboard/takeAppointment">
+                            Take New Appointment
+                        </Link>
                     </div>
                 </div>
 
