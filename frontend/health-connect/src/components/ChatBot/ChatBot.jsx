@@ -254,6 +254,7 @@ const ChatBot = () => {
                         <p>tanvirh.dihan@gmail.com</p>
                     </div>
                     <div className={`${classes["chat-friends"]}`}>
+                        <h3>Previous Messages</h3>
                         {conversations?.length > 0
                             ? conversations.map(
                                   ({ conversationId, singleUser }, index) => (
@@ -350,6 +351,7 @@ const ChatBot = () => {
                     }`}
                 >
                     <div className={`${classes["chat-friends"]}`}>
+                        <h3>Available Persons</h3>
                         {users?.length > 0
                             ? users.map((singleUser, index) => {
                                   console.log("SINGLE USER: ", singleUser);

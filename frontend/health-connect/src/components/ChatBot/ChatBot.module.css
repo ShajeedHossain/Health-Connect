@@ -32,7 +32,9 @@
     padding: 10px 20px;
     border-bottom: 1px solid #ddd;
 }
-.chat-friends {
+.chat-friends h3 {
+    font-weight: bold;
+    padding: 10px 20px;
 }
 .single-chat-head {
     padding: 10px 20px;
@@ -70,6 +72,9 @@
 .message-input input {
     width: 90%;
     padding: 10px;
+}
+.message-input span {
+    font-size: 3rem;
 }
 .all-message {
     display: flex;
@@ -112,7 +117,7 @@
     border-bottom-right-radius: 20px;
 }
 .navbar span {
-    visibility: hidden;
+    display: none;
 }
 .profile-area {
     position: fixed;
@@ -131,16 +136,19 @@
 }
 .back-button span {
     margin-right: 10px;
-    visibility: visible;
+    display: inline;
 }
 .nav-buttons {
     width: 80%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 @media screen and (max-width: 1000px) {
     .navbar span {
-        visibility: visible;
+        display: inline;
+    }
+    .nav-buttons {
+        justify-content: space-between;
     }
     .all-message {
         margin-bottom: 80px;
