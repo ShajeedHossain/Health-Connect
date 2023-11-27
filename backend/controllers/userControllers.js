@@ -22,7 +22,7 @@ const getUser = async (req, res) => {
 
 //Token Generation
 const generateToken = (_id) => {
-  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
 //Signup Function

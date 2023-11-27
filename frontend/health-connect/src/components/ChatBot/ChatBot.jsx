@@ -1,423 +1,357 @@
 import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
-import Input from "./Input";
 import Img1 from "../../assets/images/chatuser.png";
-import tutorialsdev from "../../assets/images/tutorialsdev.png";
 import { useDoctorAllAppointment } from "../../hooks/Doctor/useDoctorAllAppointment";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useUpcomingAppointmentList } from "../../hooks/useUpcomingAppointmentList";
 import classes from "./ChatBot.module.css";
-import Navbar from "../Navbar";
-import { Link, useNavigate } from "react-router-dom";
 
 const ChatBot = () => {
-    const [conversations, setConversations] = useState([]);
-    const [messages, setMessages] = useState({});
-    const [message, setMessage] = useState("");
-    const [users, setUsers] = useState([]);
-    const [socket, setSocket] = useState(null);
-    const messageRef = useRef(null);
-    const navigate = useNavigate();
+  const [conversations, setConversations] = useState([]);
+  const [messages, setMessages] = useState({});
+  const [message, setMessage] = useState("");
+  const [users, setUsers] = useState([]);
+  const [socket, setSocket] = useState(null);
+  const messageRef = useRef(null);
+  const navigate = useNavigate();
 
-    const { user, newUser } = useAuthContext();
-    const [isLeftPanal, setIsLeftPanal] = useState(false);
-    const handleLeft = () => {
-        setIsLeftPanal((current) => !current);
-    };
-    const [isRightPanal, setIsRightPanal] = useState(false);
-    const handleRight = () => {
-        setIsRightPanal((current) => !current);
-    };
-    useEffect(() => {
-        setSocket(io("http://localhost:3000"));
-    }, []);
+  const { user, newUser } = useAuthContext();
+  const [isLeftPanal, setIsLeftPanal] = useState(false);
+  const handleLeft = () => {
+    setIsLeftPanal((current) => !current);
+  };
+  const [isRightPanal, setIsRightPanal] = useState(false);
+  const handleRight = () => {
+    setIsRightPanal((current) => !current);
+  };
+  useEffect(() => {
+    setSocket(io("http://localhost:3000"));
+  }, []);
 
-    useEffect(() => {
-        console.log("CHAT NEW USER: ", newUser?._id);
-        socket?.emit("addUser", newUser?._id);
-        console.log("WORKED 100");
-        socket?.on("getUsers", (users) => {
-            console.log("activeUsers :>> ", users);
-        });
-        socket?.on("getMessage", (data) => {
-            console.log("DATA FROM GET MESSAGE", data);
-            setMessages((prev) => ({
-                ...prev,
-                messages: [
-                    ...prev.messages,
-                    { user: data.user, message: data.message },
-                ],
-            }));
-        });
-    }, [newUser]);
+  useEffect(() => {
+    console.log("CHAT NEW USER: ", newUser?._id);
+    socket?.emit("addUser", newUser?._id);
+    console.log("WORKED 100");
+    socket?.on("getUsers", (users) => {
+      console.log("activeUsers :>> ", users);
+    });
+    socket?.on("getMessage", (data) => {
+      console.log("DATA FROM GET MESSAGE", data);
+      setMessages((prev) => ({
+        ...prev,
+        messages: [
+          ...prev.messages,
+          { user: data.user, message: data.message },
+        ],
+      }));
+    });
+  }, [newUser]);
 
-    useEffect(() => {
-        messageRef?.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages?.messages]);
+  useEffect(() => {
+    messageRef?.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages?.messages]);
 
-    useEffect(() => {
-        // const loggedInUser = JSON.parse(localStorage.getItem("user:detail"));
-        const fetchConversations = async () => {
-            const res = await fetch(
-                // `http://localhost:8000/api/conversations/${loggedInUser?.id}`,
-                `http://localhost:${
-                    import.meta.env.VITE_BACKEND_PORT
-                }/api/user/conversations/${newUser?._id}`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${user.token}`,
-                    },
-                }
-            );
-            const resData = await res.json();
-            console.log("RESDATA", resData);
-            setConversations(resData);
-        };
-        fetchConversations();
-    }, [newUser, user]);
-
-    const { upcomingData, upcomingLoading, upcomingError } =
-        useUpcomingAppointmentList(user);
-
-    const {
-        doctorAllAppointment,
-        doctorAllAppointmentLoading,
-        doctorAllAppointmentError,
-    } = useDoctorAllAppointment(user);
-
-    console.log("NewUser: ", newUser);
-    console.log("DOCTOR ALL APPOINTMENT: ", doctorAllAppointment);
-    const swapUserType = { doctor: "patientId", patient: "doctorId" };
-
-    useEffect(() => {
-        const haveSameId = (obj1, obj2) => {
-            if (newUser?.type === "patient")
-                return obj1.doctorId._id === obj2.doctorId._id;
-            return obj1.patientId._id === obj2.patientId._id;
-        };
-
-        // Function to filter the array based on the doctorId
-        const filterArrayById = (array) => {
-            const filteredArray = [];
-
-            array.forEach((currentObj, currentIndex) => {
-                // Check if this object's doctorId is the same as any previous objects
-                const hasSameDoctorId = filteredArray.some((filteredObj) =>
-                    haveSameId(currentObj, filteredObj)
-                );
-
-                // If not, add it to the filtered array
-                if (!hasSameDoctorId) {
-                    filteredArray.push(currentObj);
-                }
-            });
-
-            return filteredArray;
-        };
-        if (newUser?.type === "patient") {
-            const appointments = upcomingData?.appointments || [];
-            const temp = filterArrayById(appointments);
-            setUsers(temp);
-        } else {
-            const temp = filterArrayById(doctorAllAppointment);
-            setUsers(temp);
+  useEffect(() => {
+    // const loggedInUser = JSON.parse(localStorage.getItem("user:detail"));
+    const fetchConversations = async () => {
+      const res = await fetch(
+        // `http://localhost:8000/api/conversations/${loggedInUser?.id}`,
+        `http://localhost:${
+          import.meta.env.VITE_BACKEND_PORT
+        }/api/user/conversations/${newUser?._id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
         }
-    }, [upcomingData, doctorAllAppointment, newUser]);
+      );
+      const resData = await res.json();
+      console.log("RESDATA", resData);
+      setConversations(resData);
+    };
+    fetchConversations();
+  }, [newUser, user]);
 
-    const fetchMessages = async (conversationId, receiver) => {
-        console.log("RECEIVER FROM FETCH MESS", receiver);
-        const receiverId = receiver?._id;
-        console.log(
-            "RECEIVER ID FROM FETCH MESSAGE: ",
-            receiver,
-            "\nreceiver: ",
-            receiverId,
-            "\nsender: ",
-            newUser?._id,
-            "\nUserType:",
-            newUser?.type
-        );
-        const res = await fetch(
-            //   `http://localhost:8000/api/message/${conversationId}?senderId=${user?.id}&&receiverId=${receiver?.receiverId}`,
-            `http://localhost:${
-                import.meta.env.VITE_BACKEND_PORT
-            }/api/user/message/${conversationId}?senderId=${
-                newUser?._id
-            }&&receiverId=${receiverId}`,
-            {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${user.token}`,
-                },
-            }
-        );
-        const resData = await res.json();
-        console.log("MSG RES DATA: ", resData);
-        console.log(resData ? "HELLO" : "BYTE", resData);
-        console.log("RECEIVER : ", receiver);
-        setMessages({ messages: resData, receiver, conversationId });
+  const { upcomingData, upcomingLoading, upcomingError } =
+    useUpcomingAppointmentList(user);
+
+  const {
+    doctorAllAppointment,
+    doctorAllAppointmentLoading,
+    doctorAllAppointmentError,
+  } = useDoctorAllAppointment(user);
+
+  console.log("NewUser: ", newUser);
+  console.log("DOCTOR ALL APPOINTMENT: ", doctorAllAppointment);
+  const swapUserType = { doctor: "patientId", patient: "doctorId" };
+
+  useEffect(() => {
+    const haveSameId = (obj1, obj2) => {
+      if (newUser?.type === "patient")
+        return obj1?.doctorId?._id === obj2?.doctorId?._id;
+      return obj1?.patientId?._id === obj2.patientId?._id;
     };
 
-    const sendMessage = async (e) => {
-        setMessage("");
-        console.log("SEND MESSAGE", newUser?._id, messages?.receiver, messages);
-        socket?.emit("sendMessage", {
-            senderId: newUser?._id,
-            receiverId: messages?.receiver?._id,
-            message,
-            conversationId: messages?.conversationId,
-        });
-        const res = await fetch(
-            `http://localhost:${
-                import.meta.env.VITE_BACKEND_PORT
-            }/api/user/message`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${user.token}`,
-                },
-                body: JSON.stringify({
-                    conversationId: messages?.conversationId,
-                    senderId: newUser?._id,
-                    message,
-                    receiverId: messages?.receiver?._id,
-                }),
-            }
-        );
-        console.log("RESPONSE FROM SEND MESSAGE API", res);
-    };
+    // Function to filter the array based on the doctorId
+    const filterArrayById = (array) => {
+      const filteredArray = [];
 
-    function handleBackButton() {
-        if (newUser?.type === "doctor")
-            navigate("/doctor-dashboard/view-appointments");
-        else navigate("/dashboard/appointment");
+      array.forEach((currentObj, currentIndex) => {
+        // Check if this object's doctorId is the same as any previous objects
+        const hasSameDoctorId = filteredArray.some((filteredObj) =>
+          haveSameId(currentObj, filteredObj)
+        );
+
+        // If not, add it to the filtered array
+        if (!hasSameDoctorId) {
+          filteredArray.push(currentObj);
+        }
+      });
+
+      return filteredArray;
+    };
+    if (newUser?.type === "patient") {
+      const appointments = upcomingData?.appointments || [];
+      const temp = filterArrayById(appointments);
+      setUsers(temp);
+    } else {
+      const temp = filterArrayById(doctorAllAppointment);
+      setUsers(temp);
     }
-    return (
-        <>
-            <nav className={`${classes["navbar"]}`}>
-                <Link
-                    to={`/doctor-dashboard/view-appointments`}
-                    className={`${classes["back-button"]}`}
-                >
-                    <span className="material-symbols-outlined">
-                        keyboard_backspace
-                    </span>
-                    Back
-                </Link>
+  }, [upcomingData, doctorAllAppointment, newUser]);
 
-                <div className={`${classes["nav-buttons"]}`}>
-                    <span
-                        onClick={handleLeft}
-                        className="material-symbols-outlined"
+  const fetchMessages = async (conversationId, receiver) => {
+    console.log("RECEIVER FROM FETCH MESS", receiver);
+    const receiverId = receiver?._id;
+    console.log(
+      "RECEIVER ID FROM FETCH MESSAGE: ",
+      receiver,
+      "\nreceiver: ",
+      receiverId,
+      "\nsender: ",
+      newUser?._id,
+      "\nUserType:",
+      newUser?.type
+    );
+    const res = await fetch(
+      //   `http://localhost:8000/api/message/${conversationId}?senderId=${user?.id}&&receiverId=${receiver?.receiverId}`,
+      `http://localhost:${
+        import.meta.env.VITE_BACKEND_PORT
+      }/api/user/message/${conversationId}?senderId=${
+        newUser?._id
+      }&&receiverId=${receiverId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+    const resData = await res.json();
+    console.log("MSG RES DATA: ", resData);
+    console.log(resData ? "HELLO" : "BYTE", resData);
+    console.log("RECEIVER : ", receiver);
+    setMessages({ messages: resData, receiver, conversationId });
+  };
+
+  const sendMessage = async (e) => {
+    setMessage("");
+    console.log("SEND MESSAGE", newUser?._id, messages?.receiver, messages);
+    socket?.emit("sendMessage", {
+      senderId: newUser?._id,
+      receiverId: messages?.receiver?._id,
+      message,
+      conversationId: messages?.conversationId,
+    });
+    const res = await fetch(
+      `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/user/message`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          conversationId: messages?.conversationId,
+          senderId: newUser?._id,
+          message,
+          receiverId: messages?.receiver?._id,
+        }),
+      }
+    );
+    console.log("RESPONSE FROM SEND MESSAGE API", res);
+  };
+
+  function handleBackButton() {
+    if (newUser?.type === "doctor")
+      navigate("/doctor-dashboard/view-appointments");
+    else navigate("/dashboard/appointment");
+  }
+  return (
+    <>
+      <nav className={`${classes["navbar"]}`}>
+        <Link
+          to={`/doctor-dashboard/view-appointments`}
+          className={`${classes["back-button"]}`}
+        >
+          <span className="material-symbols-outlined">keyboard_backspace</span>
+          Back
+        </Link>
+
+        <div className={`${classes["nav-buttons"]}`}>
+          <span onClick={handleLeft} className="material-symbols-outlined">
+            menu
+          </span>
+          {messages?.receiver?.fullName && (
+            <div>{messages?.receiver?.fullName}</div>
+          )}
+          <span onClick={handleRight} className="material-symbols-outlined">
+            menu_open
+          </span>
+        </div>
+      </nav>
+      <nav>
+        <span onClick={handleLeft} className="material-symbols-outlined">
+          menu
+        </span>
+        <div>Chatbox</div>
+        <span onClick={handleRight} className="material-symbols-outlined">
+          menu_open
+        </span>
+      </nav>
+
+      <div className={`${classes["chatbox-body"]}`}>
+        <div
+          className={`${classes["left-sidebar"]} ${
+            isLeftPanal ? classes["activeLeft"] : ""
+          }`}
+        >
+          <div className={`${classes["account"]}`}>
+            <h2>Tanvir Hossain Dihan</h2>
+            <p>tanvirh.dihan@gmail.com</p>
+          </div>
+          <div className={`${classes["chat-friends"]}`}>
+            <h3>Previous Messages</h3>
+            {conversations?.length > 0
+              ? conversations.map(({ conversationId, singleUser }, index) => (
+                  <div
+                    key={index}
+                    className={`${classes["single-chat-head"]}`}
+                    onClick={() => {
+                      fetchMessages(conversationId, singleUser);
+                      setIsLeftPanal((current) => !current);
+                    }}
+                  >
+                    <div className={`${classes["user-image"]}`}>
+                      <img src={Img1} alt="" />
+                    </div>
+                    <div className={`${classes["user-info"]}`}>
+                      <p className={`${classes["username"]}`}>
+                        {singleUser?.fullName}
+                      </p>
+                      <p className={`${classes["email"]}`}>
+                        {singleUser?.email}
+                      </p>
+                    </div>
+                  </div>
+                ))
+              : "No Conversation Found"}
+          </div>
+        </div>
+        <div className={`${classes["chatbox"]}`}>
+          <div className={`${classes["all-message"]}`}>
+            {messages?.messages?.length > 0 ? (
+              messages.messages.map(({ message, user: { id } = {} }) => {
+                return (
+                  <>
+                    <div
+                      className={`${classes["message"]} ${
+                        id === newUser?._id
+                          ? classes["own-message"]
+                          : classes["other-message"]
+                      } `}
                     >
-                        menu
-                    </span>
-                    {messages?.receiver?.fullName && (
-                        <div>{messages?.receiver?.fullName}</div>
-                    )}
-                    <span
-                        onClick={handleRight}
-                        className="material-symbols-outlined"
-                    >
-                        menu_open
-                    </span>
-                </div>
-            </nav>
-            <nav>
-                <span
-                    onClick={handleLeft}
-                    className="material-symbols-outlined"
-                >
-                    menu
-                </span>
-                <div>Chatbox</div>
-                <span
-                    onClick={handleRight}
-                    className="material-symbols-outlined"
-                >
-                    menu_open
-                </span>
-            </nav>
+                      <p>{message}</p>
+                    </div>
+                    <div ref={messageRef}></div>
+                  </>
+                );
+              })
+            ) : (
+              <div className="text-center text-lg font-semibold mt-24">
+                No Messages or No Conversation Selected
+              </div>
+            )}
+          </div>
 
-            <div className={`${classes["chatbox-body"]}`}>
-                <div
-                    className={`${classes["left-sidebar"]} ${
-                        isLeftPanal ? classes["activeLeft"] : ""
-                    }`}
-                >
-                    <div className={`${classes["account"]}`}>
-                        <h2>Tanvir Hossain Dihan</h2>
-                        <p>tanvirh.dihan@gmail.com</p>
-                    </div>
-                    <div className={`${classes["chat-friends"]}`}>
-                        <h3>Previous Messages</h3>
-                        {conversations?.length > 0
-                            ? conversations.map(
-                                  ({ conversationId, singleUser }, index) => (
-                                      <div
-                                          key={index}
-                                          className={`${classes["single-chat-head"]}`}
-                                          onClick={() => {
-                                              fetchMessages(
-                                                  conversationId,
-                                                  singleUser
-                                              );
-                                              setIsLeftPanal(
-                                                  (current) => !current
-                                              );
-                                          }}
-                                      >
-                                          <div
-                                              className={`${classes["user-image"]}`}
-                                          >
-                                              <img src={Img1} alt="" />
-                                          </div>
-                                          <div
-                                              className={`${classes["user-info"]}`}
-                                          >
-                                              <p
-                                                  className={`${classes["username"]}`}
-                                              >
-                                                  {singleUser?.fullName}
-                                              </p>
-                                              <p
-                                                  className={`${classes["email"]}`}
-                                              >
-                                                  {singleUser?.email}
-                                              </p>
-                                          </div>
-                                      </div>
-                                  )
-                              )
-                            : "No Conversation Found"}
-                    </div>
-                </div>
-                <div className={`${classes["chatbox"]}`}>
-                    <div className={`${classes["all-message"]}`}>
-                        {messages?.messages?.length > 0 ? (
-                            messages.messages.map(
-                                ({ message, user: { id } = {} }) => {
-                                    return (
-                                        <>
-                                            <div
-                                                className={`${
-                                                    classes["message"]
-                                                } ${
-                                                    id === newUser?._id
-                                                        ? classes["own-message"]
-                                                        : classes[
-                                                              "other-message"
-                                                          ]
-                                                } `}
-                                            >
-                                                <p>{message}</p>
-                                            </div>
-                                            <div ref={messageRef}></div>
-                                        </>
-                                    );
-                                }
-                            )
-                        ) : (
-                            <div className="text-center text-lg font-semibold mt-24">
-                                No Messages or No Conversation Selected
-                            </div>
-                        )}
-                    </div>
-
-                    {messages?.receiver?.fullName && (
-                        <div className={`${classes["message-input"]}`}>
-                            <input
-                                type="text"
-                                value={message}
-                                onChange={(e) => setMessage(e.target.value)}
-                            />
-                            <span
-                                onClick={() => sendMessage()}
-                                className="material-symbols-outlined"
-                            >
-                                send
-                            </span>
-                        </div>
-                    )}
-                </div>
-
-                <div
-                    className={`${classes["right-sidebar"]} ${
-                        isRightPanal ? classes["activeRight"] : ""
-                    }`}
-                >
-                    <div className={`${classes["chat-friends"]}`}>
-                        <h3>Available Persons</h3>
-                        {users?.length > 0
-                            ? users.map((singleUser, index) => {
-                                  console.log("SINGLE USER: ", singleUser);
-                                  return (
-                                      <div
-                                          key={index}
-                                          className={`${classes["single-chat-head"]}`}
-                                          onClick={() => {
-                                              fetchMessages(
-                                                  "new",
-                                                  singleUser?.[
-                                                      `${
-                                                          swapUserType[
-                                                              newUser?.type
-                                                          ]
-                                                      }`
-                                                  ]
-                                              );
-                                              setIsRightPanal(
-                                                  (current) => !current
-                                              );
-                                          }}
-                                      >
-                                          <div
-                                              className={`${classes["user-image"]}`}
-                                          >
-                                              <img src={Img1} alt="" />
-                                          </div>
-                                          <div
-                                              className={`${classes["user-info"]}`}
-                                          >
-                                              <p
-                                                  className={`${classes["username"]}`}
-                                              >
-                                                  {
-                                                      singleUser?.[
-                                                          `${
-                                                              swapUserType[
-                                                                  newUser?.type
-                                                              ]
-                                                          }`
-                                                      ]?.fullName
-                                                  }
-                                              </p>
-                                              <p
-                                                  className={`${classes["email"]}`}
-                                              >
-                                                  {
-                                                      singleUser?.[
-                                                          `${
-                                                              swapUserType[
-                                                                  newUser?.type
-                                                              ]
-                                                          }`
-                                                      ]?.email
-                                                  }
-                                              </p>
-                                          </div>
-                                      </div>
-                                  );
-                              })
-                            : ""}
-                    </div>
-                </div>
+          {messages?.receiver?.fullName && (
+            <div className={`${classes["message-input"]}`}>
+              <input
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+              <span
+                onClick={() => sendMessage()}
+                className="material-symbols-outlined"
+              >
+                send
+              </span>
             </div>
-            {/* <div className={`${classes["chat-bot"]}`}>
+          )}
+        </div>
+
+        <div
+          className={`${classes["right-sidebar"]} ${
+            isRightPanal ? classes["activeRight"] : ""
+          }`}
+        >
+          <div className={`${classes["chat-friends"]}`}>
+            <h3>Available Persons</h3>
+            {users?.length > 0
+              ? users.map((singleUser, index) => {
+                  console.log("SINGLE USER: ", singleUser);
+                  return (
+                    <div
+                      key={index}
+                      className={`${classes["single-chat-head"]}`}
+                      onClick={() => {
+                        fetchMessages(
+                          "new",
+                          singleUser?.[`${swapUserType[newUser?.type]}`]
+                        );
+                        setIsRightPanal((current) => !current);
+                      }}
+                    >
+                      <div className={`${classes["user-image"]}`}>
+                        <img src={Img1} alt="" />
+                      </div>
+                      <div className={`${classes["user-info"]}`}>
+                        <p className={`${classes["username"]}`}>
+                          {
+                            singleUser?.[`${swapUserType[newUser?.type]}`]
+                              ?.fullName
+                          }
+                        </p>
+                        <p className={`${classes["email"]}`}>
+                          {
+                            singleUser?.[`${swapUserType[newUser?.type]}`]
+                              ?.email
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })
+              : ""}
+          </div>
+        </div>
+      </div>
+      {/* <div className={`${classes["chat-bot"]}`}>
                 <div
                     className={`${classes["left-sidebar"]} ${
                         isLeftPanal ? classes["activeLeft"] : ""
@@ -670,8 +604,8 @@ const ChatBot = () => {
                     </div>
                 </div>
             </div> */}
-        </>
-    );
+    </>
+  );
 };
 
 export default ChatBot;
