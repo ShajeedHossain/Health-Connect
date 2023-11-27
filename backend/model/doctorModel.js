@@ -3,7 +3,6 @@ const validator = require("validator");
 const User = require("../model/userModel");
 const addressSchema = require("../model/addressSchema");
 const Hospital = require("../model/hospitalModel");
-const { validate } = require("deep-email-validator");
 // const { formatDate } = require("../../utilities/utilities");
 
 const Schema = mongoose.Schema;
@@ -15,6 +14,7 @@ const doctorSchema = new Schema({
   },
   hospitalName: {
     type: String,
+    default: "N/A",
     // required: true,
   },
   hospitalId: {
@@ -25,6 +25,7 @@ const doctorSchema = new Schema({
   },
   education: {
     type: String,
+    default: "N/A",
     // required: true,
   },
   email: {
@@ -88,18 +89,22 @@ const doctorSchema = new Schema({
 
   appointment_fees: {
     type: String,
+    default: "0",
   },
 
   available_days: [
     {
       type: String,
+      default: "Monday",
     },
   ],
   morning_shift_time: {
     type: Date,
+    default: Date.now(),
   },
   evening_shift_time: {
     type: Date,
+    default: Date.now(),
   },
   availability: {
     type: Boolean,
@@ -121,18 +126,11 @@ doctorSchema.statics.addOneDoctor = async function (
   appointment_fees,
   morning_shift_time,
   evening_shift_time,
-  available_days
+  available_days,
+  password
 ) {
   console.log(available_days);
-  if (
-    !fullName ||
-    !hospitalId ||
-    !education ||
-    !specializations ||
-    !bma_id ||
-    !appointment_fees ||
-    !email
-  ) {
+  if (!fullName || !hospitalId || !education || !bma_id || !email) {
     throw Error("Fields can't be empty");
   }
   const exists = await this.findOne({ email });
@@ -173,8 +171,6 @@ doctorSchema.statics.addOneDoctor = async function (
 
     console.log(available_days);
 
-    const password = email + "D*123";
-
     if (!validator.isStrongPassword(password)) {
       throw Error("Password not strong enough.");
     }
@@ -185,6 +181,7 @@ doctorSchema.statics.addOneDoctor = async function (
       new mongoose.Types.ObjectId(doctor._id),
       address
     );
+
     // console.log(user);
     return doctor;
     // return doctor;
