@@ -108,6 +108,7 @@ export default function DoctorPrescription() {
         console.log(tempData);
         setSpecificProblem(tempData);
     }
+
     return (
         <div className={`${classes["prescription"]}`}>
             <div
