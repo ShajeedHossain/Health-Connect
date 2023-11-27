@@ -31,12 +31,12 @@ app.use("/api/hospital", hospitalRoutes);
 
 //db connection
 mongoose
-    .connect(process.env.DB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => console.log("connection successful"))
-    .catch((err) => console.log(err));
+  .connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("connection successful"))
+  .catch((err) => console.log(err));
 
 //SOCKET RELATED
 //-----PREVIOUS---------//
@@ -101,10 +101,10 @@ mongoose
 ////////////////////////////////////
 /**NEW SOCKET */
 const io = require("socket.io")(3000, {
-    cors: {
-        origin: "http://localhost:5173",
-        methods: ["GET", "POST"],
-    },
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+  },
 });
 
 const User = require("./model/userModel");
@@ -114,59 +114,59 @@ const Messages = require("./model/newMessageModel");
 //SOCKKET FUNCTIONS
 let users = [];
 io.on("connection", (socket) => {
-    console.log("User connected", socket.id);
-    socket.on("addUser", (userId) => {
-        console.log("USER ID: ", userId);
-        const isUserExist = users.find((user) => user.userId === userId);
-        if (!isUserExist) {
-            const user = { userId, socketId: socket.id };
-            console.log("ENTERED USER: ", user);
-            users.push(user);
-            io.emit("getUsers", users);
-        }
-    });
+  console.log("User connected", socket.id);
+  socket.on("addUser", (userId) => {
+    console.log("USER ID: ", userId);
+    const isUserExist = users.find((user) => user.userId === userId);
+    if (!isUserExist) {
+      const user = { userId, socketId: socket.id };
+      console.log("ENTERED USER: ", user);
+      users.push(user);
+      io.emit("getUsers", users);
+    }
+  });
 
-    socket.on(
-        "sendMessage",
-        async ({ senderId, receiverId, message, conversationId }) => {
-            const receiver = users.find((user) => user.userId === receiverId);
-            const sender = users.find((user) => user.userId === senderId);
-            const user = await User.findById(senderId);
-            console.log("SEND MESSAGE sender :>> ", sender, receiver, message);
-            if (receiver) {
-                io.to(receiver.socketId)
-                    .to(sender.socketId)
-                    .emit("getMessage", {
-                        senderId,
-                        message,
-                        conversationId,
-                        receiverId,
-                        user: {
-                            id: user._id,
-                            fullName: user.fullname,
-                            email: user.email,
-                        },
-                    });
-            } else {
-                io.to(sender.socketId).emit("getMessage", {
-                    senderId,
-                    message,
-                    conversationId,
-                    receiverId,
-                    user: {
-                        id: user._id,
-                        fullName: user.fullname,
-                        email: user.email,
-                    },
-                });
-            }
-        }
-    );
-    socket.on("disconnect", () => {
-        users = users.filter((user) => user.socketId !== socket.id);
-        io.emit("getUsers", users);
-    });
-    // io.emit('getUsers', socket.userId);
+  socket.on(
+    "sendMessage",
+    async ({ senderId, receiverId, message, conversationId }) => {
+      const receiver = users.find((user) => user.userId === receiverId);
+      const sender = users.find((user) => user.userId === senderId);
+      const user = await User.findById(senderId);
+      console.log("SEND MESSAGE sender :>> ", sender, receiver, message);
+      if (receiver) {
+        io.to(receiver?.socketId)
+          .to(sender?.socketId)
+          .emit("getMessage", {
+            senderId,
+            message,
+            conversationId,
+            receiverId,
+            user: {
+              id: user._id,
+              fullName: user.fullname,
+              email: user.email,
+            },
+          });
+      } else {
+        io.to(sender?.socketId).emit("getMessage", {
+          senderId,
+          message,
+          conversationId,
+          receiverId,
+          user: {
+            id: user._id,
+            fullName: user.fullname,
+            email: user.email,
+          },
+        });
+      }
+    }
+  );
+  socket.on("disconnect", () => {
+    users = users.filter((user) => user.socketId !== socket.id);
+    io.emit("getUsers", users);
+  });
+  // io.emit('getUsers', socket.userId);
 });
 
 //error handler
@@ -177,5 +177,5 @@ io.on("connection", (socket) => {
 app.use(errorHandler);
 
 app.listen(process.env.PORT || 5000, () => {
-    console.log(`App listening on http://localhost:${process.env.PORT}`);
+  console.log(`App listening on http://localhost:${process.env.PORT}`);
 });

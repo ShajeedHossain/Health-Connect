@@ -93,12 +93,15 @@ const createDoctorSignup = async (req, res) => {
   } = req.body;
   const { authorization } = req.headers;
   const token = authorization.split(" ")[1];
-  const specializationsList = specializations.split(",");
-  const available_daysList = available_days.split(",");
+  const specializationsList = specializations
+    ? specializations.split(",")
+    : [""];
+  const available_daysList = available_days ? available_days.split(",") : [""];
   console.log(available_daysList);
   try {
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
     const hospital = await Hospital.findById({ _id });
+    const password = generateStrongPassword(8);
 
     const doctor = await Doctor.addOneDoctor(
       fullname,
@@ -112,10 +115,13 @@ const createDoctorSignup = async (req, res) => {
       bma_id,
       hospital.address,
       appointment_fees,
-      convertTimeToDateTime(morning_shift_time),
-      convertTimeToDateTime(evening_shift_time),
-      available_daysList
+      morning_shift_time ? convertTimeToDateTime(morning_shift_time) : null,
+      evening_shift_time ? convertTimeToDateTime(evening_shift_time) : null,
+      available_daysList,
+      password
     );
+    const message = `Thank you for using our service. Your credentials for logging in: \n\nEmail: ${email}\nPassword:${password}`;
+    sendEmail(email, "Signed up in Health-Connect", message);
     console.log(doctor);
     res.status(200).json({ doctor });
   } catch (error) {
@@ -227,7 +233,7 @@ const addManyDoctor = async (req, res) => {
       createdDocuments.push(createdDocument);
 
       //signing up the newly created doctor
-      const password = createdDocument.email + "D*123";
+      const password = generateStrongPassword(8);
 
       const user = await User.signupDoctor(
         createdDocument.email,
@@ -236,6 +242,8 @@ const addManyDoctor = async (req, res) => {
         createdDocument.doctorId,
         createdDocument.address
       );
+      const message = `Thank you for using our service. Your credentials for logging in: \n\nEmail: ${createdDocument.email}\nPassword:${password}`;
+      sendEmail(email, "Signed up in Health-Connect", message);
     } catch (error) {
       failedEmails.push(doctor.email);
       console.error(error.message);
