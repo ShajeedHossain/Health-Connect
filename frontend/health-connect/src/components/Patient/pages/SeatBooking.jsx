@@ -47,24 +47,15 @@ export default function SeatBooking() {
 
     formDataObject["hospitalId"] = hospitalId;
     formDataObject["patient_email"] = user.email;
+    formDataObject["reservationFee"] = hospital[reservationType].filter(
+      (type) => formDataObject["reservationCategory"] === type.category
+    )[0].price;
     formDataObject["additional_requirements"] = `${
       formDataObject["ambulance"] ? formDataObject["ambulance"] + "," : ""
     }${formDataObject["stretcher"] ? formDataObject["stretcher"] + "," : ""}${
       formDataObject["wheelchair"] ? formDataObject["wheelchair"] + "," : ""
     }${formDataObject["oxygen"] ? formDataObject["oxygen"] : ""}`;
     console.log("Form Data Example : ", formDataObject);
-
-    //         {
-    //     "reservationType": "cabins",
-    //     "reservationCategory": "normal",
-    //     "reservationDate": "2023-10-30",
-    //     "wheelchair": "wheelchair",
-    //     "oxygen": "oxygen",
-    //     "ambulance": "ambulance",
-    //     "ambulance_address": "Chattogram",
-    //     "hospitalId": "653abb6034fe6e11f367ba18",
-    //     "additional_requirements": "ambulance,wheelchair,oxygen"
-    // }
 
     try {
       const response = await PatientApi.post(
@@ -83,7 +74,7 @@ export default function SeatBooking() {
       });
       console.log("SEAT BOOKING API: RESPONSE ", response);
     } catch (err) {
-      setError(err.response.data.error);
+      setError(err.response?.data?.error);
 
       console.log("SEAT BOOKING API: ERROR ", err);
     }
