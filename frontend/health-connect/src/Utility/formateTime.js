@@ -8,8 +8,6 @@ export function formatDateAndTime(dateString) {
   } else if (dateString === "object") {
     console.log("DATAAAA: ", dateString);
     newDateString = dateString.toISOString().replace(/\.\d+Z$/, ".000+06:00");
-  } else {
-    newDateString = dateString.toString().replace(/\.\d+Z$/, ".000+06:00");
   }
   // console.log("NEWDATESTRING", newDateString);
   const date = new Date(newDateString);

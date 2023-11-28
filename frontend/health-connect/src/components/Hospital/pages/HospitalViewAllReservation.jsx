@@ -71,6 +71,21 @@ export default function HospitalViewAllReservation() {
     // console.log("Filtered Appointment", tempAppointment);
   }, [reservationList, filterDate]);
 
+  function dateFormat(dateString) {
+    const newDateString = dateString
+      .toString()
+      .replace(/\.\d+Z$/, ".000+06:00");
+    const date = new Date(newDateString);
+
+    // console.log("DATE & DATESTRING", date, newDateString);
+
+    // Get the day, month, and year
+    let day = date.getDate();
+    let month = date.getMonth() + 1; // Months are 0-based, so we add 1
+    let year = date.getFullYear();
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+  }
   // // Filter Upcoming
   useEffect(() => {
     console.log("UPCOMING FILTER WORKING...");
@@ -79,14 +94,14 @@ export default function HospitalViewAllReservation() {
         "UPCOMING",
         formatDateAndTime(singleAppointment?.reservationDate).date,
         " === ",
-        formatDateAndTime(new Date(Date.now())).date,
+        dateFormat(new Date(Date.now())),
         "---",
         formatDateAndTime(singleAppointment?.reservationDate).date >=
           formatDateAndTime(Date.now()).date
       );
       return (
         formatDateAndTime(singleAppointment?.reservationDate).date >=
-          formatDateAndTime(new Date()).date &&
+          dateFormat(new Date(Date.now())) &&
         singleAppointment?.dischargeStatus === false
       );
     });
@@ -103,14 +118,17 @@ export default function HospitalViewAllReservation() {
         "PREVIOUS",
         formatDateAndTime(singleAppointment?.reservationDate).date,
         " === ",
-        formatDateAndTime(new Date()).date,
+        dateFormat(new Date(Date.now())),
         "---",
         formatDateAndTime(singleAppointment?.reservationDate).date <
-          formatDateAndTime(new Date()).date
+          dateFormat(new Date(Date.now()))
       );
       return (
-        formatDateAndTime(singleAppointment?.reservationDate).date <
-          formatDateAndTime(new Date()).date ||
+        formatDateAndTime(
+          singleAppointment?.reservationDate
+            .toString()
+            .replace(/\.\d+Z$/, ".000+06:00")
+        ).date < formatDateAndTime(new Date()).date ||
         singleAppointment?.dischargeStatus === true
       );
     });
